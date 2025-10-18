@@ -4,14 +4,13 @@
 
         DATA(lt_filter) = io_request->get_filter( )->get_as_ranges( ).
 
-        DATA : lv_lineitem TYPE int1.
-
         DATA(lo_paging) = io_request->get_paging( ).
-        DATA(top)       = lo_paging->get_page_size( ).
-        DATA(skip)      = lo_paging->get_offset( ).
-        IF top < 0.
-          top = 1.
+        DATA(lv_top) = lo_paging->get_page_size( ).
+        IF lv_top < 0.
+          lv_top = 1.
         ENDIF.
+
+        DATA(lv_skip) = lo_paging->get_offset( ).
 
 
 
@@ -44,7 +43,8 @@
 
 
               lt_output        TYPE TABLE OF zreco_ddl_i_reco_form,
-              ls_output        TYPE zreco_ddl_i_reco_form.
+              ls_output        TYPE zreco_ddl_i_reco_form,
+              lt_output_detail TYPE TABLE OF zreco_ddl_i_reco_form.
 
 
         DATA(lt_paging) = io_request->get_paging( ).
@@ -191,11 +191,6 @@
 
         LOOP AT gt_out_c INTO DATA(ls_out_c) .
 
-          lv_lineitem = lv_lineitem + 1.
-          IF skip IS NOT INITIAL.
-            CHECK sy-tabix > skip.
-          ENDIF.
-
           MOVE-CORRESPONDING ls_out_c TO ls_output.
           ls_output-gjahr = p_gjahr.
           ls_output-period = p_period.
@@ -237,10 +232,22 @@
           MODIFY zreco_gtout FROM TABLE @lt_temp.
         ENDIF.
 
-        IF io_request->is_total_numb_of_rec_requested(  ).
-          io_response->set_total_number_of_records( iv_total_number_of_records = lines( lt_output ) ).
+        SELECT *
+              FROM @lt_output AS output
+              ORDER BY output~akont
+              INTO CORRESPONDING FIELDS OF
+                    TABLE @lt_output_detail
+                   UP TO @lv_top ROWS
+              OFFSET @lv_skip.
+
+        SELECT COUNT( * ) FROM @lt_output AS detail
+          INTO @DATA(lv_cnt_detail).
+
+        io_response->set_data( lt_output_detail ).
+
+        IF io_request->is_total_numb_of_rec_requested( ).
+          io_response->set_total_number_of_records( lv_cnt_detail ).
         ENDIF.
-        io_response->set_data( it_data = lt_output ).
 
 
       CATCH cx_rap_query_filter_no_range.
