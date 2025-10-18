@@ -6,7 +6,7 @@ CLASS zcl_reco_form DEFINITION
   PUBLIC SECTION.
     INTERFACES if_rap_query_provider .
 
-"
+    "
 
     DATA : p_runty  TYPE c LENGTH 1 VALUE '1', "Önyüz de çalışacak sadece "YiğitcanÖzdemir
            r_mform  TYPE c LENGTH 1 VALUE 'X', "Cari Mutabakat Formu için çalışacak sadece Ba / Bs formu (r_bform) yok "YiğitcanÖzdemir
