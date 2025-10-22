@@ -877,7 +877,11 @@
 
 
     TRY.
-        zcldobj_cl_ads_util=>call_adobe(
+
+        DATA lo_ads_util  TYPE REF TO zreco_cl_ads_util.
+        CREATE OBJECT lo_ads_util.
+
+        lo_ads_util->call_adobe(
           EXPORTING
             iv_form_name            = 'ZETR_DECO_AF_CARIHESAPMUT'
             iv_template_name        = 'CARIHESAPMUTABAKATI'
