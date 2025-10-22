@@ -1,6 +1,6 @@
   METHOD call_adobe.
-    DATA: ls_req      TYPE zcldobj_s_ads_render_body,
-          ls_response TYPE zcldobj_s_ads_render_response.
+    DATA: ls_req      TYPE zreco_s_ads_render_body,
+          ls_response TYPE zreco_s_ads_render_response.
     TRY.
         TRY.
             DATA(lo_dest) = cl_http_destination_provider=>create_by_comm_arrangement(
