@@ -189,7 +189,7 @@
 *            i_log_handle = gv_log_handle
 *          EXCEPTIONS
 *            OTHERS       = 1.
-      gv_subrc = 4.
+*      gv_subrc = 4.
     ENDIF.
 *    ENDIF.
 *    CHECK gv_subrc EQ 0.
@@ -514,9 +514,9 @@
 *          i_log_handle = gv_log_handle
 *        EXCEPTIONS
 *          OTHERS       = 1.
-      gv_subrc = 4.
+*      gv_subrc = 4.
 
-      EXIT.
+*      EXIT.
     ENDIF.
 
 * Başlık Bilgileri
