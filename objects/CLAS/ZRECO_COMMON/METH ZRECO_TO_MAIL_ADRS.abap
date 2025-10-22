@@ -829,6 +829,14 @@
       ENDIF.
     ENDIF.
 
+
+    SELECT  EmailAddress AS smtp_addr
+  FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
+            FOR ALL ENTRIES IN @lt_kna1
+                 WHERE AddressID EQ @lt_kna1-adrnr
+                   AND AddressPersonID   EQ ''
+                  INTO TABLE @lt_adr6.
+
     """""""""""""""""""YiğitcanÖzdemir""""""""""""""""""
 
 

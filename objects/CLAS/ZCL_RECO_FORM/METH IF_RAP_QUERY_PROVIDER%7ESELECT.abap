@@ -163,7 +163,8 @@
 
 
         DATA: lv_uuid     TYPE sysuuid_c22,
-              ls_prev_key TYPE  zreco_cform.
+              ls_prev_key TYPE  zreco_cform,
+              lv_posnr    TYPE int4.
 
         SORT gt_out_c BY hesap_tur hesap_no kunnr lifnr.
 
@@ -183,6 +184,8 @@
           ENDIF.
 
           <fs_data>-uuid = lv_uuid.
+          lv_posnr = lv_posnr + 1.
+          <fs_data>-posnr = lv_posnr.
         ENDLOOP.
 
 
