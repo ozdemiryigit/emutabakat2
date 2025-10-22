@@ -115,16 +115,16 @@ CLASS lhc_zreco_ddl_i_reco_form IMPLEMENTATION.
 
 
 
-*    IF lv_pdf IS NOT INITIAL.
-*      result = VALUE #( ( %cid_ref = VALUE #( keys[ 1 ]-%cid_ref OPTIONAL )
-*                          akont = VALUE #( keys[ 1 ]-akont OPTIONAL )
-*                          bukrs = VALUE #( keys[ 1 ]-bukrs OPTIONAL )
-*                          gjahr = VALUE #( keys[ 1 ]-gjahr OPTIONAL )
-*                          period = VALUE #( keys[ 1 ]-period OPTIONAL )
-*                          uuid = VALUE #( keys[ 1 ]-uuid OPTIONAL )
-*                          waers = VALUE #( keys[ 1 ]-waers OPTIONAL )
-*                          %param-pdf = lv_pdf ) ).
-*    ENDIF.
+    IF lv_pdf IS NOT INITIAL.
+      result = VALUE #( ( %cid_ref = VALUE #( keys[ 1 ]-%cid_ref OPTIONAL )
+                          akont = VALUE #( keys[ 1 ]-akont OPTIONAL )
+                          bukrs = VALUE #( keys[ 1 ]-bukrs OPTIONAL )
+                          gjahr = VALUE #( keys[ 1 ]-gjahr OPTIONAL )
+                          period = VALUE #( keys[ 1 ]-period OPTIONAL )
+                          uuid = VALUE #( keys[ 1 ]-uuid OPTIONAL )
+                          waers = VALUE #( keys[ 1 ]-waers OPTIONAL )
+                          %param-pdf = lv_pdf ) ).
+    ENDIF.
 
 
 
