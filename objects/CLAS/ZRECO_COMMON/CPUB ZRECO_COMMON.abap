@@ -5,6 +5,8 @@ CLASS zreco_common DEFINITION
 
   PUBLIC SECTION.
 
+    DATA : gv_pdf TYPE string.
+
     DATA: gv_otf TYPE abap_boolean.
 
     DATA: gt_email TYPE TABLE OF zreco_mail,
@@ -223,7 +225,9 @@ CLASS zreco_common DEFINITION
 *                                 e_message_v2    TYPE symsgv,
 
       multi_sending IMPORTING it_cform  LIKE mt_cform
-                              iv_output TYPE zreco_output,
+                              iv_output TYPE zreco_output
+                    EXPORTING ev_pdf    TYPE string,
+
 
       print_form IMPORTING iv_output TYPE zreco_output,
       single_sending IMPORTING it_cform  LIKE mt_cform.

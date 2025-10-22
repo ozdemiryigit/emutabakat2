@@ -858,7 +858,45 @@
 *  ENDIF.
 
     ENDIF.
-"default class belirleyip müşteri sistemleri
+
+
+    DATA : ls_data TYPE zreco_s_pdf_data."zreco_s_carihesapmutabakat_pdf.
+
+
+    TRY.
+        CALL TRANSFORMATION zreco_form_pdf_takip
+        SOURCE form = ls_data
+        RESULT XML DATA(lv_xml).
+
+
+
+      CATCH cx_root INTO DATA(lo_root).
+    ENDTRY.
+
+    DATA(lv_base64_data) = cl_web_http_utility=>encode_x_base64( unencoded = lv_xml ).
+
+
+    TRY.
+        zcldobj_cl_ads_util=>call_adobe(
+          EXPORTING
+            iv_form_name            = 'ZETR_DECO_AF_CARIHESAPMUT'
+            iv_template_name        = 'CARIHESAPMUTABAKATI'
+            iv_xml                  = lv_base64_data "base64 verisi
+            iv_adobe_scenario       = 'ZCLDOBJ_CS_ADS'
+            iv_adobe_system         = 'ZCLDOBJ_CSYS_ADS'
+            iv_adobe_service_id     = 'ZCLDOBJ_OS_ADS_REST'
+          IMPORTING
+            ev_pdf                  = DATA(lv_pdf)
+            ev_response_code        = DATA(lv_res_c)
+            ev_response_text        = DATA(lv_res_t)
+        ).
+      CATCH cx_http_dest_provider_error.
+        "handle exception
+    ENDTRY.
+
+    IF lv_pdf IS NOT INITIAL.
+      gv_pdf = lv_pdf.
+    ENDIF.
 
     send_grid_data_c( it_out_c = gt_cform_sf
                       i_head_c = ls_head

@@ -107,7 +107,7 @@
 *  IF ls_adrs-client EQ 'X'.
 *    CONCATENATE  i_head_c-bukrs '-' sy-mandt INTO ls_input_grid-code.
 *  ELSE.
-*    ls_input_grid-code = i_head_c-bukrs.
+    ls_input_grid-code = i_head_c-bukrs.
 *  ENDIF.
 
     ls_input_grid-customervkn = i_head_c-vkn_tckn. "hkizilkaya
@@ -145,15 +145,15 @@
       ls_input_grid-formtype         = '3'.
     ENDIF.
 
-*  SELECT SINGLE mail
-*    FROM zreco_rtm
-*    WHERE bukrs EQ @i_head_c-bukrs
-*    AND hesap_tur EQ @i_head_c-hesap_tur
-*    INTO @lv_rtm_mail.
-*  IF sy-subrc EQ 0.
-*    lv_mailreturn = lv_rtm_mail.
-*    APPEND lv_mailreturn TO ls_input_grid-mailreturn.
-*  ENDIF.
+    SELECT SINGLE mail
+      FROM zreco_rtm
+      WHERE bukrs EQ @i_head_c-bukrs
+      AND hesap_tur EQ @i_head_c-hesap_tur
+      INTO @lv_rtm_mail.
+    IF sy-subrc EQ 0.
+      lv_mailreturn = lv_rtm_mail.
+      APPEND lv_mailreturn TO ls_input_grid-mailreturn.
+    ENDIF.
 
     SELECT SINGLE mail
       FROM zreco_mcc
@@ -164,7 +164,7 @@
       lv_mailcc = lv_mcc_mail.
 *    APPEND lv_mailcc TO ls_input_grid-mailcc.
       APPEND INITIAL LINE TO  ls_input_grid-mailcc ASSIGNING FIELD-SYMBOL(<fs_mailcc>).
-      <fs_mailcc>-string = lv_mailcc.
+      <fs_mailcc> = lv_mailcc.
     ENDIF.
 
 
@@ -173,7 +173,7 @@
       lv_mailto = ls_rece-receiver.
 *      APPEND lv_mailto TO ls_input_grid-mailto.
       APPEND INITIAL LINE TO  ls_input_grid-mailto ASSIGNING FIELD-SYMBOL(<fs_mailto>).
-      <fs_mailto>-string = lv_mailto.
+      <fs_mailto> = lv_mailto.
 
 *      IF ( ls_adrs-opbel EQ 'X' OR ls_adrs-submit EQ 'X' ).
 *        CLEAR ls_range.
@@ -249,7 +249,7 @@
 *      APPEND LINES OF  it_srv_attachment TO ls_input_grid-files.
 *    ENDIF.
 
-    SELECT SINGLE CompanyCodeName FROM I_CompanyCode WHERE companycode = @i_head_c-bukrs INTO @DATA(lv_comp).
+    DATA(lv_comp) = 'hesapci.com'.
 
     DATA(lv_json) =  /ui2/cl_json=>serialize( EXPORTING data = ls_input_grid pretty_name = 'X' ).
 

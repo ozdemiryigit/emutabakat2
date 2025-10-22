@@ -254,4 +254,9 @@
     DELETE gt_out_c WHERE xsuccessful EQ 'X'.
 *    ENDIF.
 
+    IF gv_pdf IS NOT INITIAL.
+      ev_pdf = gv_pdf.
+    ENDIF.
+
+
   ENDMETHOD.
