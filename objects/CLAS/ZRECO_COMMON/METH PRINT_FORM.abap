@@ -229,9 +229,9 @@
 *          i_log_handle = gv_log_handle
 *        EXCEPTIONS
 *          OTHERS       = 1.
-      gv_subrc = 4.
+*      gv_subrc = 4.
 
-      EXIT.
+*      EXIT.
     ELSE.
 *      IF p_verzn IS NOT INITIAL.
 ** Ihtar metinleri
