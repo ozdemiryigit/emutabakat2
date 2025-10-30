@@ -1197,7 +1197,8 @@
     DATA  : gv_first_date TYPE d, "Dönem ilk tarih
             gv_last_date  TYPE d. "Dönem son tarih
 
-gv_first_date = |{ ls_h001-gjahr }{ ls_h001-monat }01|.
+    gv_first_date = |{ VALUE #( gt_out_c[ 1 ]-gjahr OPTIONAL ) }{ VALUE #( gt_out_c[ 1 ]-period OPTIONAL ) }01|.
+
 
     me->rp_last_day_of_months(
      EXPORTING
