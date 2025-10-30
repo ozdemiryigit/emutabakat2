@@ -1520,7 +1520,7 @@
 *            e_auth      = lv_auth.
       ENDIF.
 
-      IF lv_auth IS INITIAL. "YETKI YOK
+*      IF lv_auth IS INITIAL. "YETKI YOK
 *        CALL METHOD go_log->bal_log_msg_add   "YiğitcanÖzdemir
 *          EXPORTING
 *            i_type       = /itetr/reco_if_common_types=>mc_msg_e
@@ -1533,8 +1533,8 @@
 *            i_log_handle = gv_log_handle
 *          EXCEPTIONS
 *            OTHERS       = 1.
-        CONTINUE.
-      ELSE.
+*        CONTINUE.
+*      ELSE.
 
 *GÖNDERIM KONTROLÜ
         control_send( EXPORTING iv_kunnr    = ''
@@ -1569,7 +1569,7 @@
           ENDIF.
           INSERT gs_lfa1_tax INTO TABLE gt_lfa1_tax. CLEAR gs_lfa1_tax.
         ENDIF.
-      ENDIF.
+*      ENDIF.
     ENDLOOP.
 
     DELETE gt_kna1_tax WHERE kunnr IS INITIAL.

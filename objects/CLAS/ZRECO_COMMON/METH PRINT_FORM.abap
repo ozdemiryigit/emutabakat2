@@ -1194,12 +1194,25 @@
 
     """""""""""""" Müşteri Bilgileri
 
-    ls_data-duzenleme_tarihi = gs_htxt-idate_text.
-    ls_data-takip            = gs_htxt-mnumber_text.
-    ls_data-mutabakat_tarihi = gs_htxt-mdate_text.
-    ls_data-cari_no          = gs_htxt-anumber_text.
-    ls_data-iletisim         = gs_htxt-mcontact_text.
-    ls_data-iletisim         = gs_htxt-mcontact_text.
+    DATA  : gv_first_date TYPE d, "Dönem ilk tarih
+            gv_last_date  TYPE d. "Dönem son tarih
+
+gv_first_date = |{ ls_h001-gjahr }{ ls_h001-monat }01|.
+
+    me->rp_last_day_of_months(
+     EXPORTING
+        day_in            = gv_first_date
+      IMPORTING
+        last_day_of_month = gv_last_date
+*       EXCEPTIONS
+*          day_in_no_date    = 1
+    ).
+
+    ls_data-duzenleme_tarihi = cl_abap_context_info=>get_system_date( ).
+    ls_data-takip            = lv_number.
+    ls_data-mutabakat_tarihi = gv_last_date.
+    ls_data-cari_no          = gs_account-hesap_no.
+    ls_data-iletisim         = gs_adrs-m_name.
 
 
     LOOP AT gt_cform_sf INTO DATA(ls_form).
