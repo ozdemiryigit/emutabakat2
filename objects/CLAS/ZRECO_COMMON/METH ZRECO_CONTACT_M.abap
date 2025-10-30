@@ -137,7 +137,7 @@
 
       CONCATENATE lv_tel_number lv_fax_number INTO e_telefon SEPARATED BY space.
 
-      SELECT SINGLE EmailAddress FROM I_AddressEmailAddress_2
+      SELECT SINGLE EmailAddress FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
        WHERE AddressID EQ @lv_addrnumber
        INTO @e_email.
 
@@ -176,7 +176,7 @@
 
       CONCATENATE lv_tel_number lv_fax_number INTO e_telefon SEPARATED BY space.
 
-      SELECT SINGLE EmailAddress FROM I_AddressEmailAddress_2
+      SELECT SINGLE EmailAddress FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
        WHERE AddressID EQ @lv_addrnumber
         AND AddressPersonID EQ @lv_persnumber
         INTO @e_email.

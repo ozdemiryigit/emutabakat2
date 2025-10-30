@@ -137,7 +137,8 @@
           ENDLOOP.
           IF lt_kna1[] IS NOT INITIAL.
             SELECT EmailAddress AS smtp_addr
-              FROM I_AddressEmailAddress_2 AS adr6
+              FROM  I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+               AS adr6
                FOR ALL ENTRIES IN @lt_kna1
              WHERE AddressID EQ @lt_kna1-adrnr
                AND AddressPersonID EQ ''
@@ -209,7 +210,8 @@
 *                        INTO CORRESPONDING FIELDS OF TABLE @lt_adr6.
                   ELSE.
                     SELECT EmailAddress AS smtp_addr
-                      FROM I_AddressEmailAddress_2 AS adr6
+                      FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+                      AS adr6
                        FOR ALL ENTRIES IN @lt_kna1
                      WHERE AddressID EQ @lt_kna1-adrnr
                        AND AddressPersonID EQ ''
@@ -249,7 +251,8 @@
                   ELSE.
                     IF r_adrnr[] IS NOT INITIAL.
                       SELECT SINGLE EmailAddress AS smtp_addr
-                               FROM I_AddressEmailAddress_2 AS adr6
+                               FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+                               AS adr6
                               WHERE AddressID IN @r_adrnr
                                 AND AddressPersonID EQ ''
 
@@ -280,7 +283,8 @@
           IF lt_knvk[] IS NOT INITIAL.
             IF r_adrnr[] IS NOT INITIAL.
               SELECT  EmailAddress AS smtp_addr
-               FROM I_AddressEmailAddress_2 AS adr6
+               FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS    "I_AddressEmailAddress_2
+               AS adr6
                 FOR ALL ENTRIES IN @lt_knvk
                 WHERE AddressID IN @r_adrnr
                 AND AddressPersonID   EQ @lt_knvk-prsnr
@@ -340,7 +344,7 @@
 *                   INTO CORRESPONDING FIELDS OF TABLE @lt_adr6.
               ELSE.
                 SELECT EmailAddress AS smtp_addr
-                  FROM I_AddressEmailAddress_2
+                  FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
                    FOR ALL ENTRIES IN @lt_kna1
                  WHERE AddressID EQ @lt_kna1-adrnr
                    AND AddressPersonID   EQ ''
@@ -377,7 +381,8 @@
                 ENDIF.
               ELSE.
                 IF r_adrnr[] IS NOT INITIAL.
-                  SELECT SINGLE EmailAddress AS smtp_addr FROM I_AddressEmailAddress_2 AS adr6
+                  SELECT SINGLE EmailAddress AS smtp_addr FROM  I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+                  AS adr6
                   WHERE AddressID IN @r_adrnr
                    AND AddressPersonID EQ ''
                       INTO @e_mail.
@@ -394,7 +399,8 @@
             ENDIF.
             IF e_mail IS INITIAL AND i_ucomm NE 'FAX'.
               IF r_adrnr[] IS NOT INITIAL.
-                SELECT SINGLE EmailAddress AS smtp_addr FROM I_AddressEmailAddress_2 AS adr6
+                SELECT SINGLE EmailAddress AS smtp_addr FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS" I_AddressEmailAddress_2
+                AS adr6
                 WHERE AddressID IN @r_adrnr
                  AND AddressPersonID EQ ''
                     INTO @e_mail.
@@ -498,7 +504,8 @@
 
 
             SELECT  EmailAddress AS smtp_addr
-            FROM I_AddressEmailAddress_2 AS adr6
+            FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+            AS adr6
             FOR ALL ENTRIES IN @lt_lfa1
             WHERE AddressID EQ @lt_lfa1-adrnr
             AND AddressPersonID EQ ''
@@ -568,7 +575,8 @@
 *                       AND b~remark EQ i_remark.
                   ELSE.
                     SELECT EmailAddress AS smtp_addr
-                      FROM I_AddressEmailAddress_2 AS adr6
+                      FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+                      AS adr6
                        FOR ALL ENTRIES IN @lt_lfa1
                      WHERE AddressID EQ @lt_lfa1-adrnr
                        AND AddressPersonID   EQ ''
@@ -604,7 +612,8 @@
                   ELSE.
                     IF r_adrnr[] IS NOT INITIAL.
                       SELECT SINGLE EmailAddress AS smtp_addr
-                               FROM I_AddressEmailAddress_2 AS adr6
+                               FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
+                               AS adr6
 
                               WHERE AddressID IN @r_adrnr
                                 AND AddressPersonID EQ ''
@@ -636,13 +645,20 @@
           IF lt_knvk[] IS NOT INITIAL.
 
             IF r_adrnr[] IS NOT INITIAL.
-              SELECT EmailAddress AS smtp_addr
-                FROM I_AddressEmailAddress_2 AS adr6
+*              SELECT EmailAddress AS smtp_addr
+*                FROM I_AddressEmailAddress_2 AS adr6
+*                 FOR ALL ENTRIES IN @lt_knvk
+*               WHERE AddressID IN @r_adrnr
+*                 AND AddressPersonID   EQ @lt_knvk-prsnr
+*                 INTO TABLE @lt_adr6.
 
-                 FOR ALL ENTRIES IN @lt_knvk
-               WHERE AddressID IN @r_adrnr
-                 AND AddressPersonID   EQ @lt_knvk-prsnr
-                 INTO TABLE @lt_adr6.
+              SELECT  EmailAddress AS smtp_addr
+            FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
+                      FOR ALL ENTRIES IN @lt_knvk
+                         WHERE AddressID IN @r_adrnr
+                           AND AddressPersonID   EQ @lt_knvk-prsnr
+                           INTO TABLE @lt_adr6.
+
 
 
 
@@ -699,12 +715,19 @@
 *                   AND b~comm_type EQ 'INT'
 *                   AND b~remark EQ i_remark.
               ELSE.
-                SELECT EmailAddress AS smtp_Addr
-                  FROM I_AddressEmailAddress_2 AS adr6
-                   FOR ALL ENTRIES IN @lt_lfa1
-                 WHERE AddressID EQ @lt_lfa1-adrnr
-                   AND AddressPersonID EQ ''
-                 INTO TABLE @lt_adr6.
+*                SELECT EmailAddress AS smtp_Addr
+*                  FROM I_AddressEmailAddress_2 AS adr6
+*                   FOR ALL ENTRIES IN @lt_lfa1
+*                 WHERE AddressID EQ @lt_lfa1-adrnr
+*                   AND AddressPersonID EQ ''
+*                 INTO TABLE @lt_adr6.
+
+                SELECT  EmailAddress AS smtp_addr
+              FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
+                        FOR ALL ENTRIES IN @lt_lfa1
+                             WHERE AddressID EQ @lt_lfa1-adrnr
+                               AND AddressPersonID   EQ ''
+                              INTO TABLE @lt_adr6.
               ENDIF.
 
               LOOP AT lt_adr6 INTO ls_adr6 WHERE smtp_addr IS NOT INITIAL.
@@ -736,11 +759,17 @@
                 ENDIF.
               ELSE.
                 IF r_adrnr[] IS NOT INITIAL.
+*                  SELECT SINGLE EmailAddress AS smtp_addr
+*                           FROM I_AddressEmailAddress_2 AS adr6
+*                          WHERE AddressID IN @r_adrnr
+*                            AND AddressPersonID EQ ''
+*                             INTO @e_mail.
+
                   SELECT SINGLE EmailAddress AS smtp_addr
-                           FROM I_AddressEmailAddress_2 AS adr6
-                          WHERE AddressID IN @r_adrnr
-                            AND AddressPersonID EQ ''
-                             INTO @e_mail.
+            FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS AS adr6
+           WHERE AddressID IN @r_adrnr
+             AND AddressPersonID EQ ''
+              INTO @e_mail.
                 ENDIF.
               ENDIF.
 
@@ -769,11 +798,16 @@
                 ENDIF.
               ELSE.
                 IF r_adrnr[] IS NOT INITIAL.
+*                  SELECT SINGLE EmailAddress AS smtp_addr
+*                           FROM I_AddressEmailAddress_2 AS adr6
+*                          WHERE AddressID IN @r_adrnr
+*                            AND AddressPersonID EQ ''
+*                   INTO @e_mail.
                   SELECT SINGLE EmailAddress AS smtp_addr
-                           FROM I_AddressEmailAddress_2 AS adr6
-                          WHERE AddressID IN @r_adrnr
-                            AND AddressPersonID EQ ''
-                   INTO @e_mail.
+                                  FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS AS adr6
+                                 WHERE AddressID IN @r_adrnr
+                                   AND AddressPersonID EQ ''
+                          INTO @e_mail.
                 ENDIF.
               ENDIF.
 
@@ -830,92 +864,86 @@
     ENDIF.
 
 
-    SELECT  EmailAddress AS smtp_addr
-  FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
-            FOR ALL ENTRIES IN @lt_kna1
-                 WHERE AddressID EQ @lt_kna1-adrnr
-                   AND AddressPersonID   EQ ''
-                  INTO TABLE @lt_adr6.
 
     """""""""""""""""""YiğitcanÖzdemir""""""""""""""""""
 
-
-    DATA lv_addressid TYPE c LENGTH 10.
-
-    IF i_kunnr IS NOT INITIAL.
-
-      SELECT SINGLE IndependentAddressID
-            FROM i_businesspartner
-           WHERE businesspartner EQ @i_kunnr
-            INTO @lv_addressid.
 *
-
-    ELSEIF i_lifnr IS NOT INITIAL.
-
-      SELECT SINGLE IndependentAddressID
-            FROM i_businesspartner
-           WHERE businesspartner EQ @i_lifnr
-            INTO @lv_addressid.
-    ENDIF.
-
-
-    TRY.
-        "create http destination by url; API endpoint for API sandbox
-        DATA(lo_http_destination) =
-             cl_http_destination_provider=>create_by_url( 'https://my404671-api.s4hana.cloud.sap:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_AddressEmailAddress?$select=EmailAddress&$inlinecount=allpages&$top=50' ).
-        "alternatively create HTTP destination via destination service
-        "cl_http_destination_provider=>create_by_cloud_destination( i_name = '<...>'
-        "                            i_service_instance_name = '<...>' )
-        "SAP Help: https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/f871712b816943b0ab5e04b60799e518.html
-
-        "create HTTP client by destination
-        DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
-
-        "adding headers
-        DATA(lo_web_http_request) = lo_web_http_client->get_http_request( ).
-
-        DATA(filter) = 'AddressID eq ' && |' { lv_addressid } '|.
-
-        lo_web_http_request->set_form_field(
-          EXPORTING
-            i_name  = '$filter'
-            i_value = filter
-        ).
-
-        lo_web_http_request->set_authorization_basic(
-      EXPORTING
-        i_username = CONV #( 'ozdemiryigit' )
-        i_password = CONV #( 'TvczWnffohRvem%WaTXFNqJiEPGcMeWyMyjbuv3Y' )
-    ).
-
-        lo_web_http_request->set_header_fields( VALUE #(
-*        (  name = 'Authorization' value = 'Basic b3pkZW1pcnlpZ2l0OlR2Y3pXbmZmb2hSdmVtJVdhVFhGTnFKaUVQR2NNZVd5TXlqYnV2M1k=' )
-        (  name = 'DataServiceVersion' value = '2.0' )
-        (  name = 'Accept' value = 'application/json' )
-         ) ).
-        "set request method and execute request
-        DATA(lo_web_http_response) = lo_web_http_client->execute( if_web_http_client=>get ).
-        DATA(lv_response) = lo_web_http_response->get_text( ).
-
-      CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
-        "error handling
-    ENDTRY.
-
-    "uncomment the following line for console output; prerequisite: code snippet is implementation of if_oo_adt_classrun~main
-    "out->write( |response:  { lv_response }| ).
-
-*    zinf_regulative_common=>parse_xml(
+*    DATA lv_addressid TYPE c LENGTH 10.
+*
+*    IF i_kunnr IS NOT INITIAL.
+*
+*      SELECT SINGLE IndependentAddressID
+*            FROM i_businesspartner
+*           WHERE businesspartner EQ @i_kunnr
+*            INTO @lv_addressid.
+**
+*
+*    ELSEIF i_lifnr IS NOT INITIAL.
+*
+*      SELECT SINGLE IndependentAddressID
+*            FROM i_businesspartner
+*           WHERE businesspartner EQ @i_lifnr
+*            INTO @lv_addressid.
+*    ENDIF.
+*
+*
+*    TRY.
+*        "create http destination by url; API endpoint for API sandbox
+*        DATA(lo_http_destination) =
+*             cl_http_destination_provider=>create_by_url( 'https://my404671-api.s4hana.cloud.sap:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_AddressEmailAddress?$select=EmailAddress&$inlinecount=allpages&$top=50' ).
+*        "alternatively create HTTP destination via destination service
+*        "cl_http_destination_provider=>create_by_cloud_destination( i_name = '<...>'
+*        "                            i_service_instance_name = '<...>' )
+*        "SAP Help: https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/f871712b816943b0ab5e04b60799e518.html
+*
+*        "create HTTP client by destination
+*        DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
+*
+*        "adding headers
+*        DATA(lo_web_http_request) = lo_web_http_client->get_http_request( ).
+*
+*        DATA(filter) = 'AddressID eq ' && |' { lv_addressid } '|.
+*
+*        lo_web_http_request->set_form_field(
 *          EXPORTING
-*            iv_xml_string = lv_response
-*          RECEIVING
-*            rt_data       = DATA(lt_response_service)
+*            i_name  = '$filter'
+*            i_value = filter
 *        ).
 *
-*    LOOP AT lt_response_service INTO DATA(ls_resp).
-*      CASE ls_resp-name .
-*        WHEN 'EmailAddress'.
-*          e_mail = ls_resp-value.
-*      ENDCASE.
-*    ENDLOOP.
+*        lo_web_http_request->set_authorization_basic(
+*      EXPORTING
+*        i_username = CONV #( 'ozdemiryigit' )
+*        i_password = CONV #( 'TvczWnffohRvem%WaTXFNqJiEPGcMeWyMyjbuv3Y' )
+*    ).
+*
+*        lo_web_http_request->set_header_fields( VALUE #(
+**        (  name = 'Authorization' value = 'Basic b3pkZW1pcnlpZ2l0OlR2Y3pXbmZmb2hSdmVtJVdhVFhGTnFKaUVQR2NNZVd5TXlqYnV2M1k=' )
+*        (  name = 'DataServiceVersion' value = '2.0' )
+*        (  name = 'Accept' value = 'application/json' )
+*         ) ).
+*        "set request method and execute request
+*        DATA(lo_web_http_response) = lo_web_http_client->execute( if_web_http_client=>get ).
+*        DATA(lv_response) = lo_web_http_response->get_text( ).
+*
+*      CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
+*        "error handling
+*    ENDTRY.
+*
+*    "uncomment the following line for console output; prerequisite: code snippet is implementation of if_oo_adt_classrun~main
+*    "out->write( |response:  { lv_response }| ).
+*
+**    zinf_regulative_common=>parse_xml(
+**          EXPORTING
+**            iv_xml_string = lv_response
+**          RECEIVING
+**            rt_data       = DATA(lt_response_service)
+**        ).
+**
+**    LOOP AT lt_response_service INTO DATA(ls_resp).
+**      CASE ls_resp-name .
+**        WHEN 'EmailAddress'.
+**          e_mail = ls_resp-value.
+**      ENDCASE.
+**    ENDLOOP.
 
   ENDMETHOD.

@@ -63,7 +63,7 @@
                   WHERE UserID EQ @lv_uname1
                   INTO @ls_usr21.
 
-          SELECT SINGLE EmailAddress FROM I_AddressEmailAddress_2
+          SELECT SINGLE EmailAddress FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
             WHERE AddressID EQ @ls_usr21-AddressID
             AND AddressPersonID  EQ @ls_usr21-AddressPersonID
             INTO @e_mail.
