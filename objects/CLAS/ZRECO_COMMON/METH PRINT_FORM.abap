@@ -1195,6 +1195,11 @@
     """""""""""""" Müşteri Bilgileri
 
     ls_data-duzenleme_tarihi = gs_htxt-idate_text.
+    ls_data-takip            = gs_htxt-mnumber_text.
+    ls_data-mutabakat_tarihi = gs_htxt-mdate_text.
+    ls_data-cari_no          = gs_htxt-anumber_text.
+    ls_data-iletisim         = gs_htxt-mcontact_text.
+    ls_data-iletisim         = gs_htxt-mcontact_text.
 
 
     LOOP AT gt_cform_sf INTO DATA(ls_form).
