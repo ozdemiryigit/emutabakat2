@@ -1210,10 +1210,10 @@
     ).
 
     ls_data-duzenleme_tarihi = cl_abap_context_info=>get_system_date( ).
-    ls_data-takip            = lv_number.
+*    ls_data-takip            = lv_number.
     ls_data-mutabakat_tarihi = gv_last_date.
     ls_data-cari_no          = gs_account-hesap_no.
-    ls_data-iletisim         = gs_adrs-m_name.
+    ls_data-iletisim         = cl_abap_context_info=>get_user_formatted_name( )."gs_adrs-m_name.
 
     IF ls_out-nolocal IS NOT INITIAL.
       DELETE gt_cform_sf WHERE waers NE 'TRY'.
