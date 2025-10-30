@@ -9,7 +9,7 @@
     "AS4USER":"SAP_CUSTOMER",
     "AS4DATE":"0000-00-00",
     "AS4TIME":"00:00:00",
-    "SOURCE":"@EndUserText.label: 'Mutabakat Formu'\r\n@ObjectModel.query.implementedBy:'ABAP:ZCL_RECO_FORM'\r\n@UI:{\r\nheaderInfo:{\r\n                typeNamePlural: 'Mutabakat Formu',\r\n                typeName: 'Mutabakat Formu',\r\n                title:{ type: #STANDARD, label: 'Mutabakat Formu', value: 'bukrs' }\r\n           }\r\n}\r\n\r\ndefine root custom entity zreco_ddl_i_reco_form\r\n{\r\n\r\n      @UI           : {\r\n        lineItem    : [\r\n          { type    : #FOR_ACTION ,\r\n            invocationGrouping: #CHANGE_SET,\r\n            dataAction: 'send',\r\n            label   : 'Mutabakat Gönder',\r\n            position: 10 },\r\n\r\n          { type    : #FOR_ACTION ,\r\n            invocationGrouping: #CHANGE_SET,\r\n            dataAction: 'print',\r\n            label   : 'Formu Görüntüle',\r\n            position: 11 }\r\n        ]\r\n      }\r\n\r\n\r\n\r\n\r\n      @UI           : {\r\n                         selectionField: [ { position: 6 } ] }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' }} ]\r\n      @Consumption.filter:{\r\n        mandatory   : true,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n  key bukrs         : bukrs;\r\n      @UI           : { lineItem:       [ { position: 3 } ]}\r\n  key akont         : akont;\r\n\r\n      @UI           : { lineItem:       [ { position: 39 } ]}\r\n  key uuid          : sysuuid_c22;\r\n\r\n      @UI           : { selectionField: [ { position: 1 } ], lineItem:       [ { position: 40 } ] }\r\n      @EndUserText.label: 'Rapor Dönemi Ay'\r\n      @Consumption.filter:{\r\n      mandatory     : true\r\n      }\r\n  key period        : monat;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 2 } ], lineItem:       [ { position: 41 } ] }\r\n      @EndUserText.label: 'Rapor Dönemi Yıl'\r\n      @Consumption.filter:{\r\n      mandatory     : true\r\n      }\r\n  key gjahr         : gjahr;\r\n\r\n      @UI           : { lineItem:       [ { position: 12 } ],\r\n                         selectionField: [ { position: 5 } ] }\r\n      @Consumption.filter:{\r\n      mandatory     : false,\r\n      selectionType : #RANGE,\r\n      multipleSelections  : true\r\n      }\r\n  key waers         : waers;\r\n\r\n\r\n      @UI           : {  lineItem:       [ { position: 1 } ]}\r\n      xsum          : zreco_xsum;\r\n\r\n      @UI           : { lineItem:       [ { position: 2 } ]}\r\n      ltext         : zreco_ltext;\r\n\r\n\r\n\r\n      @UI           : { lineItem:       [ { position: 4 } ]}\r\n      hesap_tur     : zreco_account_type;\r\n\r\n      @UI           : { lineItem:       [ { position: 5 } ] }\r\n      hesap_no      : zreco_ktonr_av;\r\n\r\n      @UI           : { lineItem:       [ { position: 6 } ] }\r\n      name1         : zreco_text80;\r\n\r\n      @UI           : { lineItem:       [ { position: 7 } ],\r\n                        selectionField: [ { position: 7 } ] }\r\n      @Consumption.filter:{\r\n      mandatory     : false,\r\n      selectionType : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      gsber         : gsber;\r\n\r\n      @UI           : { lineItem:       [ { position: 8 } ]}\r\n      ktokl         : zreco_ktokl_077t;\r\n\r\n      @UI           : { lineItem:       [ { position: 9 } ] }\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      dmbtr         : dmbtr;\r\n\r\n      @UI           : { lineItem:       [ { position: 10 } ]}\r\n      kursf         : zreco_kursf;\r\n\r\n      @UI           : { lineItem:       [ { position: 11 } ] }\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      wrbtr         : wrbtr;\r\n\r\n\r\n      @UI           : { lineItem:       [ { position: 13 } ]}\r\n      vkn_tckn      : zreco_vkn;\r\n\r\n      @UI           : { lineItem:       [ { position: 14 } ] }\r\n      vd            : zreco_vd;\r\n\r\n      @UI           : { lineItem:       [ { position: 15 } ]}\r\n      spras         : spras;\r\n\r\n      @UI           : { lineItem:       [ { position: 16 } ] }\r\n      telf1         : telf1;\r\n\r\n      @UI           : { lineItem:       [ { position: 17 } ] }\r\n      telf2         : telf2;\r\n\r\n      @UI           : { lineItem:       [ { position: 18 } ] }\r\n      telfx         : telfx;\r\n\r\n      @UI           : { lineItem:       [ { position: 19 } ]}\r\n      email         : zreco_ad_smtpadr;\r\n\r\n      @UI           : { lineItem:       [ { position: 20 } ] }\r\n      kep_use       : zreco_kep_use;\r\n\r\n      @UI           : { lineItem:       [ { position: 21 } ] }\r\n      kep_mail      : zreco_kep_mail;\r\n\r\n      @UI           : { lineItem:       [ { position: 22 } ] }\r\n      merge         : zreco_all;\r\n\r\n      @UI           : { lineItem:       [ { position: 23 } ],\r\n                        selectionField: [ { position: 9 } ] }\r\n      @Consumption.filter:{\r\n      mandatory     : false,\r\n      selectionType : #RANGE,\r\n      multipleSelections  : true\r\n      }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Customer_VH', element: 'Customer' }}]\r\n      kunnr         : kunnr;\r\n\r\n      @UI           : { lineItem:       [ { position: 24 } ],\r\n                        selectionField: [ { position: 14 } ] }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Supplier_VH', element: 'Supplier' }}]\r\n      @EndUserText.label: 'Satıcı'\r\n      lifnr         : lifnr;\r\n\r\n      @UI           : { lineItem:       [ { position: 25 } ] }\r\n      xausz         : zreco_xausz;\r\n\r\n      @UI           : { lineItem:       [ { position: 26 } ]}\r\n      no_local_curr : abap_boolean;\r\n\r\n      @UI           : { lineItem:       [ { position: 27 } ] }\r\n      umskz         : zreco_umskz;\r\n\r\n      // Selection Screen\r\n\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 3 } ] }\r\n      @EndUserText.label: 'Günlük Mutabakat'\r\n      p_daily       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 4 } ] }\r\n      @EndUserText.label: 'Günlük Mutabakat Tarih'\r\n      rdate         : budat;\r\n\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 5 } ] }\r\n      @EndUserText.label: 'İş Alanı Tayini'\r\n      p_gsber       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 8 } ] }\r\n      @EndUserText.label: 'Para Birimi bazında mutabakat'\r\n      @UI.hidden    : true\r\n      p_waers       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 9 } ] }\r\n      @EndUserText.label: 'Müşterileri seç'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_seld        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 10 } ] }\r\n      @EndUserText.label: 'Müşteri grubu'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      ktokd         : akont;\r\n\r\n      @UI           : { selectionField: [ { position: 11 } ] }\r\n      @EndUserText.label: 'Müşteri Mutabakat Hesabı'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_GLACCOUNT', element: 'GLAccount' }}]\r\n      dkont         : akont;\r\n\r\n      @UI           : { selectionField: [ { position: 12 } ] }\r\n      @EndUserText.label: 'Müşteri VKN / TCKN'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      vkn_cr        : zreco_vkn;\r\n\r\n      @UI           : { selectionField: [ { position: 13 } ] }\r\n      @EndUserText.label: 'Satıcıları Seç'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_selk        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 14 } ] }\r\n      @EndUserText.label: 'Satıcı Hesap Grubu'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      ktokk         : ktokk;\r\n\r\n      @UI           : { selectionField: [ { position: 15 } ] }\r\n      @EndUserText.label: 'Satıcı Mutabakat Hesabı'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      kkont         : akont;\r\n\r\n      @UI           : { selectionField: [ { position: 16 } ] }\r\n      @EndUserText.label: 'Müşteri Sektör'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      brsch1        : brsch;\r\n\r\n      @UI           : { selectionField: [ { position: 17 } ] }\r\n      @EndUserText.label: 'Satıcı Sektör'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      brsch2        : brsch;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 18 } ] }\r\n      @EndUserText.label: 'Satıcı VKN / TCKN'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      vkn_ve        : zreco_vkn;\r\n\r\n      @UI           : { selectionField: [ { position: 19 } ] }\r\n      @EndUserText.label: 'Müşteri Ve Satıcı Mahsuplaştır'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_tran        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 20 } ] }\r\n      @EndUserText.label: 'Aynı vergi no.ları birleştir'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_all         : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 21 } ] }\r\n      @EndUserText.label: 'GİB aktarımı için listele'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_blist       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 22 } ] }\r\n      @EndUserText.label: 'Müşteri, Satıcı mail ayrımı'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_diff        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 23 } ] }\r\n      @EndUserText.label: 'rpr dön. kdr h. grmynlri lstleme!'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_last        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 24 } ] }\r\n      @EndUserText.label: 'Alacak bakiyesi vern MÜŞ.leri listeleme!'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_cred        : abap_boolean;\r\n\r\n      //      @UI           : { selectionField: [ { position: 25 } ] }\r\n      @EndUserText.label: 'Yazıcı'\r\n      p_print       : abap.char(4);\r\n\r\n      //      @UI           : { selectionField: [ { position: 26 } ] }\r\n      @EndUserText.label: 'B Formu Limit Tutar (TL)'\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      limit         : wrbtr;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 27 } ] }\r\n      @EndUserText.label: 'UPB Bakiye Kontrolü'\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      @UI.hidden    : true\r\n      p_dmbtr       : wrbtr;\r\n\r\n      @UI           : { selectionField: [ { position: 28 } ] }\r\n      @EndUserText.label: 'Son Hareket Kontrolü'\r\n      @UI.hidden    : true\r\n      p_shk         : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 29 } ] }\r\n      @EndUserText.label: 'Tarih'\r\n      p_date        : datum;\r\n\r\n      @UI           : { selectionField: [ { position: 30 } ] }\r\n      @EndUserText.label: 'Bakiyeli'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_bli         : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 31 } ] }\r\n      @EndUserText.label: 'Bakiyesiz'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_bsiz        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 32 } ] }\r\n      @EndUserText.label: 'Değerlenmiş tutarları göster'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_exch        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 33 } ] }\r\n      @EndUserText.label: 'Sıfır Bakiyeleri Hariç Tut'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_zero        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 34 } ] }\r\n      @EndUserText.label: 'ÖDKları Hariç Tut'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_sgli        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 35 } ] }\r\n      @EndUserText.label: 'S_SGLI'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      s_sgli        : zreco_account_type;\r\n\r\n      @UI           : { selectionField: [ { position: 36 } ] }\r\n      @EndUserText.label: 'S_OG'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      s_og          : zreco_umskz;\r\n\r\n      @UI           : { selectionField: [ { position: 37 } ] }\r\n      @EndUserText.label: 'Hiç bir tutar gönderme'\r\n      p_novl        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 38  } ] }\r\n\r\n      @EndUserText.label: 'UPB tutar gönderme'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_nolc        : abap_boolean;\r\n\r\n\r\n\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "SOURCE":"@EndUserText.label: 'Mutabakat Formu'\r\n@ObjectModel.query.implementedBy:'ABAP:ZCL_RECO_FORM'\r\n@UI:{\r\nheaderInfo:{\r\n                typeNamePlural: 'Mutabakat Formu',\r\n                typeName: 'Mutabakat Formu',\r\n                title:{ type: #STANDARD, label: 'Mutabakat Formu', value: 'bukrs' }\r\n           }\r\n}\r\n\r\ndefine root custom entity zreco_ddl_i_reco_form\r\n{\r\n\r\n      @UI           : {\r\n        lineItem    : [\r\n          { type    : #FOR_ACTION ,\r\n            invocationGrouping: #CHANGE_SET,\r\n            dataAction: 'send',\r\n            label   : 'Mutabakat Gönder',\r\n            position: 10 },\r\n\r\n          { type    : #FOR_ACTION ,\r\n            invocationGrouping: #CHANGE_SET,\r\n            dataAction: 'print',\r\n            label   : 'Formu Görüntüle',\r\n            position: 11 }\r\n        ]\r\n      }\r\n\r\n\r\n\r\n\r\n      @UI           : {\r\n                         selectionField: [ { position: 6 } ] }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' }} ]\r\n      @Consumption.filter:{\r\n        mandatory   : true,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n  key bukrs         : bukrs;\r\n      @UI           : { lineItem:       [ { position: 3 } ]}\r\n  key akont         : akont;\r\n\r\n      @UI           : { lineItem:       [ { position: 39 } ]}\r\n  key uuid          : sysuuid_c22;\r\n\r\n      @UI           : { selectionField: [ { position: 1 } ], lineItem:       [ { position: 40 } ] }\r\n      @EndUserText.label: 'Rapor Dönemi Ay'\r\n      @Consumption.filter:{\r\n      mandatory     : true\r\n      }\r\n  key period        : monat;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 2 } ], lineItem:       [ { position: 41 } ] }\r\n      @EndUserText.label: 'Rapor Dönemi Yıl'\r\n      @Consumption.filter:{\r\n      mandatory     : true\r\n      }\r\n  key gjahr         : gjahr;\r\n\r\n      @UI           : { lineItem:       [ { position: 12 } ],\r\n                         selectionField: [ { position: 5 } ] }\r\n      @Consumption.filter:{\r\n      mandatory     : false,\r\n      selectionType : #RANGE,\r\n      multipleSelections  : true\r\n      }\r\n  key waers         : waers;\r\n\r\n\r\n      @UI           : {  lineItem:       [ { position: 1 } ]}\r\n      xsum          : zreco_xsum;\r\n\r\n      @UI           : { lineItem:       [ { position: 2 } ]}\r\n      ltext         : zreco_ltext;\r\n\r\n\r\n\r\n      @UI           : { lineItem:       [ { position: 4 } ]}\r\n      hesap_tur     : zreco_account_type;\r\n\r\n      @UI           : { lineItem:       [ { position: 5 } ] }\r\n      hesap_no      : zreco_ktonr_av;\r\n\r\n      @UI           : { lineItem:       [ { position: 6 } ] }\r\n      name1         : zreco_text80;\r\n\r\n      @UI           : { lineItem:       [ { position: 7 } ],\r\n                        selectionField: [ { position: 7 } ] }\r\n      @Consumption.filter:{\r\n      mandatory     : false,\r\n      selectionType : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      gsber         : gsber;\r\n\r\n      @UI           : { lineItem:       [ { position: 8 } ]}\r\n      ktokl         : zreco_ktokl_077t;\r\n\r\n      @UI           : { lineItem:       [ { position: 9 } ] }\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      dmbtr         : dmbtr;\r\n\r\n      @UI           : { lineItem:       [ { position: 10 } ]}\r\n      kursf         : zreco_kursf;\r\n\r\n      @UI           : { lineItem:       [ { position: 11 } ] }\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      wrbtr         : wrbtr;\r\n\r\n\r\n      @UI           : { lineItem:       [ { position: 13 } ]}\r\n      vkn_tckn      : zreco_vkn;\r\n\r\n      @UI           : { lineItem:       [ { position: 14 } ] }\r\n      vd            : zreco_vd;\r\n\r\n      @UI           : { lineItem:       [ { position: 15 } ]}\r\n      spras         : spras;\r\n\r\n      @UI           : { lineItem:       [ { position: 16 } ] }\r\n      telf1         : telf1;\r\n\r\n      @UI           : { lineItem:       [ { position: 17 } ] }\r\n      telf2         : telf2;\r\n\r\n      @UI           : { lineItem:       [ { position: 18 } ] }\r\n      telfx         : telfx;\r\n\r\n      @UI           : { lineItem:       [ { position: 19 } ]}\r\n      email         : zreco_ad_smtpadr;\r\n\r\n      @UI           : { lineItem:       [ { position: 20 } ] }\r\n      kep_use       : zreco_kep_use;\r\n\r\n      @UI           : { lineItem:       [ { position: 21 } ] }\r\n      kep_mail      : zreco_kep_mail;\r\n\r\n      @UI           : { lineItem:       [ { position: 22 } ] }\r\n      merge         : zreco_all;\r\n\r\n      @UI           : { lineItem:       [ { position: 23 } ],\r\n                        selectionField: [ { position: 9 } ] }\r\n      @Consumption.filter:{\r\n      mandatory     : false,\r\n      selectionType : #RANGE,\r\n      multipleSelections  : true\r\n      }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Customer_VH', element: 'Customer' }}]\r\n      kunnr         : kunnr;\r\n\r\n      @UI           : { lineItem:       [ { position: 24 } ],\r\n                        selectionField: [ { position: 14 } ] }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Supplier_VH', element: 'Supplier' }}]\r\n      @EndUserText.label: 'Satıcı'\r\n      lifnr         : lifnr;\r\n\r\n      @UI           : { lineItem:       [ { position: 25 } ] }\r\n      xausz         : zreco_xausz;\r\n\r\n      @UI           : { lineItem:       [ { position: 26 } ]}\r\n      no_local_curr : abap_boolean;\r\n\r\n      @UI           : { lineItem:       [ { position: 27 } ] }\r\n      umskz         : zreco_umskz;\r\n\r\n      // Selection Screen\r\n\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 3 } ] }\r\n      @EndUserText.label: 'Günlük Mutabakat'\r\n      p_daily       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 4 } ] }\r\n      @EndUserText.label: 'Günlük Mutabakat Tarih'\r\n      rdate         : budat;\r\n\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 5 } ] }\r\n      @EndUserText.label: 'İş Alanı Tayini'\r\n      p_gsber       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 8 } ] }\r\n      @EndUserText.label: 'Para Birimi bazında mutabakat'\r\n      @UI.hidden    : true\r\n      p_waers       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 9 } ] }\r\n      @EndUserText.label: 'Müşterileri seç'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_seld        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 10 } ] }\r\n      @EndUserText.label: 'Müşteri grubu'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      ktokd         : akont;\r\n\r\n      @UI           : { selectionField: [ { position: 11 } ] }\r\n      @EndUserText.label: 'Müşteri Mutabakat Hesabı'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_GLACCOUNT', element: 'GLAccount' }}]\r\n      dkont         : akont;\r\n\r\n      @UI           : { selectionField: [ { position: 12 } ] }\r\n      @EndUserText.label: 'Müşteri VKN / TCKN'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      vkn_cr        : zreco_vkn;\r\n\r\n      @UI           : { selectionField: [ { position: 13 } ] }\r\n      @EndUserText.label: 'Satıcıları Seç'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_selk        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 14 } ] }\r\n      @EndUserText.label: 'Satıcı Hesap Grubu'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      ktokk         : ktokk;\r\n\r\n      @UI           : { selectionField: [ { position: 15 } ] }\r\n      @EndUserText.label: 'Satıcı Mutabakat Hesabı'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_GLACCOUNT', element: 'GLAccount' }}]\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      kkont         : akont;\r\n\r\n      @UI           : { selectionField: [ { position: 16 } ] }\r\n      @EndUserText.label: 'Müşteri Sektör'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      brsch1        : brsch;\r\n\r\n      @UI           : { selectionField: [ { position: 17 } ] }\r\n      @EndUserText.label: 'Satıcı Sektör'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      @UI.hidden    : true\r\n      brsch2        : brsch;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 18 } ] }\r\n      @EndUserText.label: 'Satıcı VKN / TCKN'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n      vkn_ve        : zreco_vkn;\r\n\r\n      @UI           : { selectionField: [ { position: 19 } ] }\r\n      @EndUserText.label: 'Müşteri Ve Satıcı Mahsuplaştır'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_tran        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 20 } ] }\r\n      @EndUserText.label: 'Aynı vergi no.ları birleştir'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_all         : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 21 } ] }\r\n      @EndUserText.label: 'GİB aktarımı için listele'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_blist       : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 22 } ] }\r\n      @EndUserText.label: 'Müşteri, Satıcı mail ayrımı'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_diff        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 23 } ] }\r\n      @EndUserText.label: 'rpr dön. kdr h. grmynlri lstleme!'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_last        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 24 } ] }\r\n      @EndUserText.label: 'Alacak bakiyesi vern MÜŞ.leri listeleme!'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_cred        : abap_boolean;\r\n\r\n      //      @UI           : { selectionField: [ { position: 25 } ] }\r\n      @EndUserText.label: 'Yazıcı'\r\n      p_print       : abap.char(4);\r\n\r\n      //      @UI           : { selectionField: [ { position: 26 } ] }\r\n      @EndUserText.label: 'B Formu Limit Tutar (TL)'\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      limit         : wrbtr;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 27 } ] }\r\n      @EndUserText.label: 'UPB Bakiye Kontrolü'\r\n      @Semantics.amount.currencyCode: 'waers'\r\n      @UI.hidden    : true\r\n      p_dmbtr       : wrbtr;\r\n\r\n      @UI           : { selectionField: [ { position: 28 } ] }\r\n      @EndUserText.label: 'Son Hareket Kontrolü'\r\n      @UI.hidden    : true\r\n      p_shk         : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 29 } ] }\r\n      @EndUserText.label: 'Tarih'\r\n      p_date        : datum;\r\n\r\n      @UI           : { selectionField: [ { position: 30 } ] }\r\n      @EndUserText.label: 'Bakiyeli'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      @UI.hidden    : true\r\n      p_bli         : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 31 } ] }\r\n      @EndUserText.label: 'Bakiyesiz'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_bsiz        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 32 } ] }\r\n      @EndUserText.label: 'Değerlenmiş tutarları göster'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_exch        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 33 } ] }\r\n      @EndUserText.label: 'Sıfır Bakiyeleri Hariç Tut'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_zero        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 34 } ] }\r\n      @EndUserText.label: 'ÖDKları Hariç Tut'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_sgli        : abap_boolean;\r\n\r\n\r\n      @UI           : { selectionField: [ { position: 35 } ] }\r\n      @EndUserText.label: 'Mutabakat Hesap Türü'\r\n          @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_ACCOUNT_TYPE', element: 'AccountType' }}]\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n\r\n      s_sgli        : zreco_account_type;\r\n\r\n      @UI           : { selectionField: [ { position: 36 } ] }\r\n      @EndUserText.label: 'Özel DK göstergesi'\r\n      @Consumption.filter:{\r\n        mandatory   : false,\r\n        selectionType       : #RANGE,\r\n        multipleSelections  : true\r\n        }\r\n\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_UMSKZ', element: 'SpecialGLCode' }}]\r\n      s_og          : zreco_umskz;\r\n\r\n      @UI           : { selectionField: [ { position: 37 } ] }\r\n      @EndUserText.label: 'Hiç bir tutar gönderme'\r\n      @UI.hidden: true\r\n      p_novl        : abap_boolean;\r\n\r\n      @UI           : { selectionField: [ { position: 38  } ] }\r\n\r\n      @EndUserText.label: 'UPB tutar gönderme'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'zreco_ddl_vh_aba_boolean', element: 'Value' }}]\r\n      p_nolc        : abap_boolean;\r\n\r\n\r\n\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
     "PARENTNAME":"",
     "ACTFLAG":"",
     "CHGFLAG":"",
@@ -441,7 +441,7 @@
     "FIELDNAME":"S_OG",
     "DEPTH":0,
     "DDTEXT":"",
-    "FIELDLABEL":"S_OG",
+    "FIELDLABEL":"Özel DK göstergesi",
     "QUICKINFO":""
    },
    {
@@ -453,7 +453,7 @@
     "FIELDNAME":"S_SGLI",
     "DEPTH":0,
     "DDTEXT":"",
-    "FIELDLABEL":"S_SGLI",
+    "FIELDLABEL":"Mutabakat Hesap Türü",
     "QUICKINFO":""
    },
    {
@@ -516,140 +516,140 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"BRSCH1",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":212,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":213,
-    "VALUE":"false"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":215,
-    "VALUE":"true"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":214,
-    "VALUE":"#RANGE"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":210,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":211,
-    "VALUE":"'Müşteri Sektör'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"UI",
-    "POSITION":208,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH1",
-    "NAME":"UI",
     "POSITION":216,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"BRSCH1",
-    "NAME":"UI.HIDDEN",
+    "NAME":"CONSUMPTION.FILTER.MANDATORY",
     "POSITION":217,
+    "VALUE":"false"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
+    "POSITION":219,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
+    "POSITION":218,
+    "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":214,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":215,
+    "VALUE":"'Müşteri Sektör'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"UI",
+    "POSITION":212,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"UI",
+    "POSITION":220,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH1",
+    "NAME":"UI.HIDDEN",
+    "POSITION":221,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"BRSCH1",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":209,
+    "POSITION":213,
     "VALUE":"16"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"BRSCH2",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":222,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":223,
-    "VALUE":"false"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":225,
-    "VALUE":"true"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":224,
-    "VALUE":"#RANGE"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":220,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":221,
-    "VALUE":"'Satıcı Sektör'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"UI",
-    "POSITION":218,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"BRSCH2",
-    "NAME":"UI",
     "POSITION":226,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"BRSCH2",
-    "NAME":"UI.HIDDEN",
+    "NAME":"CONSUMPTION.FILTER.MANDATORY",
     "POSITION":227,
+    "VALUE":"false"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
+    "POSITION":229,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
+    "POSITION":228,
+    "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":224,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":225,
+    "VALUE":"'Satıcı Sektör'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"UI",
+    "POSITION":222,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"UI",
+    "POSITION":230,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"BRSCH2",
+    "NAME":"UI.HIDDEN",
+    "POSITION":231,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"BRSCH2",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":219,
+    "POSITION":223,
     "VALUE":"17"
    },
    {
@@ -1082,30 +1082,58 @@
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"KKONT",
-    "NAME":"CONSUMPTION.FILTER",
+    "NAME":"CONSUMPTION",
     "POSITION":204,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"KKONT",
+    "NAME":"CONSUMPTION.FILTER",
+    "POSITION":208,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"KKONT",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":205,
+    "POSITION":209,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"KKONT",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":207,
+    "POSITION":211,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"KKONT",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":206,
+    "POSITION":210,
     "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"KKONT",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
+    "POSITION":205,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"KKONT",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":207,
+    "VALUE":"'GLAccount'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"KKONT",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":206,
+    "VALUE":"'ZRECO_DDL_VH_GLACCOUNT'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
@@ -1447,28 +1475,28 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"LIMIT",
     "NAME":"ENDUSERTEXT",
-    "POSITION":292,
+    "POSITION":296,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"LIMIT",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":293,
+    "POSITION":297,
     "VALUE":"'B Formu Limit Tutar (TL)'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"LIMIT",
     "NAME":"SEMANTICS",
-    "POSITION":294,
+    "POSITION":298,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"LIMIT",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":295,
+    "POSITION":299,
     "VALUE":"'waers'"
    },
    {
@@ -1580,322 +1608,322 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ALL",
     "NAME":"CONSUMPTION",
-    "POSITION":248,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":249,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":251,
-    "VALUE":"'Value'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":250,
-    "VALUE":"'zreco_ddl_vh_aba_boolean'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":246,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":247,
-    "VALUE":"'Aynı vergi no.ları birleştir'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"UI",
-    "POSITION":244,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_ALL",
-    "NAME":"UI",
     "POSITION":252,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ALL",
-    "NAME":"UI.HIDDEN",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":253,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":255,
+    "VALUE":"'Value'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":254,
+    "VALUE":"'zreco_ddl_vh_aba_boolean'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":250,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":251,
+    "VALUE":"'Aynı vergi no.ları birleştir'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"UI",
+    "POSITION":248,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"UI",
+    "POSITION":256,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_ALL",
+    "NAME":"UI.HIDDEN",
+    "POSITION":257,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ALL",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":245,
+    "POSITION":249,
     "VALUE":"20"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BLI",
     "NAME":"CONSUMPTION",
-    "POSITION":318,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":319,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":321,
-    "VALUE":"'Value'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":320,
-    "VALUE":"'zreco_ddl_vh_aba_boolean'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":316,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":317,
-    "VALUE":"'Bakiyeli'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"UI",
-    "POSITION":314,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLI",
-    "NAME":"UI",
     "POSITION":322,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BLI",
-    "NAME":"UI.HIDDEN",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":323,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":325,
+    "VALUE":"'Value'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":324,
+    "VALUE":"'zreco_ddl_vh_aba_boolean'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":320,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":321,
+    "VALUE":"'Bakiyeli'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"UI",
+    "POSITION":318,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"UI",
+    "POSITION":326,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLI",
+    "NAME":"UI.HIDDEN",
+    "POSITION":327,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BLI",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":315,
+    "POSITION":319,
     "VALUE":"30"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BLIST",
     "NAME":"CONSUMPTION",
-    "POSITION":258,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":259,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":261,
-    "VALUE":"'Value'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":260,
-    "VALUE":"'zreco_ddl_vh_aba_boolean'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":256,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":257,
-    "VALUE":"'GİB aktarımı için listele'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"UI",
-    "POSITION":254,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_BLIST",
-    "NAME":"UI",
     "POSITION":262,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BLIST",
-    "NAME":"UI.HIDDEN",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":263,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":265,
+    "VALUE":"'Value'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":264,
+    "VALUE":"'zreco_ddl_vh_aba_boolean'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":260,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":261,
+    "VALUE":"'GİB aktarımı için listele'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"UI",
+    "POSITION":258,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"UI",
+    "POSITION":266,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_BLIST",
+    "NAME":"UI.HIDDEN",
+    "POSITION":267,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BLIST",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":255,
+    "POSITION":259,
     "VALUE":"21"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"CONSUMPTION",
-    "POSITION":328,
+    "POSITION":332,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":329,
+    "POSITION":333,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":331,
+    "POSITION":335,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":330,
+    "POSITION":334,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"ENDUSERTEXT",
-    "POSITION":326,
+    "POSITION":330,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":327,
+    "POSITION":331,
     "VALUE":"'Bakiyesiz'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"UI",
-    "POSITION":324,
+    "POSITION":328,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_BSIZ",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":325,
+    "POSITION":329,
     "VALUE":"31"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"CONSUMPTION",
-    "POSITION":286,
+    "POSITION":290,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":287,
+    "POSITION":291,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":289,
+    "POSITION":293,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":288,
+    "POSITION":292,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"ENDUSERTEXT",
-    "POSITION":284,
+    "POSITION":288,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":285,
+    "POSITION":289,
     "VALUE":"'Alacak bakiyesi vern MÜŞ.leri listeleme!'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"UI",
-    "POSITION":282,
+    "POSITION":286,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_CRED",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":283,
+    "POSITION":287,
     "VALUE":"24"
    },
    {
@@ -1930,210 +1958,210 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DATE",
     "NAME":"ENDUSERTEXT",
-    "POSITION":312,
+    "POSITION":316,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DATE",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":313,
+    "POSITION":317,
     "VALUE":"'Tarih'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DATE",
     "NAME":"UI",
-    "POSITION":310,
+    "POSITION":314,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DATE",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":311,
+    "POSITION":315,
     "VALUE":"29"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DIFF",
     "NAME":"CONSUMPTION",
-    "POSITION":268,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":269,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":271,
-    "VALUE":"'Value'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":270,
-    "VALUE":"'zreco_ddl_vh_aba_boolean'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":266,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":267,
-    "VALUE":"'Müşteri, Satıcı mail ayrımı'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"UI",
-    "POSITION":264,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DIFF",
-    "NAME":"UI",
     "POSITION":272,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DIFF",
-    "NAME":"UI.HIDDEN",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":273,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":275,
+    "VALUE":"'Value'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":274,
+    "VALUE":"'zreco_ddl_vh_aba_boolean'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":270,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":271,
+    "VALUE":"'Müşteri, Satıcı mail ayrımı'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"UI",
+    "POSITION":268,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"UI",
+    "POSITION":276,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DIFF",
+    "NAME":"UI.HIDDEN",
+    "POSITION":277,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DIFF",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":265,
+    "POSITION":269,
     "VALUE":"22"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DMBTR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":298,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DMBTR",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":299,
-    "VALUE":"'UPB Bakiye Kontrolü'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DMBTR",
-    "NAME":"SEMANTICS",
-    "POSITION":300,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DMBTR",
-    "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":301,
-    "VALUE":"'waers'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DMBTR",
-    "NAME":"UI",
-    "POSITION":296,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_DMBTR",
-    "NAME":"UI",
     "POSITION":302,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DMBTR",
-    "NAME":"UI.HIDDEN",
+    "NAME":"ENDUSERTEXT.LABEL",
     "POSITION":303,
+    "VALUE":"'UPB Bakiye Kontrolü'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DMBTR",
+    "NAME":"SEMANTICS",
+    "POSITION":304,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DMBTR",
+    "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
+    "POSITION":305,
+    "VALUE":"'waers'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DMBTR",
+    "NAME":"UI",
+    "POSITION":300,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DMBTR",
+    "NAME":"UI",
+    "POSITION":306,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_DMBTR",
+    "NAME":"UI.HIDDEN",
+    "POSITION":307,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_DMBTR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":297,
+    "POSITION":301,
     "VALUE":"27"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"CONSUMPTION",
-    "POSITION":336,
+    "POSITION":340,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":337,
+    "POSITION":341,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":339,
+    "POSITION":343,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":338,
+    "POSITION":342,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"ENDUSERTEXT",
-    "POSITION":334,
+    "POSITION":338,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":335,
+    "POSITION":339,
     "VALUE":"'Değerlenmiş tutarları göster'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"UI",
-    "POSITION":332,
+    "POSITION":336,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_EXCH",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":333,
+    "POSITION":337,
     "VALUE":"32"
    },
    {
@@ -2168,154 +2196,168 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"CONSUMPTION",
-    "POSITION":278,
+    "POSITION":282,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":279,
+    "POSITION":283,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":281,
+    "POSITION":285,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":280,
+    "POSITION":284,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"ENDUSERTEXT",
-    "POSITION":276,
+    "POSITION":280,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":277,
+    "POSITION":281,
     "VALUE":"'rpr dön. kdr h. grmynlri lstleme!'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"UI",
-    "POSITION":274,
+    "POSITION":278,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_LAST",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":275,
+    "POSITION":279,
     "VALUE":"23"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"CONSUMPTION",
-    "POSITION":380,
+    "POSITION":394,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":381,
+    "POSITION":395,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":383,
+    "POSITION":397,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":382,
+    "POSITION":396,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"ENDUSERTEXT",
-    "POSITION":378,
+    "POSITION":392,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":379,
+    "POSITION":393,
     "VALUE":"'UPB tutar gönderme'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"UI",
-    "POSITION":376,
+    "POSITION":390,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOLC",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":377,
+    "POSITION":391,
     "VALUE":"38"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOVL",
     "NAME":"ENDUSERTEXT",
-    "POSITION":374,
+    "POSITION":386,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOVL",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":375,
+    "POSITION":387,
     "VALUE":"'Hiç bir tutar gönderme'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOVL",
     "NAME":"UI",
-    "POSITION":372,
+    "POSITION":384,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_NOVL",
+    "NAME":"UI",
+    "POSITION":388,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_NOVL",
+    "NAME":"UI.HIDDEN",
+    "POSITION":389,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_NOVL",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":373,
+    "POSITION":385,
     "VALUE":"37"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_PRINT",
     "NAME":"ENDUSERTEXT",
-    "POSITION":290,
+    "POSITION":294,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_PRINT",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":291,
+    "POSITION":295,
     "VALUE":"'Yazıcı'"
    },
    {
@@ -2462,78 +2504,71 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"CONSUMPTION",
-    "POSITION":352,
+    "POSITION":356,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":353,
+    "POSITION":357,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":355,
+    "POSITION":359,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":354,
+    "POSITION":358,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"ENDUSERTEXT",
-    "POSITION":350,
+    "POSITION":354,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":351,
+    "POSITION":355,
     "VALUE":"'ÖDKları Hariç Tut'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"UI",
-    "POSITION":348,
+    "POSITION":352,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SGLI",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":349,
+    "POSITION":353,
     "VALUE":"34"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SHK",
     "NAME":"ENDUSERTEXT",
-    "POSITION":306,
+    "POSITION":310,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SHK",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":307,
+    "POSITION":311,
     "VALUE":"'Son Hareket Kontrolü'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"P_SHK",
-    "NAME":"UI",
-    "POSITION":304,
-    "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
@@ -2545,71 +2580,78 @@
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SHK",
+    "NAME":"UI",
+    "POSITION":312,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"P_SHK",
     "NAME":"UI.HIDDEN",
-    "POSITION":309,
+    "POSITION":313,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_SHK",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":305,
+    "POSITION":309,
     "VALUE":"28"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"CONSUMPTION",
-    "POSITION":240,
+    "POSITION":244,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":241,
+    "POSITION":245,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":243,
+    "POSITION":247,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":242,
+    "POSITION":246,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"ENDUSERTEXT",
-    "POSITION":238,
+    "POSITION":242,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":239,
+    "POSITION":243,
     "VALUE":"'Müşteri Ve Satıcı Mahsuplaştır'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"UI",
-    "POSITION":236,
+    "POSITION":240,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_TRAN",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":237,
+    "POSITION":241,
     "VALUE":"19"
    },
    {
@@ -2658,56 +2700,56 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"CONSUMPTION",
-    "POSITION":344,
+    "POSITION":348,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":345,
+    "POSITION":349,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":347,
+    "POSITION":351,
     "VALUE":"'Value'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":346,
+    "POSITION":350,
     "VALUE":"'zreco_ddl_vh_aba_boolean'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"ENDUSERTEXT",
-    "POSITION":342,
+    "POSITION":346,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":343,
+    "POSITION":347,
     "VALUE":"'Sıfır Bakiyeleri Hariç Tut'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"UI",
-    "POSITION":340,
+    "POSITION":344,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"P_ZERO",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":341,
+    "POSITION":345,
     "VALUE":"33"
    },
    {
@@ -2755,113 +2797,169 @@
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION",
+    "POSITION":380,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.FILTER",
+    "POSITION":376,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.FILTER.MANDATORY",
+    "POSITION":377,
+    "VALUE":"false"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
+    "POSITION":379,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
+    "POSITION":378,
+    "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
+    "POSITION":381,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":383,
+    "VALUE":"'SpecialGLCode'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":382,
+    "VALUE":"'zreco_ddl_vh_UMSKZ'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":374,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":375,
+    "VALUE":"'Özel DK göstergesi'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"UI",
+    "POSITION":372,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_OG",
+    "NAME":"UI.SELECTIONFIELD$1$.POSITION",
+    "POSITION":373,
+    "VALUE":"36"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_SGLI",
+    "NAME":"CONSUMPTION",
+    "POSITION":364,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_SGLI",
     "NAME":"CONSUMPTION.FILTER",
     "POSITION":368,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
+    "LFIELDNAME":"S_SGLI",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
     "POSITION":369,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
+    "LFIELDNAME":"S_SGLI",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
     "POSITION":371,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
+    "LFIELDNAME":"S_SGLI",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
     "POSITION":370,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":366,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":367,
-    "VALUE":"'S_OG'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
-    "NAME":"UI",
-    "POSITION":364,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_OG",
-    "NAME":"UI.SELECTIONFIELD$1$.POSITION",
+    "LFIELDNAME":"S_SGLI",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":365,
-    "VALUE":"36"
+    "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"S_SGLI",
-    "NAME":"CONSUMPTION.FILTER",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
+    "POSITION":367,
+    "VALUE":"'AccountType'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_SGLI",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
+    "POSITION":366,
+    "VALUE":"'ZRECO_DDL_VH_ACCOUNT_TYPE'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_SGLI",
+    "NAME":"ENDUSERTEXT",
+    "POSITION":362,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_SGLI",
+    "NAME":"ENDUSERTEXT.LABEL",
+    "POSITION":363,
+    "VALUE":"'Mutabakat Hesap Türü'"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
+    "LFIELDNAME":"S_SGLI",
+    "NAME":"UI",
     "POSITION":360,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"S_SGLI",
-    "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":361,
-    "VALUE":"false"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_SGLI",
-    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":363,
-    "VALUE":"true"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_SGLI",
-    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":362,
-    "VALUE":"#RANGE"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_SGLI",
-    "NAME":"ENDUSERTEXT",
-    "POSITION":358,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_SGLI",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":359,
-    "VALUE":"'S_SGLI'"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_SGLI",
-    "NAME":"UI",
-    "POSITION":356,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
-    "LFIELDNAME":"S_SGLI",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":357,
+    "POSITION":361,
     "VALUE":"35"
    },
    {
@@ -3022,56 +3120,56 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":232,
+    "POSITION":236,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":233,
+    "POSITION":237,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":235,
+    "POSITION":239,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":234,
+    "POSITION":238,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"ENDUSERTEXT",
-    "POSITION":230,
+    "POSITION":234,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":231,
+    "POSITION":235,
     "VALUE":"'Satıcı VKN / TCKN'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"UI",
-    "POSITION":228,
+    "POSITION":232,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FORM",
     "LFIELDNAME":"VKN_VE",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":229,
+    "POSITION":233,
     "VALUE":"18"
    },
    {

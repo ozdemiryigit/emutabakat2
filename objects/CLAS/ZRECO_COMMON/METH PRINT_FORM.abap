@@ -1215,6 +1215,9 @@
     ls_data-cari_no          = gs_account-hesap_no.
     ls_data-iletisim         = gs_adrs-m_name.
 
+    IF ls_out-nolocal IS NOT INITIAL.
+      DELETE gt_cform_sf WHERE waers NE 'TRY'.
+    ENDIF.
 
     LOOP AT gt_cform_sf INTO DATA(ls_form).
       APPEND INITIAL LINE TO ls_data-table1 ASSIGNING FIELD-SYMBOL(<fs_table1>).

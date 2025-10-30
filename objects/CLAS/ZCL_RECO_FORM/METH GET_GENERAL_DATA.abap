@@ -1537,13 +1537,13 @@
 *      ELSE.
 
 *GÖNDERIM KONTROLÜ
-        control_send( EXPORTING iv_kunnr    = ''
-                                iv_lifnr    = ls_lfa1_tax_srt-lifnr
-                                iv_vkn_tckn = ls_lfa1_tax_srt-vkn_tckn
-                      CHANGING  c_send      = gv_send
-                                c_mnumber   = gv_mnumber ).
+      control_send( EXPORTING iv_kunnr    = ''
+                              iv_lifnr    = ls_lfa1_tax_srt-lifnr
+                              iv_vkn_tckn = ls_lfa1_tax_srt-vkn_tckn
+                    CHANGING  c_send      = gv_send
+                              c_mnumber   = gv_mnumber ).
 
-        IF gv_send IS NOT INITIAL. "DAHA ÖNCE GÖNDERILMIŞ
+      IF gv_send IS NOT INITIAL. "DAHA ÖNCE GÖNDERILMIŞ
 *          CALL METHOD go_log->bal_log_msg_add                      "YiğitcanÖzdemir
 *            EXPORTING
 *              i_type       = /itetr/reco_if_common_types=>mc_msg_w
@@ -1556,19 +1556,19 @@
 *              i_log_handle = gv_log_handle
 *            EXCEPTIONS
 *              OTHERS       = 1.
-          CONTINUE.
-        ELSE.
-          MOVE-CORRESPONDING ls_lfa1_tax_srt TO gs_lfa1_tax.
-          READ TABLE gt_taxm INTO ls_taxm WITH KEY lifnr = ls_lfa1_tax_srt-lifnr.
-          IF sy-subrc EQ 0.
-            IF p_all IS NOT INITIAL.
-              gs_lfa1_tax-merge = zreco_if_common_types=>mc_select_yes.
-            ENDIF.
-          ELSE.
-            CLEAR gs_lfa1_tax-merge.
+        CONTINUE.
+      ELSE.
+        MOVE-CORRESPONDING ls_lfa1_tax_srt TO gs_lfa1_tax.
+        READ TABLE gt_taxm INTO ls_taxm WITH KEY lifnr = ls_lfa1_tax_srt-lifnr.
+        IF sy-subrc EQ 0.
+          IF p_all IS NOT INITIAL.
+            gs_lfa1_tax-merge = zreco_if_common_types=>mc_select_yes.
           ENDIF.
-          INSERT gs_lfa1_tax INTO TABLE gt_lfa1_tax. CLEAR gs_lfa1_tax.
+        ELSE.
+          CLEAR gs_lfa1_tax-merge.
         ENDIF.
+        INSERT gs_lfa1_tax INTO TABLE gt_lfa1_tax. CLEAR gs_lfa1_tax.
+      ENDIF.
 *      ENDIF.
     ENDLOOP.
 

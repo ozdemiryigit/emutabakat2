@@ -203,6 +203,7 @@
           ls_temp-gjahr = p_gjahr.
           ls_temp-period = p_period.
           ls_temp-bukrs = gs_adrs-bukrs.
+          ls_temp-nolocal = gv_no_local.
           APPEND ls_temp TO lt_temp.
         ENDLOOP.
 
