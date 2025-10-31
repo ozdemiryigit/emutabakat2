@@ -3,6 +3,8 @@
     DATA : lv_spras TYPE sy-langu.
     DATA(lt_cform) = it_cform[].
 
+    single_sending( it_cform = lt_cform ).
+
     SELECT *
         FROM zreco_gtout
         FOR ALL ENTRIES IN @lt_cform

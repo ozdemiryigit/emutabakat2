@@ -1254,6 +1254,11 @@
       ENDIF.
 
     ENDLOOP.
+
+    ls_data-toplam = lv_toplam.
+    ls_data-doviz_toplam = lv_doviz_toplam.
+    ls_data-borc = lv_borc.
+    ls_data-doviz_borc = lv_doviz_borc.
     TRY.
         CALL TRANSFORMATION zreco_form_pdf_takip
         SOURCE form = ls_data
