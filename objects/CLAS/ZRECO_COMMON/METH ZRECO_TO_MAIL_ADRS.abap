@@ -361,6 +361,11 @@
 *              t_receivers-rec_type = 'U'.
 *              APPEND t_receivers .
 *              CLEAR  t_receivers .
+
+                ls_receivers-receiver = ls_adr6-smtp_addr.
+                ls_receivers-rec_type = 'U'.
+                APPEND ls_receivers TO t_receivers .
+                CLEAR  ls_receivers .
               ENDLOOP.
             ELSE.
 
@@ -394,6 +399,11 @@
 *              t_receivers-rec_type = 'U'.
 *              APPEND t_receivers .
 *              CLEAR  t_receivers .
+
+                ls_receivers-receiver = e_mail.
+                ls_receivers-rec_type = 'U'.
+                APPEND ls_receivers TO t_receivers .
+                CLEAR  ls_receivers .
               ENDIF.
 
             ENDIF.
@@ -411,6 +421,11 @@
 *              t_receivers-rec_type = 'U'.
 *              APPEND t_receivers .
 *              CLEAR  t_receivers .
+
+                ls_receivers-receiver = ls_adr6-smtp_addr.
+                ls_receivers-rec_type = 'U'.
+                APPEND ls_receivers TO t_receivers .
+                CLEAR  ls_receivers .
               ENDIF.
             ENDIF.
           ENDIF.

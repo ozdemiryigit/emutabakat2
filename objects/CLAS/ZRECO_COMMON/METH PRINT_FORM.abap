@@ -1197,6 +1197,8 @@
     DATA  : gv_first_date TYPE d, "Dönem ilk tarih
             gv_last_date  TYPE d. "Dönem son tarih
 
+
+
     gv_first_date = |{ VALUE #( gt_out_c[ 1 ]-gjahr OPTIONAL ) }{ VALUE #( gt_out_c[ 1 ]-period OPTIONAL ) }01|.
 
 
@@ -1215,9 +1217,17 @@
     ls_data-cari_no          = gs_account-hesap_no.
     ls_data-iletisim         = cl_abap_context_info=>get_user_formatted_name( )."gs_adrs-m_name.
 
+
+    ls_data-sirket_kodu =  |{ VALUE #( gt_out_c[ 1 ]-bukrs OPTIONAL ) }|.
+
     IF ls_out-nolocal IS NOT INITIAL.
       DELETE gt_cform_sf WHERE waers NE 'TRY'.
     ENDIF.
+
+    DATA : lv_toplam TYPE dmbtr.
+    DATA : lv_doviz_toplam TYPE dmbtr.
+    DATA : lv_borc TYPE dmbtr.
+    DATA : lv_doviz_borc TYPE dmbtr.
 
     LOOP AT gt_cform_sf INTO DATA(ls_form).
       APPEND INITIAL LINE TO ls_data-table1 ASSIGNING FIELD-SYMBOL(<fs_table1>).
@@ -1230,6 +1240,19 @@
       <fs_table1>-pb2          = ls_form-waers_c.
       <fs_table1>-cevap_try_bakiye = ls_form-dmbtr_c.
       <fs_table1>-borc_alacak2 = ls_form-debit_credit_c.
+
+      IF <fs_table1>-pb EQ 'TRY'.
+        lv_toplam = lv_toplam + <fs_table1>-try_bakiye.
+      ELSE.
+        lv_doviz_toplam = lv_doviz_toplam + <fs_table1>-doviz_bakiye.
+      ENDIF.
+
+      IF <fs_table1>-pb2 EQ 'TRY'.
+        lv_borc = lv_borc + <fs_table1>-cevap_try_bakiye.
+      ELSE.
+        lv_doviz_borc = lv_doviz_borc + <fs_table1>-cevap_doviz_bakiye.
+      ENDIF.
+
     ENDLOOP.
     TRY.
         CALL TRANSFORMATION zreco_form_pdf_takip
@@ -1270,10 +1293,13 @@
       gv_pdf = lv_pdf.
     ENDIF.
 
-    send_grid_data_c( it_out_c = gt_cform_sf
-                      i_head_c = ls_head
-                      it_receivers = gt_receivers
-                      i_param = ''
-                       ).
+    IF iv_output EQ ''.
+      send_grid_data_c( it_out_c = gt_cform_sf
+                    i_head_c = ls_head
+                    it_receivers = gt_receivers
+                    i_param = ''
+                     ).
+
+    ENDIF.
 
   ENDMETHOD.

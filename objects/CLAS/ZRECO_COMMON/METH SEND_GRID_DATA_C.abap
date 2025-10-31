@@ -208,9 +208,12 @@
     ELSE.
       <lt_files>-filename = 'Cari_Mutabakat_Formu'.
     ENDIF.
+
+    DATA(gv_filelength) = strlen( gv_pdf ).
+
     <lt_files>-filetype = '.PDF'.
-*    <lt_files>-filelength = gv_filelength.
-*    <lt_files>-filebinarydata = gv_binarydata.
+    <lt_files>-filelength = gv_filelength.
+    <lt_files>-filebinarydata = gv_pdf."gv_binarydata.
     CONDENSE <lt_files>-filelength.
 
 *    IF ls_adrs-opbel EQ 'X' OR ls_adrs-submit EQ 'X'.
