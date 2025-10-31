@@ -1293,7 +1293,7 @@
       gv_pdf = lv_pdf.
     ENDIF.
 
-    IF iv_output EQ ''.
+    IF iv_output EQ 'X'.
       send_grid_data_c( it_out_c = gt_cform_sf
                     i_head_c = ls_head
                     it_receivers = gt_receivers
