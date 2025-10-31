@@ -504,49 +504,49 @@
 *            AND   umskz IN r_umskz_m
 *            AND   waers IN s_waers.
 
-          SELECT
-              Customer                AS kunnr,
-              AccountingDocument      AS belnr,
-              FiscalYear              AS gjahr,
-              AccountingDocumentItem  AS buzei,
-              SpecialGLCode           AS umskz,
-              DebitCreditCode        AS shkzg,
-              BusinessArea           AS gsber,
-              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
-              AbsoluteAmountInTransacCrcy AS wrbtr,
-              TransactionCurrency     AS waers,
-              OriginalReferenceDocument AS xblnr,
-              AccountingDocumentType  AS blart,
-              OperationalGLAccount                 AS saknr,
-              GLAccount                 AS hkont,
-              DocumentDate           AS bldat,
-              PostingDate            AS budat,
-              DueCalculationBaseDate AS zfbdt,
-              PaymentTerms           AS zterm,
-              CashDiscount2Days                 AS zbd2t,
-              NetPaymentDays                 AS zbd3t,
-              CashDiscount1Days      AS zbd1t,
-              ClearingJournalEntry   AS rebzg,
-              DocumentItemText       AS sgtxt
-              " Saknr ve Hkont CDS'te tanımlı değil
-              " Saknr                 AS saknr,
-              " Hkont                 AS hkont,
-              " ZBD2T ve ZBD3T CDS'te tanımlı değil
-              " ZBD2T                 AS zbd2t,
-              " ZBD3T                 AS zbd3t
-          FROM I_OperationalAcctgDocItem
-          FOR ALL ENTRIES IN @gt_kna1_tax
-          WHERE PostingDate    LE @gv_last_date
-           AND ClearingDate     GT @gv_last_date  " augdt'nin CDS karşılığı
-            AND CompanyCode     IN @s_bukrs
-            AND BusinessArea    IN @s_gsber  "hkizilkaya
-            AND AccountingDocument IN @lt_belnr
-            AND AccountingDocumentType IN @lt_blart
-            AND Customer        EQ @gt_kna1_tax-kunnr
-            AND SpecialGLCode   IN @r_umskz_m
-            AND TransactionCurrency IN @s_waers
-            AND FinancialAccountType = 'D'
-          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsid.
+*          SELECT
+*              Customer                AS kunnr,
+*              AccountingDocument      AS belnr,
+*              FiscalYear              AS gjahr,
+*              AccountingDocumentItem  AS buzei,
+*              SpecialGLCode           AS umskz,
+*              DebitCreditCode        AS shkzg,
+*              BusinessArea           AS gsber,
+*              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
+*              AbsoluteAmountInTransacCrcy AS wrbtr,
+*              TransactionCurrency     AS waers,
+*              OriginalReferenceDocument AS xblnr,
+*              AccountingDocumentType  AS blart,
+*              OperationalGLAccount                 AS saknr,
+*              GLAccount                 AS hkont,
+*              DocumentDate           AS bldat,
+*              PostingDate            AS budat,
+*              DueCalculationBaseDate AS zfbdt,
+*              PaymentTerms           AS zterm,
+*              CashDiscount2Days                 AS zbd2t,
+*              NetPaymentDays                 AS zbd3t,
+*              CashDiscount1Days      AS zbd1t,
+*              ClearingJournalEntry   AS rebzg,
+*              DocumentItemText       AS sgtxt
+*              " Saknr ve Hkont CDS'te tanımlı değil
+*              " Saknr                 AS saknr,
+*              " Hkont                 AS hkont,
+*              " ZBD2T ve ZBD3T CDS'te tanımlı değil
+*              " ZBD2T                 AS zbd2t,
+*              " ZBD3T                 AS zbd3t
+*          FROM I_OperationalAcctgDocItem
+*          FOR ALL ENTRIES IN @gt_kna1_tax
+*          WHERE PostingDate    LE @gv_last_date
+*           AND ClearingDate     GT @gv_last_date  " augdt'nin CDS karşılığı
+*            AND CompanyCode     IN @s_bukrs
+*            AND BusinessArea    IN @s_gsber  "hkizilkaya
+*            AND AccountingDocument IN @lt_belnr
+*            AND AccountingDocumentType IN @lt_blart
+*            AND Customer        EQ @gt_kna1_tax-kunnr
+*            AND SpecialGLCode   IN @r_umskz_m
+*            AND TransactionCurrency IN @s_waers
+*            AND FinancialAccountType = 'D'
+*          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsid.
 
 *
       ENDCASE.
@@ -687,47 +687,47 @@
 *            AND   umskz IN r_umskz_s
 *            AND   waers IN s_waers.
 
-          SELECT
-              supplier                AS lifnr,
-              AccountingDocument      AS belnr,
-              FiscalYear              AS gjahr,
-              AccountingDocumentItem  AS buzei,
-              SpecialGLCode           AS umskz,
-              DebitCreditCode        AS shkzg,
-              BusinessArea           AS gsber,
-              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
-              AbsoluteAmountInTransacCrcy AS wrbtr,
-              TransactionCurrency     AS waers,
-              OriginalReferenceDocument AS xblnr,
-              AccountingDocumentType  AS blart,
-              OperationalGLAccount                 AS saknr,
-              GLAccount                 AS hkont,
-              DocumentDate           AS bldat,
-              PostingDate            AS budat,
-              DueCalculationBaseDate AS zfbdt,
-              PaymentTerms           AS zterm,
-              CashDiscount2Days                 AS zbd2t,
-              NetPaymentDays                 AS zbd3t,
-              CashDiscount1Days      AS zbd1t,
-              ClearingJournalEntry   AS rebzg,
-              DocumentItemText       AS sgtxt
-              " Saknr ve Hkont CDS'te tanımlı değil
-              " Saknr                 AS saknr,
-              " Hkont                 AS hkont,
-              " ZBD2T ve ZBD3T CDS'te tanımlı değil
-              " ZBD2T                 AS zbd2t,
-              " ZBD3T                 AS zbd3t
-          FROM zetr_reco_ddl_bsak
-          FOR ALL ENTRIES IN @gt_lfa1_tax
-          WHERE DocumentDate    LE @gv_last_date
-            AND CompanyCode     IN @s_bukrs
-            AND BusinessArea    IN @s_gsber
-            AND AccountingDocument IN @lt_belnr
-            AND AccountingDocumentType IN @lt_blart
-            AND Supplier        EQ @gt_lfa1_tax-lifnr
-            AND SpecialGLCode   IN @r_umskz_m
-            AND TransactionCurrency IN @s_waers
-          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
+*          SELECT
+*              supplier                AS lifnr,
+*              AccountingDocument      AS belnr,
+*              FiscalYear              AS gjahr,
+*              AccountingDocumentItem  AS buzei,
+*              SpecialGLCode           AS umskz,
+*              DebitCreditCode        AS shkzg,
+*              BusinessArea           AS gsber,
+*              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
+*              AbsoluteAmountInTransacCrcy AS wrbtr,
+*              TransactionCurrency     AS waers,
+*              OriginalReferenceDocument AS xblnr,
+*              AccountingDocumentType  AS blart,
+*              OperationalGLAccount                 AS saknr,
+*              GLAccount                 AS hkont,
+*              DocumentDate           AS bldat,
+*              PostingDate            AS budat,
+*              DueCalculationBaseDate AS zfbdt,
+*              PaymentTerms           AS zterm,
+*              CashDiscount2Days                 AS zbd2t,
+*              NetPaymentDays                 AS zbd3t,
+*              CashDiscount1Days      AS zbd1t,
+*              ClearingJournalEntry   AS rebzg,
+*              DocumentItemText       AS sgtxt
+*              " Saknr ve Hkont CDS'te tanımlı değil
+*              " Saknr                 AS saknr,
+*              " Hkont                 AS hkont,
+*              " ZBD2T ve ZBD3T CDS'te tanımlı değil
+*              " ZBD2T                 AS zbd2t,
+*              " ZBD3T                 AS zbd3t
+*          FROM zetr_reco_ddl_bsak
+*          FOR ALL ENTRIES IN @gt_lfa1_tax
+*          WHERE DocumentDate    LE @gv_last_date
+*            AND CompanyCode     IN @s_bukrs
+*            AND BusinessArea    IN @s_gsber
+*            AND AccountingDocument IN @lt_belnr
+*            AND AccountingDocumentType IN @lt_blart
+*            AND Supplier        EQ @gt_lfa1_tax-lifnr
+*            AND SpecialGLCode   IN @r_umskz_m
+*            AND TransactionCurrency IN @s_waers
+*          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
         WHEN OTHERS.
 ** SATıCı AÇıK KALEMLER
@@ -803,47 +803,47 @@
 *            AND   umskz IN r_umskz_s
 *            AND   waers IN s_waers.
 
-          SELECT
-              supplier                AS lifnr,
-              AccountingDocument      AS belnr,
-              FiscalYear              AS gjahr,
-              AccountingDocumentItem  AS buzei,
-              SpecialGLCode           AS umskz,
-              DebitCreditCode        AS shkzg,
-              BusinessArea           AS gsber,
-              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
-              AbsoluteAmountInTransacCrcy AS wrbtr,
-              TransactionCurrency     AS waers,
-              OriginalReferenceDocument AS xblnr,
-              AccountingDocumentType  AS blart,
-              OperationalGLAccount                 AS saknr,
-              GLAccount                 AS hkont,
-              DocumentDate           AS bldat,
-              PostingDate            AS budat,
-              DueCalculationBaseDate AS zfbdt,
-              PaymentTerms           AS zterm,
-              CashDiscount2Days                 AS zbd2t,
-              NetPaymentDays                 AS zbd3t,
-              CashDiscount1Days      AS zbd1t,
-              ClearingJournalEntry   AS rebzg,
-              DocumentItemText       AS sgtxt
-              " Saknr ve Hkont CDS'te tanımlı değil
-              " Saknr                 AS saknr,
-              " Hkont                 AS hkont,
-              " ZBD2T ve ZBD3T CDS'te tanımlı değil
-              " ZBD2T                 AS zbd2t,
-              " ZBD3T                 AS zbd3t
-          FROM zetr_reco_ddl_bsak
-          FOR ALL ENTRIES IN @gt_lfa1_tax
-          WHERE PostingDate    LE @gv_last_date
-            AND CompanyCode     IN @s_bukrs
-            AND BusinessArea    IN @s_gsber
-            AND AccountingDocument IN @lt_belnr
-            AND AccountingDocumentType IN @lt_blart
-            AND Supplier        EQ @gt_lfa1_tax-lifnr
-            AND SpecialGLCode   IN @r_umskz_m
-            AND TransactionCurrency IN @s_waers
-          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
+*          SELECT
+*              supplier                AS lifnr,
+*              AccountingDocument      AS belnr,
+*              FiscalYear              AS gjahr,
+*              AccountingDocumentItem  AS buzei,
+*              SpecialGLCode           AS umskz,
+*              DebitCreditCode        AS shkzg,
+*              BusinessArea           AS gsber,
+*              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
+*              AbsoluteAmountInTransacCrcy AS wrbtr,
+*              TransactionCurrency     AS waers,
+*              OriginalReferenceDocument AS xblnr,
+*              AccountingDocumentType  AS blart,
+*              OperationalGLAccount                 AS saknr,
+*              GLAccount                 AS hkont,
+*              DocumentDate           AS bldat,
+*              PostingDate            AS budat,
+*              DueCalculationBaseDate AS zfbdt,
+*              PaymentTerms           AS zterm,
+*              CashDiscount2Days                 AS zbd2t,
+*              NetPaymentDays                 AS zbd3t,
+*              CashDiscount1Days      AS zbd1t,
+*              ClearingJournalEntry   AS rebzg,
+*              DocumentItemText       AS sgtxt
+*              " Saknr ve Hkont CDS'te tanımlı değil
+*              " Saknr                 AS saknr,
+*              " Hkont                 AS hkont,
+*              " ZBD2T ve ZBD3T CDS'te tanımlı değil
+*              " ZBD2T                 AS zbd2t,
+*              " ZBD3T                 AS zbd3t
+*          FROM zetr_reco_ddl_bsak
+*          FOR ALL ENTRIES IN @gt_lfa1_tax
+*          WHERE PostingDate    LE @gv_last_date
+*            AND CompanyCode     IN @s_bukrs
+*            AND BusinessArea    IN @s_gsber
+*            AND AccountingDocument IN @lt_belnr
+*            AND AccountingDocumentType IN @lt_blart
+*            AND Supplier        EQ @gt_lfa1_tax-lifnr
+*            AND SpecialGLCode   IN @r_umskz_m
+*            AND TransactionCurrency IN @s_waers
+*          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
       ENDCASE.
     ENDIF.
