@@ -1604,4 +1604,29 @@
 
     ENDLOOP.
 
+    """YiğitcanÖzdemir "SmKodu&Satınalma grubu geliştirmesi
+
+    IF p_salma IS NOT INITIAL.
+      SELECT businesspartner FROM i_businesspartner
+      WHERE BusinessPartnerGrouping = @p_salma
+      INTO TABLE @DATA(lt_businesspartner).
+
+      LOOP AT gt_lfa1_tax ASSIGNING FIELD-SYMBOL(<ls_tax>).
+        READ TABLE lt_businesspartner WITH KEY businesspartner = <ls_tax>-lifnr TRANSPORTING NO FIELDS.
+        IF sy-subrc <> 0.
+          DELETE gt_lfa1_tax INDEX sy-tabix.
+        ENDIF.
+      ENDLOOP.
+
+      LOOP AT gt_kna1_tax ASSIGNING FIELD-SYMBOL(<ls_kna1>).
+        READ TABLE lt_businesspartner WITH KEY businesspartner = <ls_kna1>-kunnr TRANSPORTING NO FIELDS.
+        IF sy-subrc <> 0.
+          DELETE gt_kna1_tax INDEX sy-tabix.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
+
+    """YiğitcanÖzdemir "SmKodu&Satınalma grubu geliştirmesi
+
+
   ENDMETHOD.

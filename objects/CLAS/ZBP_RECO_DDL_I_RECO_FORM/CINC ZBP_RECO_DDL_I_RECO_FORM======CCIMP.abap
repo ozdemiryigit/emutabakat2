@@ -45,14 +45,6 @@ CLASS lhc_zreco_ddl_i_reco_form IMPLEMENTATION.
           APPEND ls_cform TO lt_cform.
         ENDLOOP.
 
-*    LOOP AT lt_cform INTO ls_cform.
-*
-*      MOVE-CORRESPONDING ls_cform TO gs_cform.
-*      COLLECT gs_cform INTO gt_cform.
-*
-*    ENDLOOP.
-
-
 
         DATA lo_zreco_common  TYPE REF TO zreco_common.
         CREATE OBJECT lo_zreco_common.
@@ -147,18 +139,10 @@ CLASS lhc_zreco_ddl_i_reco_form IMPLEMENTATION.
           APPEND ls_cform TO lt_cform.
         ENDLOOP.
 
-*    LOOP AT lt_cform INTO ls_cform.
-*
-*      MOVE-CORRESPONDING ls_cform TO gs_cform.
-*      COLLECT gs_cform INTO gt_cform.
-*
-*    ENDLOOP.
 
         DATA lo_zreco_common  TYPE REF TO zreco_common.
         CREATE OBJECT lo_zreco_common.
-        lo_zreco_common->single_sending(
-        it_cform = lt_cform
-         ).
+
 
 
         lo_zreco_common->multi_sending(
@@ -171,8 +155,18 @@ CLASS lhc_zreco_ddl_i_reco_form IMPLEMENTATION.
 
     ENDTRY.
 
+        READ ENTITIES OF zreco_ddl_i_reco_form IN LOCAL MODE
+      ENTITY zreco_ddl_i_reco_form
+      ALL FIELDS WITH
+      CORRESPONDING #( keys )
+      RESULT data(result_).
+    result = VALUE #( FOR res IN result_
+                 ( %tky   = res-%tky
+                   %param = res ) ).
 
-
+    APPEND VALUE #( %msg = new_message( id       = 'ZETR_COMMON'
+                                        number   = '003'
+                                        severity = if_abap_behv_message=>severity-success ) ) TO reported-zreco_ddl_i_reco_form.
   ENDMETHOD.
 
 ENDCLASS.

@@ -18,6 +18,13 @@
       COLLECT gs_cform INTO gt_cform.
     ENDLOOP.
 
+    SELECT  * FROM zreco_adrs
+    FOR ALL ENTRIES IN @gt_out_c
+  WHERE bukrs EQ @gt_out_c-bukrs
+    AND gsber EQ @gt_out_c-gsber
+   INTO TABLE @gt_adrs.
+
+    gs_adrs = VALUE #(  gt_adrs[ 1 ] OPTIONAL ).
 
 
     LOOP AT gt_out_c ASSIGNING FIELD-SYMBOL(<fs_out_c>).
@@ -41,9 +48,11 @@
            e_mail       = <fs_out_c>-email
            t_receivers  = gt_receivers
       ).
-      CLEAR gs_mail_list.
+      CLEAR :gs_mail_list,gs_receivers.
 
       MOVE-CORRESPONDING <fs_out_c> TO gs_mail_list.
+
+      gs_receivers = VALUE #(  gt_receivers[ 1 ] OPTIONAL ). "YiğitcanÖzdemir
       MOVE-CORRESPONDING gs_receivers TO gs_mail_list.
 
       gs_mail_list-bukrs = gs_adrs-bukrs.

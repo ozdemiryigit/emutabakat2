@@ -20,8 +20,6 @@
     ENDLOOP.
 
 
-
-
     SELECT *
       FROM zreco_htxt
       INTO TABLE @DATA(gt_htxt).

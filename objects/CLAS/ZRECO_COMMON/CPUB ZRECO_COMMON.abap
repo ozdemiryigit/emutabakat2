@@ -12,6 +12,9 @@ CLASS zreco_common DEFINITION
     DATA: gt_email TYPE TABLE OF zreco_mail,
           gs_email TYPE zreco_mail.
 
+*    DATA: gs_adrs TYPE   zreco_adrs.
+
+
     DATA: gt_receivers TYPE TABLE OF zreco_somlreci1, "zreco_somlreci1,
           gs_receivers TYPE zreco_somlreci1.
 
@@ -39,6 +42,7 @@ CLASS zreco_common DEFINITION
 
 
     DATA : gs_adrs TYPE zreco_adrs.
+    DATA : gt_adrs TYPE TABLE OF zreco_adrs.
 
     DATA:     gv_no_local  TYPE abap_boolean.
 

@@ -51,7 +51,9 @@ CLASS zcl_reco_form DEFINITION
            s_sgli   TYPE RANGE OF zreco_account_type,
            s_og     TYPE RANGE OF zreco_umskz,
            p_novl   TYPE abap_boolean,
-           p_nolc   TYPE abap_boolean.
+           p_nolc   TYPE abap_boolean,
+           p_salma  TYPE c LENGTH 4,
+           p_smkod  TYPE c LENGTH 20.
 
     DATA: gv_b_belnr   TYPE abap_boolean, "B formunu belge bazında özetle
           gv_b_xblnr   TYPE abap_boolean, "B formunda aynı referansları birleştir
