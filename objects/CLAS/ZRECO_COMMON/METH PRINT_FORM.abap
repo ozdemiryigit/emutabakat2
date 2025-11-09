@@ -91,28 +91,28 @@
 
 
 *    IF gv_otf IS NOT INITIAL.
-    IF iV_output IS NOT INITIAL.
-*      REFRESH gt_receivers.
+*    IF iV_output IS NOT INITIAL.
+**      REFRESH gt_receivers.
+**
+*      IF gt_email[] IS NOT INITIAL.
+*        LOOP AT gt_email INTO gs_email.
 *
-      IF gt_email[] IS NOT INITIAL.
-        LOOP AT gt_email INTO gs_email.
-
-          gs_receivers-receiver = gs_email-email.
-          gs_receivers-rec_type = 'U'.
-          APPEND gs_receivers TO gt_receivers .
-          CLEAR: gs_receivers .
-        ENDLOOP.
-      ELSE.
-*        LOOP AT gt_mail_list INTO gs_mail_list WHERE kunnr EQ gs_account-kunnr
-*                                                 AND lifnr EQ gs_account-lifnr.
-*          gs_receivers-receiver = gs_mail_list-receiver.
+*          gs_receivers-receiver = gs_email-email.
 *          gs_receivers-rec_type = 'U'.
 *          APPEND gs_receivers TO gt_receivers .
 *          CLEAR: gs_receivers .
-*    ENDLOOP.
-
-      ENDIF.
-    ENDIF.
+*        ENDLOOP.
+*      ELSE.
+**        LOOP AT gt_mail_list INTO gs_mail_list WHERE kunnr EQ gs_account-kunnr
+**                                                 AND lifnr EQ gs_account-lifnr.
+**          gs_receivers-receiver = gs_mail_list-receiver.
+**          gs_receivers-rec_type = 'U'.
+**          APPEND gs_receivers TO gt_receivers .
+**          CLEAR: gs_receivers .
+**    ENDLOOP.
+*
+*      ENDIF.
+*    ENDIF.
 *
 ** Geçerli e-posta kontrolü
 *
@@ -1305,6 +1305,44 @@
                     i_param = ''
                      ).
 
+
+        INSERT zreco_hdr FROM @ls_head.
+
+
+      MOVE-CORRESPONDING ls_head TO ls_fpdf.
+      ls_fpdf-pdf_file = lv_pdfbase64.
+      INSERT zreco_fpdf FROM @ls_fpdf.
+
+      INSERT zreco_vers FROM @ls_vers.
+
+*      IF p_waers IS NOT INITIAL.
+*        INSERT /itetr/reco_rboc FROM ls_curr.
+*      ENDIF.
+*
+*      IF r_mform IS INITIAL.
+*        INSERT /itetr/reco_recb FROM ls_bform.
+*      ENDIF.
+*
+*      IF r_bform IS INITIAL.
+*        MODIFY /itetr/reco_rcai FROM TABLE lt_cform.
+*        COMMIT WORK AND WAIT.
+**          INSERT /itetr/reco_rcai FROM TABLE lt_cform.
+*      ENDIF.
+
+*      IF iv_output EQ 'E' OR iv_output EQ 'K'.
+*        INSERT /itetr/reco_rand FROM ls_random.
+*        INSERT /itetr/reco_refi FROM TABLE lt_mail.
+*      ENDIF.
+
+*      IF iv_output EQ 'F'.
+*        INSERT /itetr/reco_refi FROM TABLE lt_mail.
+*      ENDIF.
+
+*      IF p_verzn IS NOT INITIAL.
+*        INSERT /itetr/reco_cdun FROM TABLE lt_cdun.
+*      ENDIF.
+
+*
     ENDIF.
 
   ENDMETHOD.
