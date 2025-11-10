@@ -207,11 +207,15 @@
 *                i_json = lv_response
 *              CHANGING
 *                c_data = ls_response ).
-*      zcl_etr_json_xml_tools=>get_class_instance( )->xml_to_table(
-*        EXPORTING
-*          xml       = cl_abap_conv_codepage=>create_out( )->convert( source = lv_document_xml )
-*        IMPORTING
-*          table     = DATA(lt_xml_table_new) ).
+        /ui2/cl_json=>deserialize(
+          EXPORTING
+            json = lv_response
+          CHANGING
+            data = ls_response
+        ).
+
+
+
     ls_answer_c = ls_response.
 
 *              IF ls_response-item_status_id = '247'.

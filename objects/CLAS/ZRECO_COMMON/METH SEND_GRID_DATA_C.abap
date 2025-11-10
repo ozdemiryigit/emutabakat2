@@ -292,6 +292,24 @@
 *          APPEND VALUE #( message = lv_message messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
 *          APPEND VALUE #( message = lv_response messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
         ENDIF.
+
+
+        /ui2/cl_json=>deserialize(
+          EXPORTING
+            json = lv_response
+          CHANGING
+            data = ls_response
+        ).
+
+         IF ls_response-success EQ 'X'.
+          ls_response_data-companycode          = ls_response-data-companycode(4).
+          ls_response_data-reconciliationnumber = ls_response-data-reconciliationnumber.
+          ls_response_data-username             = ls_response-data-username.
+          ls_response_data-password             = ls_response-data-password.
+          ls_response_data-success              = ls_response-success.
+          ls_response_data-message              = ls_response-message.
+          INSERT zreco_t_re FROM @ls_response_data.
+          endif.
       CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
     ENDTRY.
 

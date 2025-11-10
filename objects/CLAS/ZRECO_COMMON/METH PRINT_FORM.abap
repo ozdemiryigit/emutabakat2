@@ -1306,7 +1306,7 @@
                      ).
 
 
-        INSERT zreco_hdr FROM @ls_head.
+      INSERT zreco_hdr FROM @ls_head.
 
 
       MOVE-CORRESPONDING ls_head TO ls_fpdf.

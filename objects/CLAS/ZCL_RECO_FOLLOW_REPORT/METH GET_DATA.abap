@@ -274,7 +274,8 @@
       ELSEIF ls_h001-mtype = 'C'.
         CLEAR ls_answer_c.
 
-        me->get_status_c(  ).
+        me->get_status_c( EXPORTING ls_h001 = ls_h001
+                          IMPORTING ls_answer_c = ls_answer_c ).
 
         CHECK ls_answer_c-data-status IS NOT INITIAL.
 
