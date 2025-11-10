@@ -274,7 +274,7 @@
       ELSEIF ls_h001-mtype = 'C'.
         CLEAR ls_answer_c.
 
-        me->get_status(  ).
+        me->get_status_c(  ).
 
         CHECK ls_answer_c-data-status IS NOT INITIAL.
 
@@ -538,8 +538,8 @@
 
     gt_remd2[] = gt_remd[].
 
-    DELETE ADJACENT DUPLICATES FROM gt_remd "#EC CI_SORTED
-    COMPARING bukrs mnumber datum uzeit.    "#EC CI_SORTED
+    DELETE ADJACENT DUPLICATES FROM gt_remd              "#EC CI_SORTED
+    COMPARING bukrs mnumber datum uzeit.                 "#EC CI_SORTED
 
 * Mutabakat Gönderilen Mail
     SELECT *

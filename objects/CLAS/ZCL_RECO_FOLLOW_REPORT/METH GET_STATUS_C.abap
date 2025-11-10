@@ -3,7 +3,7 @@
            lv_username  TYPE string,
            lv_password  TYPE string,
            lv_sjson     TYPE string,
-           lv_json      TYPE xstring,
+*           lv_json      TYPE xstring,
            lv_xresponse TYPE xstring,
            lv_response  TYPE string,
            lv_http_code TYPE i,
@@ -12,7 +12,7 @@
            ls_input_rtn TYPE zreco_mtb_return,
            lr_oref      TYPE REF TO cx_root,
            ls_response  TYPE zreco_mtb_return_itm_c.
-
+           constants    lc_success_code TYPE i VALUE 200.
     DATA lv_recousername TYPE string.
 
     DATA ls_srvc TYPE zreco_srvc.
@@ -55,7 +55,7 @@
 *         internal_error    = 3
 *         OTHERS            = 4 ).
 
-    CHECK sy-subrc = 0.
+*    CHECK sy-subrc = 0.
 
 
     IF ls_h001-land1 IS NOT INITIAL.
@@ -69,12 +69,12 @@
     TRY .
 *        lv_sjson = zreco_cl_json=>data_to_json( i_data = ls_input_rtn ).               "D_MBAYEL
 
-        zreco_cl_json->zreco_data_json(
-        IMPORTING
-        ev_data = ls_input_rtn
-        ).
-
-        lv_sjson = ls_input_rtn-reconciliationuniqnumber.
+*        zreco_cl_json->zreco_data_json(
+*        IMPORTING
+*        ev_data = ls_input_rtn
+*        ).
+*
+*        lv_sjson = ls_input_rtn-reconciliationuniqnumber.
 
 *        CALL FUNCTION 'ECATT_CONV_STRING_TO_XSTRING'                                    "D_MBAYEL
 *          EXPORTING
@@ -162,4 +162,68 @@
 *
 *    ENDIF.
 
-  ENDMETHOD.
+    DATA(lv_json) =  /ui2/cl_json=>serialize( EXPORTING data = ls_input_rtn pretty_name = 'X' ).
+
+    TRY.
+        DATA(lo_http_destination) = cl_http_destination_provider=>create_by_url( CONV #( ls_srvc-srvurl ) ).
+        DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
+        DATA(lo_web_http_request) = lo_web_http_client->get_http_request( ).
+        lo_web_http_request->set_authorization_basic(
+          EXPORTING
+            i_username = CONV #( ls_srvc-srvusr )
+            i_password = CONV #( ls_srvc-srvpsw )
+        ).
+
+        lo_web_http_request->set_header_fields( VALUE #( (  name = 'Accept' value = 'application/json' )
+                                                         (  name = 'Content-Type' value = 'application/json' )
+*                                                         (  name = 'CompanyName' value = |{ lv_comp }| )
+                                                          ) ).
+        lo_web_http_request->set_text(
+          EXPORTING
+            i_text   = lv_json
+        ).
+
+        DATA(lo_web_http_response) = lo_web_http_client->execute( if_web_http_client=>post ).
+        lv_response = lo_web_http_response->get_text( ).
+*        ev_original_data = lv_response.
+        lo_web_http_response->get_status(
+          RECEIVING
+            r_value = DATA(ls_status)
+        ).
+        IF ls_status-code = lc_success_code. "success
+          .
+        ELSE.
+*          MESSAGE ID ycl_eho_utils=>mc_message_class
+*                  TYPE ycl_eho_utils=>mc_error
+*                  NUMBER 017
+*                  WITH ls_status-code
+*                  INTO DATA(lv_message).
+*          APPEND VALUE #( message = lv_message messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
+*          APPEND VALUE #( message = lv_response messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
+        ENDIF.
+
+*           zreco_common=>json_to_data(
+*              EXPORTING
+*                i_json = lv_response
+*              CHANGING
+*                c_data = ls_response ).
+*      zcl_etr_json_xml_tools=>get_class_instance( )->xml_to_table(
+*        EXPORTING
+*          xml       = cl_abap_conv_codepage=>create_out( )->convert( source = lv_document_xml )
+*        IMPORTING
+*          table     = DATA(lt_xml_table_new) ).
+            ls_answer_c = ls_response.
+
+*              IF ls_response-item_status_id = '247'.
+*                ls_answer_c = 'Y'.
+*              ELSEIF ls_response-item_status_id = '248'.
+*                ls_answer_c = 'N'.
+*              ELSEIF ls_response-item_status_id = '249'.
+*                ls_answer_c = 'X'.
+*              ENDIF.
+
+
+      CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
+    ENDTRY.
+
+      ENDMETHOD.
