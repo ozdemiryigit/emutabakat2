@@ -1325,7 +1325,7 @@
 *
 *      IF r_bform IS INITIAL.
         MODIFY Zreco_rcai FROM TABLE @lt_cform.
-        COMMIT WORK AND WAIT.
+*        COMMIT WORK AND WAIT.
 *          INSERT /itetr/reco_rcai FROM TABLE lt_cform.
 *      ENDIF.
 
