@@ -1316,7 +1316,7 @@
       INSERT zreco_vers FROM @ls_vers.
 
 *      IF p_waers IS NOT INITIAL.
-*        INSERT /itetr/reco_rboc FROM ls_curr.
+*        INSERT Zreco_rboc FROM ls_curr.
 *      ENDIF.
 *
 *      IF r_mform IS INITIAL.
@@ -1324,9 +1324,9 @@
 *      ENDIF.
 *
 *      IF r_bform IS INITIAL.
-*        MODIFY /itetr/reco_rcai FROM TABLE lt_cform.
-*        COMMIT WORK AND WAIT.
-**          INSERT /itetr/reco_rcai FROM TABLE lt_cform.
+        MODIFY Zreco_rcai FROM TABLE @lt_cform.
+        COMMIT WORK AND WAIT.
+*          INSERT /itetr/reco_rcai FROM TABLE lt_cform.
 *      ENDIF.
 
 *      IF iv_output EQ 'E' OR iv_output EQ 'K'.
