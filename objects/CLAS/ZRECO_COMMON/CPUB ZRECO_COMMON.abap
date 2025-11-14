@@ -80,7 +80,8 @@ CLASS zreco_common DEFINITION
            gv_spl_dmbtr TYPE zreco_wrbtr, "Toplam ÖDK tutarı
            gt_exch      TYPE TABLE OF zreco_exch,
            gv_kur       TYPE abap_boolean,
-           gs_adrc      TYPE Zreco_adrc.
+*           gs_adrc      TYPE Zreco_adrc.
+           gs_adrc      TYPE zreco_ddl_i_address2.
 
     DATA: lv_c1 TYPE c LENGTH 1.
 

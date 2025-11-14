@@ -164,35 +164,35 @@
 
     DATA(lv_json) =  /ui2/cl_json=>serialize( EXPORTING data = ls_input_rtn pretty_name = 'X' ).
     DATA(lv_comp) = 'hesapci.com'.
-    try.
-    DATA(lo_http_destination) = cl_http_destination_provider=>create_by_url( CONV #( ls_srvc-srvurl ) ).
-    DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
-    DATA(lo_web_http_request) = lo_web_http_client->get_http_request( ).
-    lo_web_http_request->set_authorization_basic(
-      EXPORTING
-        i_username = CONV #( ls_srvc-srvusr )
-        i_password = CONV #( ls_srvc-srvpsw )
-    ).
+    TRY.
+        DATA(lo_http_destination) = cl_http_destination_provider=>create_by_url( CONV #( ls_srvc-srvurl ) ).
+        DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
+        DATA(lo_web_http_request) = lo_web_http_client->get_http_request( ).
+        lo_web_http_request->set_authorization_basic(
+          EXPORTING
+            i_username = CONV #( ls_srvc-srvusr )
+            i_password = CONV #( ls_srvc-srvpsw )
+        ).
 
-    lo_web_http_request->set_header_fields( VALUE #( (  name = 'Accept' value = 'application/json' )
-                                                     (  name = 'Content-Type' value = 'application/json' )
-                                                     (  name = 'CompanyName' value = |{ lv_comp }| )
-                                                      ) ).
-    lo_web_http_request->set_text(
-      EXPORTING
-        i_text   = lv_json
-    ).
+        lo_web_http_request->set_header_fields( VALUE #( (  name = 'Accept' value = 'application/json' )
+                                                         (  name = 'Content-Type' value = 'application/json' )
+                                                         (  name = 'CompanyName' value = |{ lv_comp }| )
+                                                          ) ).
+        lo_web_http_request->set_text(
+          EXPORTING
+            i_text   = lv_json
+        ).
 
-    DATA(lo_web_http_response) = lo_web_http_client->execute( if_web_http_client=>post ).
-    lv_response = lo_web_http_response->get_text( ).
+        DATA(lo_web_http_response) = lo_web_http_client->execute( if_web_http_client=>post ).
+        lv_response = lo_web_http_response->get_text( ).
 *        ev_original_data = lv_response.
-    lo_web_http_response->get_status(
-      RECEIVING
-        r_value = DATA(ls_status)
-    ).
-    IF ls_status-code = lc_success_code. "success
-      .
-    ELSE.
+        lo_web_http_response->get_status(
+          RECEIVING
+            r_value = DATA(ls_status)
+        ).
+        IF ls_status-code = lc_success_code. "success
+          .
+        ELSE.
 *          MESSAGE ID ycl_eho_utils=>mc_message_class
 *                  TYPE ycl_eho_utils=>mc_error
 *                  NUMBER 017
@@ -200,7 +200,7 @@
 *                  INTO DATA(lv_message).
 *          APPEND VALUE #( message = lv_message messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
 *          APPEND VALUE #( message = lv_response messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
-    ENDIF.
+        ENDIF.
 
 *           zreco_common=>json_to_data(
 *              EXPORTING
@@ -216,7 +216,7 @@
 
 
 
-    ls_answer_c = ls_response.
+        ls_answer_c = ls_response.
 
 *              IF ls_response-item_status_id = '247'.
 *                ls_answer_c = 'Y'.
@@ -227,7 +227,7 @@
 *              ENDIF.
 
 
-  CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
-ENDTRY.
+      CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
+    ENDTRY.
 
-ENDMETHOD.
+  ENDMETHOD.
