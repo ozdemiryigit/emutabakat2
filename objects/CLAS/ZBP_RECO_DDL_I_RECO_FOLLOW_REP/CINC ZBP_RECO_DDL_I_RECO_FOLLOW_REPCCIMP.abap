@@ -19,8 +19,8 @@ CLASS lhc_follow_report DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS lock FOR LOCK
       IMPORTING keys FOR LOCK follow_report.
 
-    METHODS analiz FOR MODIFY
-      IMPORTING keys FOR ACTION follow_report~analiz RESULT result.
+*    METHODS analiz FOR MODIFY
+*      IMPORTING keys FOR ACTION follow_report~analiz RESULT result.
 
     METHODS reminder_mail FOR MODIFY
       IMPORTING keys FOR ACTION follow_report~reminder_mail RESULT result.
@@ -54,7 +54,7 @@ CLASS lhc_follow_report IMPLEMENTATION.
   METHOD lock.
   ENDMETHOD.
 
-  METHOD analiz.
+*  METHOD analiz.
 
 *    DATA: gt_pie       TYPE TABLE OF zreco_pie,
 *          gc_cont_grap TYPE REF TO cl_gui_custom_container,
@@ -247,7 +247,7 @@ CLASS lhc_follow_report IMPLEMENTATION.
 *      attr_id = cl_cu_drawing_area=>co_display_context
 *      value   = bundle_display.
 
-  ENDMETHOD.
+*  ENDMETHOD.
 
   METHOD reminder_mail.
 

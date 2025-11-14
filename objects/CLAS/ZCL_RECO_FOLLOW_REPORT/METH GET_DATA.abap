@@ -681,23 +681,23 @@
 
       CHECK sy-subrc EQ 0.
 
-      zreco_object->zreco_auth(
-      EXPORTING
-        i_bukrs     = gs_h001-bukrs
-        i_hesap_tur = gs_h001-hesap_tur
-        i_hesap_no  = gs_h001-hesap_no
-        i_mtype     = gs_h001-mtype
-        i_uname     = gs_v001-ernam
-        i_ftype     = gs_h001-ftype
-        i_ktokl     = gs_h001-ktokl
-      IMPORTING
-        e_auth      = lv_auth
-       ).
+*      zreco_object->zreco_auth(
+*      EXPORTING
+*        i_bukrs     = gs_h001-bukrs
+*        i_hesap_tur = gs_h001-hesap_tur
+*        i_hesap_no  = gs_h001-hesap_no
+*        i_mtype     = gs_h001-mtype
+*        i_uname     = gs_v001-ernam
+*        i_ftype     = gs_h001-ftype
+*        i_ktokl     = gs_h001-ktokl
+*      IMPORTING
+*        e_auth      = lv_auth
+*       ).
 
-      IF lv_auth IS INITIAL.
-        DELETE gt_h001.
-        CONTINUE.
-      ENDIF.
+*      IF lv_auth IS INITIAL.
+*        DELETE gt_h001.
+*        CONTINUE.
+*      ENDIF.
 
       lv_row = lv_row + 1.
 

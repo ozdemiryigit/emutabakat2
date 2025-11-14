@@ -1,5 +1,5 @@
 unmanaged implementation in class zbp_reco_ddl_i_reco_follow_rep unique;
-strict ( 1 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
+//strict ( 1 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
 
 define behavior for ZRECO_DDL_I_RECO_FOLLOW_REPORT alias follow_report
 //late numbering
@@ -17,6 +17,6 @@ authorization master ( instance )
 
 
   static action show_form parameter zreco_ddl_i_follow_report_form result [1] $self;
-  static action analiz result [1] $self;
+//  static action analiz result [1] $self;
   static action reminder_mail result [1] $self;
 }
