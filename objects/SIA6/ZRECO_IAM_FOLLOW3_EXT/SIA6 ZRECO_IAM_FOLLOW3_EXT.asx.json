@@ -4,7 +4,7 @@
   "data":
   [
    {
-    "APP_ID":"ZRECO_B_FOLLOW_EXT",
+    "APP_ID":"ZRECO_IAM_FOLLOW3_EXT",
     "APP_TYPE":"EXT",
     "ABAP_LANGUAGE_VERSION":"5",
     "REL_FOR_CUST_CAT_EXT":"",
@@ -18,11 +18,11 @@
     "BSP_APPL_NAME":"",
     "EXT_OBJECT_ID":"",
     "TCODE":"",
-    "UI_APP_ID":"ZRECO_FOLLOW_UI5R",
+    "UI_APP_ID":"ZRECO_FOLLOW3_UI5R",
     "CREATE_USER":"SAP_CUSTOMER",
-    "CREATE_TIMESTAMP":"+020251116223500",
+    "CREATE_TIMESTAMP":"+020251116225908",
     "CHANGE_USER":"SAP_CUSTOMER",
-    "CHANGE_TIMESTAMP":"+020251116223547"
+    "CHANGE_TIMESTAMP":"+020251116225924"
    }
   ]
  },
@@ -31,10 +31,10 @@
   "data":
   [
    {
-    "APP_ID":"ZRECO_B_FOLLOW_EXT",
+    "APP_ID":"ZRECO_IAM_FOLLOW3_EXT",
     "SRVC_NAME":"ED56F145BBE3837507A803D7D1C2F2",
     "SRVC_TYPE":"HT",
-    "UIAD_SRC":"ZRECO_FOLLOW_UI5R",
+    "UIAD_SRC":"ZRECO_FOLLOW3_UI5R",
     "ACTIVE":""
    }
   ]
@@ -45,7 +45,7 @@
   [
    {
     "LANGU":"T",
-    "APP_ID":"ZRECO_B_FOLLOW_EXT",
+    "APP_ID":"ZRECO_IAM_FOLLOW3_EXT",
     "TEXT":"Mutabakat Takip Raporu"
    }
   ]
@@ -57,7 +57,7 @@
    {
     "PGMID":"R3TR",
     "OBJECT":"SIA6",
-    "OBJ_NAME":"ZRECO_B_FOLLOW_EXT",
+    "OBJ_NAME":"ZRECO_IAM_FOLLOW3_EXT",
     "KORRNUM":"",
     "SRCSYSTEM":"...",
     "AUTHOR":"SAP_CUSTOMER",
