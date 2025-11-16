@@ -9,10 +9,10 @@
     "AS4USER":"SAP_CUSTOMER",
     "AS4DATE":"0000-00-00",
     "AS4TIME":"00:00:00",
-    "SOURCE":"@EndUserText.label: 'Mutabakat Takip Raporu'\r\n@ObjectModel.query.implementedBy:'ABAP:ZCL_RECO_FOLLOW_REPORT'\r\n@UI:{\r\nheaderInfo:{\r\n                typeNamePlural: 'Mutabakat Takip Raporu',\r\n                typeName: 'Mutabakat Takip Raporu',\r\n                title:{ type: #STANDARD, label: 'Mutabakat Takip Raporu', value: 'p_bukrs' }\r\n\r\n           }\r\n}\r\n\r\ndefine root custom entity ZRECO_DDL_I_RECO_FOLLOW_REPORT\r\n{\r\n      @UI              : { lineItem:       [  { type : #FOR_ACTION , dataAction: 'show_form' ,label : 'Formu Görüntüle' , position : 10 }],\r\n                   selectionField: [ { position: 10 } ] }\r\n\r\n\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' }} ]\r\n      @Consumption.filter:{\r\n          mandatory    : true,\r\n          selectionType: #SINGLE ,\r\n          multipleSelections: false\r\n      }\r\n  key p_bukrs          : bukrs;\r\n\r\n      @UI              : { lineItem:       [ { position: 20\r\n      //                               type : #FOR_ACTION,\r\n      //                               label : 'Analiz',\r\n      //                               dataAction: 'analiz',\r\n      //                               invocationGrouping: #CHANGE_SET\r\n\r\n                               }],\r\n                      selectionField: [ { position: 20 } ] }\r\n\r\n      @Consumption.filter:{\r\n          mandatory    : false,\r\n          selectionType: #RANGE,\r\n          multipleSelections: true }\r\n\r\n\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_FTYPE', element: 'Ftype' }} ]\r\n  key p_ftype          : zreco_form;\r\n\r\n      @UI              : { lineItem:       [ { position: 30,\r\n                         type : #FOR_ACTION,\r\n                         label : 'Hatırlatma Mail Gönder',\r\n                         dataAction: 'reminder_mail',\r\n                         invocationGrouping: #CHANGE_SET}],\r\n                selectionField: [ { position: 30 } ] }\r\n\r\n\r\n      @EndUserText.label:'Dönem'\r\n      @Consumption.filter:{\r\n      mandatory        : true,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n  key s_monat          : monat;\r\n\r\n      @UI              : { selectionField: [ { position: 40 } ] }\r\n      @EndUserText.label:'Yıl'\r\n      @Consumption.filter:{\r\n      mandatory        : true,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n  key s_gjahr          : gjahr;\r\n\r\n\r\n      @UI              : { selectionField: [ { position: 50 } ] }\r\n      @EndUserText.label:'e-Mutabakat No'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n  key s_mnmbr          : zreco_number;\r\n\r\n      @UI              : { selectionField: [ { position: 60 } ] }\r\n      @EndUserText.label:'Cari Türü'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_ACCOUNT_TYPE', element: 'AccountType' }}]\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_hstur          : zreco_account_type;\r\n\r\n      @UI              : { selectionField: [ { position: 70 } ] }\r\n      @EndUserText.label:'Cari No'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      multipleSelections: true\r\n      }\r\n      s_hspno          : zreco_ktonr_av; //Type'a bakılacak\r\n\r\n      @UI              : { selectionField: [ { position: 80 } ] }\r\n      @EndUserText.label:'Müşteri No'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Customer_VH', element: 'Customer' }}]\r\n      s_kunnr          : kunnr;\r\n\r\n      //      @UI               : { selectionField: [ { position: 90 } ] }\r\n      @UI              : { lineItem: [ { position: 90 , label: 'Satıcının hesap numarası' }], selectionField: [{ position : 90 }] }\r\n      @EndUserText.label:'Satıcının hesap numarası'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      // @Consumption.valueHelpDefinition: [ { entity: { name: 'I_ChangeMasterStdVH', element: 'ChangeNumber' }}]\r\n      s_lifnr          : lifnr;\r\n\r\n      @UI              : { selectionField: [ { position: 100 } ] }\r\n      @EndUserText.label:'VKN/TCKN'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_stcd2          : zreco_vkn;\r\n\r\n\r\n      @UI              : { lineItem: [ { position: 110 , label: 'Mutabakat Tipi' }], selectionField: [{ position : 90 }] }\r\n      @EndUserText.label:'Mutabakat Tipi'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_OUTPUT', element: 'MOutput' }}]\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_outpt          : zreco_output;\r\n\r\n      @UI              : { selectionField: [ { position: 120 } ] }\r\n      @EndUserText.label:'Mutabakat Sonucu'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_RESULT', element: 'MResult' }}]\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_mrslt          : zreco_result;\r\n\r\n      @UI              : { selectionField: [ { position: 130 } ] }\r\n      @EndUserText.label:'Gönderen Kullanıcı'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      // @Consumption.valueHelpDefinition: [ { entity: { name: 'I_User', element: 'UserID' }}]\r\n      s_ernam          : zreco_uname;\r\n\r\n      @UI              : { selectionField: [ { position: 140 } ] }\r\n      @EndUserText.label:'Gönderenme Tarihi'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_erdat          : zreco_cpudt;\r\n\r\n      @UI              : { selectionField: [ { position: 150 } ] }\r\n      @EndUserText.label:'Gönderenme Saati'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_erzei          : zreco_cputm;\r\n\r\n      @UI              : { selectionField: [ { position: 160 } ] }\r\n      @EndUserText.label:'Sadece günlük mutabakatlar'\r\n      p_daily          : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 170 } ] }\r\n      @EndUserText.label:'Genel gösterge'\r\n      p_odk            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 180 } ] }\r\n      @EndUserText.label:'Bakiye Kontrolü Yap'\r\n      p_bal            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 190 } ] }\r\n      @EndUserText.label:'Silinenleri de yap'\r\n      p_del            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 200 } ] }\r\n      @EndUserText.label:'Tüm Mektupları Göster'\r\n      p_all            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 210 } ] }\r\n      @EndUserText.label:'Sadece Cevap Gelenler'\r\n      p_anwsr          : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 220 } ] }\r\n      @EndUserText.label:'Sadece Cevep Gelmeyenler'\r\n      p_compl          : abap_boolean;\r\n\r\n      @UI              : { lineItem:       [ { position: 10, label : 'Sonuç'  } ] }\r\n      xresult          : zreco_result_text;\r\n\r\n      @UI              : { lineItem:       [ { position: 20, label : 'Dönem'  } ] }\r\n      monat            : monat;\r\n\r\n      @UI              : { lineItem:       [ { position: 30, label : 'Yıl'  } ] }\r\n      gjahr            : gjahr;\r\n\r\n      @UI              : { lineItem:       [ { position: 40, label : 'Versiyon'  } ] }\r\n      version          : zreco_version;\r\n\r\n      @UI              : { lineItem:       [ { position: 50, label : 'e-Mutabakat No'  } ] }\r\n      mnumber          : zreco_number;\r\n\r\n      @UI              : { lineItem:       [ { position: 60, label : 'Mutabakat Hesap Türü'  } ] }\r\n      hesap_tur        : zreco_account_type;\r\n\r\n      @UI              : { lineItem:       [ { position: 70, label : 'Hesap'  } ] }\r\n      hesap_no         : zreco_ktonr_av;\r\n\r\n      @UI              : { lineItem:       [ { position: 80, label : 'Eşleştirme'  } ] }\r\n      kars_alan        : zreco_kars;\r\n\r\n      @UI              : { lineItem:       [ { position: 90, label : 'Ad'  } ] }\r\n      name1            : zreco_name1;\r\n\r\n      @UI              : { lineItem:       [ { position: 100, label : 'E-posta'  } ] }\r\n      receiver         : zreco_receiver;\r\n\r\n      @UI              : { lineItem:       [ { position: 110, label : 'Telefon'  } ] }\r\n      telf1            : ad_tlnmbr;\r\n\r\n      @UI              : { lineItem:       [ { position: 120, label : 'Mobil'  } ] }\r\n      telf2            : zreco_mbnmbr1;\r\n\r\n      @UI              : { lineItem:       [ { position: 130, label : 'Faks'  } ] }\r\n      telfx            : zreco_fxnmbr;\r\n\r\n      @UI              : { lineItem:       [ { position: 140, label : 'Mutabakat Türü'  } ] }\r\n      mtype            : zreco_type;\r\n\r\n      @UI              : { lineItem:       [ { position: 150, label : 'Mutabakat Türü'  } ] }\r\n      mouput           : zreco_output;\r\n\r\n      @UI              : { lineItem:       [ { position: 160, label : 'Tamamlandı?'  } ] }\r\n      complete         : zreco_complete;\r\n\r\n      @UI              : { lineItem:       [ { position: 170, label : 'Sonlandıran Kullanıcı'  } ] }\r\n      fgnam            : zreco_fgnam;\r\n\r\n      @UI              : { lineItem:       [ { position: 180, label : 'Mutabakat Başlama Tarihi'  } ] }\r\n      sdate            : zreco_fgdat;\r\n\r\n      @UI              : { lineItem:       [ { position: 190, label : 'Mutabakat Bitiş Tarihi'  } ] }\r\n      fdate            : zreco_fndat;\r\n\r\n      @UI              : { lineItem:       [ { position: 200, label : 'Sayaç'  } ] }\r\n      xcount           : abap.int4;\r\n\r\n      @UI              : { lineItem:       [ { position: 210, label : 'Bakiyeye Dahil'  } ] }\r\n      xsum             : zreco_xsum;\r\n\r\n      @UI              : { lineItem:       [ { position: 220, label : 'Hesap Türü Tanım'  } ] }\r\n      ltext            : zreco_ltext;\r\n\r\n      @UI              : { lineItem:       [ { position: 230, label : 'Defteri kebir muh. mutabakat hesabı'  } ] }\r\n      akont            : akont;\r\n\r\n      @UI              : { lineItem:       [ { position: 240, label : 'Bakiye'  } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      balance          : zreco_ebalance;\r\n\r\n      @UI              : { lineItem:       [ { position: 250, label : 'PB' , hidden: true } ] }\r\n      currency         : waers;\r\n\r\n      @UI              : { lineItem:       [ { position: 260, label : 'Tutar(UPB)'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      dmbtr            : zreco_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 270, label : 'Tutar'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      wrbtr            : zreco_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 280, label : 'Çeviri kuru'} ] }\r\n      kursf            : zreco_kursf;\r\n\r\n      @UI              : { lineItem:       [ { position: 290, label : 'Cevap Bakiye'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      r_balance        : zreco_r_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 300, label : 'Cevap UPB Tutar'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      r_dmbtr          : zreco_r_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 310, label : 'Cevap BPB Tutar'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      r_wrbtr          : zreco_r_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 320, label : 'Cevap PB'} ] }\r\n      r_waers          : zreco_r_waers;\r\n\r\n      @UI              : { lineItem:       [ { position: 330, label : 'Cevaplayanın Adı'} ] }\r\n      responder_name   : zreco_responder_name;\r\n\r\n      @UI              : { lineItem:       [ { position: 340, label : 'Cevaplayanın Soyadı'} ] }\r\n      responder_surnam : zreco_responder_surname;\r\n\r\n      @UI              : { lineItem:       [ { position: 350, label : 'Bakiye Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      d_balance        : zreco_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 360, label : 'UPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      d_dmbtr          : zreco_d_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 370, label : 'BPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      d_wrbtr          : zreco_d_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 380, label : 'Sonraki Dönem Bakiye'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      o_balance        : zreco_o_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 390, label : 'Sonraki Dönem UPB'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      o_dmbtr          : zreco_o_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 400, label : 'Sonraki Dönem BPB'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      o_wrbtr          : zreco_o_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 410, label : 'Net Bakiye Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      n_balance        : zreco_n_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 420, label : 'Net UPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      n_dmbtr          : zreco_n_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 430, label : 'Net BPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      n_wrbtr          : zreco_n_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 440, label : 'Mutabakat Sonucu'} ] }\r\n      mresult          : zreco_result;\r\n\r\n      @UI              : { lineItem:       [ { position: 450, label : 'Mutabakat Açıklaması'} ] }\r\n      mtext            : zreco_mtext;\r\n\r\n      @UI              : { lineItem:       [ { position: 460, label : 'Gönderen Kullanıcı'} ] }\r\n      ernam            : zreco_ernam;\r\n\r\n      @UI              : { lineItem:       [ { position: 470, label : 'Gönderme Tarihi'} ] }\r\n      erdat            : zreco_erdat;\r\n\r\n      @UI              : { lineItem:       [ { position: 480, label : 'Cevap Tarihi'} ] }\r\n      r_erdat          : zreco_erdat;\r\n\r\n      @UI              : { lineItem:       [ { position: 490, label : 'Cevap Saati'} ] }\r\n      r_erzei          : zreco_erzei;\r\n\r\n      @UI              : { lineItem:       [ { position: 500, label : 'Hatırlatma Sayısı'} ] }\r\n      reminder         : zreco_remd;\r\n\r\n      @UI              : { lineItem:       [ { position: 510, label : 'Ülke/bölge anahtarı'} ] }\r\n      land1            : land1;\r\n\r\n      @UI              : { lineItem:       [ { position: 520, label : 'Dil anahtarı'} ] }\r\n      spras            : spras;\r\n\r\n      @UI              : { lineItem:       [ { position: 530, label : 'VKN/TCKN'} ] }\r\n      vkn_tckn         : zreco_vkn;\r\n\r\n      @UI              : { lineItem:       [ { position: 540, label : 'Vergi Dairesi'} ] }\r\n      vd               : zreco_vd;\r\n\r\n      @UI              : { lineItem:       [ { position: 550, label : 'Manuel Mutabakat'} ] }\r\n      manuel           : zreco_manuel;\r\n\r\n      @UI           : { selectionField: [ { position: 230 } ] }\r\n      @EndUserText.label: 'SM Kodu'\r\n      p_smkod       : abap.char(20);\r\n\r\n      @EndUserText.label: 'Satınalma Grubu'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_PARTNERGROUP', element: 'BusinessPartnerGrouping' }}]\r\n      @UI           : { selectionField: [ { position: 240 } ] }\r\n      p_salma       : abap.char(4);\r\n\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "SOURCE":"@EndUserText.label: 'Mutabakat Takip Raporu'\r\n@ObjectModel.query.implementedBy:'ABAP:ZCL_RECO_FOLLOW_REPORT'\r\n@UI:{\r\nheaderInfo:{\r\n                typeNamePlural: 'Mutabakat Takip Raporu',\r\n                typeName: 'Mutabakat Takip Raporu',\r\n                title:{ type: #STANDARD, label: 'Mutabakat Takip Raporu', value: 'p_bukrs' }\r\n\r\n           }\r\n}\r\n\r\ndefine root custom entity ZRECO_DDL_I_RECO_FOLLOW_REPORT\r\n{\r\n      @UI              : { lineItem:       [  { type : #FOR_ACTION , dataAction: 'show_form' ,label : 'Formu Görüntüle' , position : 10 }],\r\n                   selectionField: [ { position: 10 } ] }\r\n\r\n\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' }} ]\r\n      @Consumption.filter:{\r\n          mandatory    : true,\r\n          selectionType: #SINGLE ,\r\n          multipleSelections: false\r\n      }\r\n  key p_bukrs          : bukrs;\r\n\r\n      @UI              : { \r\n//      lineItem:       [ { position: 20\r\n//                                     type : #FOR_ACTION,\r\n//                                     label : 'Analiz',\r\n//                                     dataAction: 'analiz',\r\n//                                     invocationGrouping: #CHANGE_SET\r\n//\r\n//                               }],\r\n                      selectionField: [ { position: 20 } ] }\r\n\r\n      @Consumption.filter:{\r\n          mandatory    : false,\r\n          selectionType: #RANGE,\r\n          multipleSelections: true }\r\n\r\n\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_FTYPE', element: 'Ftype' }} ]\r\n  key p_ftype          : zreco_form;\r\n\r\n      @UI              : { lineItem:       [ { position: 30,\r\n                         type : #FOR_ACTION,\r\n                         label : 'Hatırlatma Mail Gönder',\r\n                         dataAction: 'reminder_mail',\r\n                         invocationGrouping: #CHANGE_SET}],\r\n                selectionField: [ { position: 30 } ] }\r\n\r\n\r\n      @EndUserText.label:'Dönem'\r\n      @Consumption.filter:{\r\n      mandatory        : true,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n  key s_monat          : monat;\r\n\r\n      @UI              : { selectionField: [ { position: 40 } ] }\r\n      @EndUserText.label:'Yıl'\r\n      @Consumption.filter:{\r\n      mandatory        : true,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n  key s_gjahr          : gjahr;\r\n\r\n\r\n      @UI              : { selectionField: [ { position: 50 } ] }\r\n      @EndUserText.label:'e-Mutabakat No'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n  key s_mnmbr          : zreco_number;\r\n\r\n      @UI              : { selectionField: [ { position: 60 } ] }\r\n      @EndUserText.label:'Cari Türü'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_ACCOUNT_TYPE', element: 'AccountType' }}]\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_hstur          : zreco_account_type;\r\n\r\n      @UI              : { selectionField: [ { position: 70 } ] }\r\n      @EndUserText.label:'Cari No'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      multipleSelections: true\r\n      }\r\n      s_hspno          : zreco_ktonr_av; //Type'a bakılacak\r\n\r\n      @UI              : { selectionField: [ { position: 80 } ] }\r\n      @EndUserText.label:'Müşteri No'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Customer_VH', element: 'Customer' }}]\r\n      s_kunnr          : kunnr;\r\n\r\n      //      @UI               : { selectionField: [ { position: 90 } ] }\r\n      @UI              : { lineItem: [ { position: 90 , label: 'Satıcının hesap numarası' }], selectionField: [{ position : 90 }] }\r\n      @EndUserText.label:'Satıcının hesap numarası'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      // @Consumption.valueHelpDefinition: [ { entity: { name: 'I_ChangeMasterStdVH', element: 'ChangeNumber' }}]\r\n      s_lifnr          : lifnr;\r\n\r\n      @UI              : { selectionField: [ { position: 100 } ] }\r\n      @EndUserText.label:'VKN/TCKN'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_stcd2          : zreco_vkn;\r\n\r\n\r\n      @UI              : { lineItem: [ { position: 110 , label: 'Mutabakat Tipi' }], selectionField: [{ position : 90 }] }\r\n      @EndUserText.label:'Mutabakat Tipi'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_OUTPUT', element: 'MOutput' }}]\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_outpt          : zreco_output;\r\n\r\n      @UI              : { selectionField: [ { position: 120 } ] }\r\n      @EndUserText.label:'Mutabakat Sonucu'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_RESULT', element: 'MResult' }}]\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_mrslt          : zreco_result;\r\n\r\n      @UI              : { selectionField: [ { position: 130 } ] }\r\n      @EndUserText.label:'Gönderen Kullanıcı'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      // @Consumption.valueHelpDefinition: [ { entity: { name: 'I_User', element: 'UserID' }}]\r\n      s_ernam          : zreco_uname;\r\n\r\n      @UI              : { selectionField: [ { position: 140 } ] }\r\n      @EndUserText.label:'Gönderenme Tarihi'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_erdat          : zreco_cpudt;\r\n\r\n      @UI              : { selectionField: [ { position: 150 } ] }\r\n      @EndUserText.label:'Gönderenme Saati'\r\n      @Consumption.filter:{\r\n      mandatory        : false,\r\n      selectionType    : #RANGE,\r\n      multipleSelections: true\r\n      }\r\n      s_erzei          : zreco_cputm;\r\n\r\n      @UI              : { selectionField: [ { position: 160 } ] }\r\n      @EndUserText.label:'Sadece günlük mutabakatlar'\r\n      p_daily          : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 170 } ] }\r\n      @EndUserText.label:'Genel gösterge'\r\n      p_odk            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 180 } ] }\r\n      @EndUserText.label:'Bakiye Kontrolü Yap'\r\n      p_bal            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 190 } ] }\r\n      @EndUserText.label:'Silinenleri de yap'\r\n      p_del            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 200 } ] }\r\n      @EndUserText.label:'Tüm Mektupları Göster'\r\n      p_all            : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 210 } ] }\r\n      @EndUserText.label:'Sadece Cevap Gelenler'\r\n      p_anwsr          : abap_boolean;\r\n\r\n      @UI              : { selectionField: [ { position: 220 } ] }\r\n      @EndUserText.label:'Sadece Cevep Gelmeyenler'\r\n      p_compl          : abap_boolean;\r\n\r\n      @UI              : { lineItem:       [ { position: 10, label : 'Sonuç'  } ] }\r\n      xresult          : zreco_result_text;\r\n\r\n      @UI              : { lineItem:       [ { position: 20, label : 'Dönem'  } ] }\r\n      monat            : monat;\r\n\r\n      @UI              : { lineItem:       [ { position: 30, label : 'Yıl'  } ] }\r\n      gjahr            : gjahr;\r\n\r\n      @UI              : { lineItem:       [ { position: 40, label : 'Versiyon'  } ] }\r\n      version          : zreco_version;\r\n\r\n      @UI              : { lineItem:       [ { position: 50, label : 'e-Mutabakat No'  } ] }\r\n      mnumber          : zreco_number;\r\n\r\n      @UI              : { lineItem:       [ { position: 60, label : 'Mutabakat Hesap Türü'  } ] }\r\n      hesap_tur        : zreco_account_type;\r\n\r\n      @UI              : { lineItem:       [ { position: 70, label : 'Hesap'  } ] }\r\n      hesap_no         : zreco_ktonr_av;\r\n\r\n      @UI              : { lineItem:       [ { position: 80, label : 'Eşleştirme'  } ] }\r\n      kars_alan        : zreco_kars;\r\n\r\n      @UI              : { lineItem:       [ { position: 90, label : 'Ad'  } ] }\r\n      name1            : zreco_name1;\r\n\r\n      @UI              : { lineItem:       [ { position: 100, label : 'E-posta'  } ] }\r\n      receiver         : zreco_receiver;\r\n\r\n      @UI              : { lineItem:       [ { position: 110, label : 'Telefon'  } ] }\r\n      telf1            : ad_tlnmbr;\r\n\r\n      @UI              : { lineItem:       [ { position: 120, label : 'Mobil'  } ] }\r\n      telf2            : zreco_mbnmbr1;\r\n\r\n      @UI              : { lineItem:       [ { position: 130, label : 'Faks'  } ] }\r\n      telfx            : zreco_fxnmbr;\r\n\r\n      @UI              : { lineItem:       [ { position: 140, label : 'Mutabakat Türü'  } ] }\r\n      mtype            : zreco_type;\r\n\r\n      @UI              : { lineItem:       [ { position: 150, label : 'Mutabakat Türü'  } ] }\r\n      mouput           : zreco_output;\r\n\r\n      @UI              : { lineItem:       [ { position: 160, label : 'Tamamlandı?'  } ] }\r\n      complete         : zreco_complete;\r\n\r\n      @UI              : { lineItem:       [ { position: 170, label : 'Sonlandıran Kullanıcı'  } ] }\r\n      fgnam            : zreco_fgnam;\r\n\r\n      @UI              : { lineItem:       [ { position: 180, label : 'Mutabakat Başlama Tarihi'  } ] }\r\n      sdate            : zreco_fgdat;\r\n\r\n      @UI              : { lineItem:       [ { position: 190, label : 'Mutabakat Bitiş Tarihi'  } ] }\r\n      fdate            : zreco_fndat;\r\n\r\n      @UI              : { lineItem:       [ { position: 200, label : 'Sayaç'  } ] }\r\n      xcount           : abap.int4;\r\n\r\n      @UI              : { lineItem:       [ { position: 210, label : 'Bakiyeye Dahil'  } ] }\r\n      xsum             : zreco_xsum;\r\n\r\n      @UI              : { lineItem:       [ { position: 220, label : 'Hesap Türü Tanım'  } ] }\r\n      ltext            : zreco_ltext;\r\n\r\n      @UI              : { lineItem:       [ { position: 230, label : 'Defteri kebir muh. mutabakat hesabı'  } ] }\r\n      akont            : akont;\r\n\r\n      @UI              : { lineItem:       [ { position: 240, label : 'Bakiye'  } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      balance          : zreco_ebalance;\r\n\r\n      @UI              : { lineItem:       [ { position: 250, label : 'PB' , hidden: true } ] }\r\n      currency         : waers;\r\n\r\n      @UI              : { lineItem:       [ { position: 260, label : 'Tutar(UPB)'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      dmbtr            : zreco_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 270, label : 'Tutar'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      wrbtr            : zreco_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 280, label : 'Çeviri kuru'} ] }\r\n      kursf            : zreco_kursf;\r\n\r\n      @UI              : { lineItem:       [ { position: 290, label : 'Cevap Bakiye'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      r_balance        : zreco_r_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 300, label : 'Cevap UPB Tutar'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      r_dmbtr          : zreco_r_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 310, label : 'Cevap BPB Tutar'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      r_wrbtr          : zreco_r_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 320, label : 'Cevap PB'} ] }\r\n      r_waers          : zreco_r_waers;\r\n\r\n      @UI              : { lineItem:       [ { position: 330, label : 'Cevaplayanın Adı'} ] }\r\n      responder_name   : zreco_responder_name;\r\n\r\n      @UI              : { lineItem:       [ { position: 340, label : 'Cevaplayanın Soyadı'} ] }\r\n      responder_surnam : zreco_responder_surname;\r\n\r\n      @UI              : { lineItem:       [ { position: 350, label : 'Bakiye Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      d_balance        : zreco_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 360, label : 'UPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      d_dmbtr          : zreco_d_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 370, label : 'BPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      d_wrbtr          : zreco_d_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 380, label : 'Sonraki Dönem Bakiye'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      o_balance        : zreco_o_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 390, label : 'Sonraki Dönem UPB'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      o_dmbtr          : zreco_o_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 400, label : 'Sonraki Dönem BPB'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      o_wrbtr          : zreco_o_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 410, label : 'Net Bakiye Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      n_balance        : zreco_n_balance;\r\n\r\n      @UI              : { lineItem:       [ { position: 420, label : 'Net UPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      n_dmbtr          : zreco_n_dmbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 430, label : 'Net BPB Farkı'} ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      n_wrbtr          : zreco_n_wrbtr;\r\n\r\n      @UI              : { lineItem:       [ { position: 440, label : 'Mutabakat Sonucu'} ] }\r\n      mresult          : zreco_result;\r\n\r\n      @UI              : { lineItem:       [ { position: 450, label : 'Mutabakat Açıklaması'} ] }\r\n      mtext            : zreco_mtext;\r\n\r\n      @UI              : { lineItem:       [ { position: 460, label : 'Gönderen Kullanıcı'} ] }\r\n      ernam            : zreco_ernam;\r\n\r\n      @UI              : { lineItem:       [ { position: 470, label : 'Gönderme Tarihi'} ] }\r\n      erdat            : zreco_erdat;\r\n\r\n      @UI              : { lineItem:       [ { position: 480, label : 'Cevap Tarihi'} ] }\r\n      r_erdat          : zreco_erdat;\r\n\r\n      @UI              : { lineItem:       [ { position: 490, label : 'Cevap Saati'} ] }\r\n      r_erzei          : zreco_erzei;\r\n\r\n      @UI              : { lineItem:       [ { position: 500, label : 'Hatırlatma Sayısı'} ] }\r\n      reminder         : zreco_remd;\r\n\r\n      @UI              : { lineItem:       [ { position: 510, label : 'Ülke/bölge anahtarı'} ] }\r\n      land1            : land1;\r\n\r\n      @UI              : { lineItem:       [ { position: 520, label : 'Dil anahtarı'} ] }\r\n      spras            : spras;\r\n\r\n      @UI              : { lineItem:       [ { position: 530, label : 'VKN/TCKN'} ] }\r\n      vkn_tckn         : zreco_vkn;\r\n\r\n      @UI              : { lineItem:       [ { position: 540, label : 'Vergi Dairesi'} ] }\r\n      vd               : zreco_vd;\r\n\r\n      @UI              : { lineItem:       [ { position: 550, label : 'Manuel Mutabakat'} ] }\r\n      manuel           : zreco_manuel;\r\n\r\n      @UI           : { selectionField: [ { position: 230 } ] }\r\n      @EndUserText.label: 'SM Kodu'\r\n      p_smkod       : abap.char(20);\r\n\r\n      @EndUserText.label: 'Satınalma Grubu'\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'ZRECO_DDL_VH_PARTNERGROUP', element: 'BusinessPartnerGrouping' }}]\r\n      @UI           : { selectionField: [ { position: 240 } ] }\r\n      p_salma       : abap.char(4);\r\n\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
     "PARENTNAME":"",
     "ACTFLAG":"",
-    "CHGFLAG":"4",
+    "CHGFLAG":"",
     "SOURCE_TYPE":"Q",
     "SOURCE_ORIGIN":"0",
     "ABAP_LANGUAGE_VERSION":"5"
@@ -322,938 +322,938 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"AKONT",
     "NAME":"UI",
-    "POSITION":248,
+    "POSITION":247,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"AKONT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":250,
+    "POSITION":249,
     "VALUE":"'Defteri kebir muh. mutabakat hesabı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"AKONT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":249,
+    "POSITION":248,
     "VALUE":"230"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"BALANCE",
     "NAME":"SEMANTICS",
-    "POSITION":254,
+    "POSITION":253,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"BALANCE",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":255,
+    "POSITION":254,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"BALANCE",
     "NAME":"UI",
-    "POSITION":251,
+    "POSITION":250,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"BALANCE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":253,
+    "POSITION":252,
     "VALUE":"'Bakiye'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"BALANCE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":252,
+    "POSITION":251,
     "VALUE":"240"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"COMPLETE",
     "NAME":"UI",
-    "POSITION":227,
+    "POSITION":226,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"COMPLETE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":229,
+    "POSITION":228,
     "VALUE":"'Tamamlandı?'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"COMPLETE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":228,
+    "POSITION":227,
     "VALUE":"160"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"CURRENCY",
     "NAME":"UI",
-    "POSITION":256,
+    "POSITION":255,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"CURRENCY",
     "NAME":"UI.LINEITEM$1$.HIDDEN",
-    "POSITION":259,
+    "POSITION":258,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"CURRENCY",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":258,
+    "POSITION":257,
     "VALUE":"'PB'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"CURRENCY",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":257,
+    "POSITION":256,
     "VALUE":"250"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"DMBTR",
     "NAME":"SEMANTICS",
-    "POSITION":263,
+    "POSITION":262,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"DMBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":264,
+    "POSITION":263,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"DMBTR",
     "NAME":"UI",
-    "POSITION":260,
+    "POSITION":259,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"DMBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":262,
+    "POSITION":261,
     "VALUE":"'Tutar(UPB)'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"DMBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":261,
+    "POSITION":260,
     "VALUE":"260"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_BALANCE",
     "NAME":"SEMANTICS",
-    "POSITION":300,
+    "POSITION":299,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_BALANCE",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":301,
+    "POSITION":300,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_BALANCE",
     "NAME":"UI",
-    "POSITION":297,
+    "POSITION":296,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_BALANCE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":299,
+    "POSITION":298,
     "VALUE":"'Bakiye Farkı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_BALANCE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":298,
+    "POSITION":297,
     "VALUE":"350"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_DMBTR",
     "NAME":"SEMANTICS",
-    "POSITION":305,
+    "POSITION":304,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_DMBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":306,
+    "POSITION":305,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_DMBTR",
     "NAME":"UI",
-    "POSITION":302,
+    "POSITION":301,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_DMBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":304,
+    "POSITION":303,
     "VALUE":"'UPB Farkı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_DMBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":303,
+    "POSITION":302,
     "VALUE":"360"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_WRBTR",
     "NAME":"SEMANTICS",
-    "POSITION":310,
+    "POSITION":309,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_WRBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":311,
+    "POSITION":310,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_WRBTR",
     "NAME":"UI",
-    "POSITION":307,
+    "POSITION":306,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_WRBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":309,
+    "POSITION":308,
     "VALUE":"'BPB Farkı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"D_WRBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":308,
+    "POSITION":307,
     "VALUE":"370"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"ERDAT",
     "NAME":"UI",
-    "POSITION":351,
+    "POSITION":350,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"ERDAT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":353,
+    "POSITION":352,
     "VALUE":"'Gönderme Tarihi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"ERDAT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":352,
+    "POSITION":351,
     "VALUE":"470"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"ERNAM",
     "NAME":"UI",
-    "POSITION":348,
+    "POSITION":347,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"ERNAM",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":350,
+    "POSITION":349,
     "VALUE":"'Gönderen Kullanıcı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"ERNAM",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":349,
+    "POSITION":348,
     "VALUE":"460"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"FDATE",
     "NAME":"UI",
-    "POSITION":236,
+    "POSITION":235,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"FDATE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":238,
+    "POSITION":237,
     "VALUE":"'Mutabakat Bitiş Tarihi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"FDATE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":237,
+    "POSITION":236,
     "VALUE":"190"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"FGNAM",
     "NAME":"UI",
-    "POSITION":230,
+    "POSITION":229,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"FGNAM",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":232,
+    "POSITION":231,
     "VALUE":"'Sonlandıran Kullanıcı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"FGNAM",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":231,
+    "POSITION":230,
     "VALUE":"170"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"GJAHR",
     "NAME":"UI",
-    "POSITION":188,
+    "POSITION":187,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"GJAHR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":190,
+    "POSITION":189,
     "VALUE":"'Yıl'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"GJAHR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":189,
+    "POSITION":188,
     "VALUE":"30"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"HESAP_NO",
     "NAME":"UI",
-    "POSITION":200,
+    "POSITION":199,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"HESAP_NO",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":202,
+    "POSITION":201,
     "VALUE":"'Hesap'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"HESAP_NO",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":201,
+    "POSITION":200,
     "VALUE":"70"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"HESAP_TUR",
     "NAME":"UI",
-    "POSITION":197,
+    "POSITION":196,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"HESAP_TUR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":199,
+    "POSITION":198,
     "VALUE":"'Mutabakat Hesap Türü'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"HESAP_TUR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":198,
+    "POSITION":197,
     "VALUE":"60"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"KARS_ALAN",
     "NAME":"UI",
-    "POSITION":203,
+    "POSITION":202,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"KARS_ALAN",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":205,
+    "POSITION":204,
     "VALUE":"'Eşleştirme'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"KARS_ALAN",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":204,
+    "POSITION":203,
     "VALUE":"80"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"KURSF",
     "NAME":"UI",
-    "POSITION":270,
+    "POSITION":269,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"KURSF",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":272,
+    "POSITION":271,
     "VALUE":"'Çeviri kuru'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"KURSF",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":271,
+    "POSITION":270,
     "VALUE":"280"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"LAND1",
     "NAME":"UI",
-    "POSITION":363,
+    "POSITION":362,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"LAND1",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":365,
+    "POSITION":364,
     "VALUE":"'Ülke/bölge anahtarı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"LAND1",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":364,
+    "POSITION":363,
     "VALUE":"510"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"LTEXT",
     "NAME":"UI",
-    "POSITION":245,
+    "POSITION":244,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"LTEXT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":247,
+    "POSITION":246,
     "VALUE":"'Hesap Türü Tanım'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"LTEXT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":246,
+    "POSITION":245,
     "VALUE":"220"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MANUEL",
     "NAME":"UI",
-    "POSITION":375,
+    "POSITION":374,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MANUEL",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":377,
+    "POSITION":376,
     "VALUE":"'Manuel Mutabakat'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MANUEL",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":376,
+    "POSITION":375,
     "VALUE":"550"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MNUMBER",
     "NAME":"UI",
-    "POSITION":194,
+    "POSITION":193,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MNUMBER",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":196,
+    "POSITION":195,
     "VALUE":"'e-Mutabakat No'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MNUMBER",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":195,
+    "POSITION":194,
     "VALUE":"50"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MONAT",
     "NAME":"UI",
-    "POSITION":185,
+    "POSITION":184,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MONAT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":187,
+    "POSITION":186,
     "VALUE":"'Dönem'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MONAT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":186,
+    "POSITION":185,
     "VALUE":"20"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MOUPUT",
     "NAME":"UI",
-    "POSITION":224,
+    "POSITION":223,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MOUPUT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":226,
+    "POSITION":225,
     "VALUE":"'Mutabakat Türü'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MOUPUT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":225,
+    "POSITION":224,
     "VALUE":"150"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MRESULT",
     "NAME":"UI",
-    "POSITION":342,
+    "POSITION":341,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MRESULT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":344,
+    "POSITION":343,
     "VALUE":"'Mutabakat Sonucu'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MRESULT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":343,
+    "POSITION":342,
     "VALUE":"440"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MTEXT",
     "NAME":"UI",
-    "POSITION":345,
+    "POSITION":344,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MTEXT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":347,
+    "POSITION":346,
     "VALUE":"'Mutabakat Açıklaması'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MTEXT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":346,
+    "POSITION":345,
     "VALUE":"450"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MTYPE",
     "NAME":"UI",
-    "POSITION":221,
+    "POSITION":220,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MTYPE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":223,
+    "POSITION":222,
     "VALUE":"'Mutabakat Türü'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"MTYPE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":222,
+    "POSITION":221,
     "VALUE":"140"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"NAME1",
     "NAME":"UI",
-    "POSITION":206,
+    "POSITION":205,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"NAME1",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":208,
+    "POSITION":207,
     "VALUE":"'Ad'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"NAME1",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":207,
+    "POSITION":206,
     "VALUE":"90"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_BALANCE",
     "NAME":"SEMANTICS",
-    "POSITION":330,
+    "POSITION":329,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_BALANCE",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":331,
+    "POSITION":330,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_BALANCE",
     "NAME":"UI",
-    "POSITION":327,
+    "POSITION":326,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_BALANCE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":329,
+    "POSITION":328,
     "VALUE":"'Net Bakiye Farkı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_BALANCE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":328,
+    "POSITION":327,
     "VALUE":"410"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_DMBTR",
     "NAME":"SEMANTICS",
-    "POSITION":335,
+    "POSITION":334,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_DMBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":336,
+    "POSITION":335,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_DMBTR",
     "NAME":"UI",
-    "POSITION":332,
+    "POSITION":331,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_DMBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":334,
+    "POSITION":333,
     "VALUE":"'Net UPB Farkı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_DMBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":333,
+    "POSITION":332,
     "VALUE":"420"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_WRBTR",
     "NAME":"SEMANTICS",
-    "POSITION":340,
+    "POSITION":339,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_WRBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":341,
+    "POSITION":340,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_WRBTR",
     "NAME":"UI",
-    "POSITION":337,
+    "POSITION":336,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_WRBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":339,
+    "POSITION":338,
     "VALUE":"'Net BPB Farkı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"N_WRBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":338,
+    "POSITION":337,
     "VALUE":"430"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_BALANCE",
     "NAME":"SEMANTICS",
-    "POSITION":315,
+    "POSITION":314,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_BALANCE",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":316,
+    "POSITION":315,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_BALANCE",
     "NAME":"UI",
-    "POSITION":312,
+    "POSITION":311,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_BALANCE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":314,
+    "POSITION":313,
     "VALUE":"'Sonraki Dönem Bakiye'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_BALANCE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":313,
+    "POSITION":312,
     "VALUE":"380"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_DMBTR",
     "NAME":"SEMANTICS",
-    "POSITION":320,
+    "POSITION":319,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_DMBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":321,
+    "POSITION":320,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_DMBTR",
     "NAME":"UI",
-    "POSITION":317,
+    "POSITION":316,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_DMBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":319,
+    "POSITION":318,
     "VALUE":"'Sonraki Dönem UPB'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_DMBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":318,
+    "POSITION":317,
     "VALUE":"390"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_WRBTR",
     "NAME":"SEMANTICS",
-    "POSITION":325,
+    "POSITION":324,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_WRBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":326,
+    "POSITION":325,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_WRBTR",
     "NAME":"UI",
-    "POSITION":322,
+    "POSITION":321,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_WRBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":324,
+    "POSITION":323,
     "VALUE":"'Sonraki Dönem BPB'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"O_WRBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":323,
+    "POSITION":322,
     "VALUE":"400"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ALL",
     "NAME":"ENDUSERTEXT",
-    "POSITION":172,
+    "POSITION":171,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ALL",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":173,
+    "POSITION":172,
     "VALUE":"'Tüm Mektupları Göster'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ALL",
     "NAME":"UI",
-    "POSITION":170,
+    "POSITION":169,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ALL",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":171,
+    "POSITION":170,
     "VALUE":"200"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ANWSR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":176,
+    "POSITION":175,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ANWSR",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":177,
+    "POSITION":176,
     "VALUE":"'Sadece Cevap Gelenler'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ANWSR",
     "NAME":"UI",
-    "POSITION":174,
+    "POSITION":173,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ANWSR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":175,
+    "POSITION":174,
     "VALUE":"210"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_BAL",
     "NAME":"ENDUSERTEXT",
-    "POSITION":164,
+    "POSITION":163,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_BAL",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":165,
+    "POSITION":164,
     "VALUE":"'Bakiye Kontrolü Yap'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_BAL",
     "NAME":"UI",
-    "POSITION":162,
+    "POSITION":161,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_BAL",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":163,
+    "POSITION":162,
     "VALUE":"180"
    },
    {
@@ -1358,140 +1358,140 @@
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_COMPL",
     "NAME":"ENDUSERTEXT",
-    "POSITION":180,
+    "POSITION":179,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_COMPL",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":181,
+    "POSITION":180,
     "VALUE":"'Sadece Cevep Gelmeyenler'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_COMPL",
     "NAME":"UI",
-    "POSITION":178,
+    "POSITION":177,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_COMPL",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":179,
+    "POSITION":178,
     "VALUE":"220"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DAILY",
     "NAME":"ENDUSERTEXT",
-    "POSITION":156,
+    "POSITION":155,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DAILY",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":157,
+    "POSITION":156,
     "VALUE":"'Sadece günlük mutabakatlar'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DAILY",
     "NAME":"UI",
-    "POSITION":154,
+    "POSITION":153,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DAILY",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":155,
+    "POSITION":154,
     "VALUE":"160"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DEL",
     "NAME":"ENDUSERTEXT",
-    "POSITION":168,
+    "POSITION":167,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DEL",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":169,
+    "POSITION":168,
     "VALUE":"'Silinenleri de yap'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DEL",
     "NAME":"UI",
-    "POSITION":166,
+    "POSITION":165,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_DEL",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":167,
+    "POSITION":166,
     "VALUE":"190"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION",
-    "POSITION":22,
+    "POSITION":21,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":18,
+    "POSITION":17,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":19,
+    "POSITION":18,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":21,
+    "POSITION":20,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":20,
+    "POSITION":19,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":23,
+    "POSITION":22,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":25,
+    "POSITION":24,
     "VALUE":"'Ftype'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":24,
+    "POSITION":23,
     "VALUE":"'ZRECO_DDL_VH_FTYPE'"
    },
    {
@@ -1504,1541 +1504,1534 @@
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_FTYPE",
-    "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":16,
-    "VALUE":"20"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"P_FTYPE",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":17,
+    "POSITION":16,
     "VALUE":"20"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ODK",
     "NAME":"ENDUSERTEXT",
-    "POSITION":160,
+    "POSITION":159,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ODK",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":161,
+    "POSITION":160,
     "VALUE":"'Genel gösterge'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ODK",
     "NAME":"UI",
-    "POSITION":158,
+    "POSITION":157,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_ODK",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":159,
+    "POSITION":158,
     "VALUE":"170"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
     "NAME":"CONSUMPTION",
+    "POSITION":383,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"P_SALMA",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":384,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":385,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"P_SALMA",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":387,
+    "POSITION":386,
     "VALUE":"'BusinessPartnerGrouping'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":386,
+    "POSITION":385,
     "VALUE":"'ZRECO_DDL_VH_PARTNERGROUP'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
     "NAME":"ENDUSERTEXT",
-    "POSITION":382,
+    "POSITION":381,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":383,
+    "POSITION":382,
     "VALUE":"'Satınalma Grubu'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
     "NAME":"UI",
-    "POSITION":388,
+    "POSITION":387,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SALMA",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":389,
+    "POSITION":388,
     "VALUE":"240"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SMKOD",
     "NAME":"ENDUSERTEXT",
-    "POSITION":380,
+    "POSITION":379,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SMKOD",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":381,
+    "POSITION":380,
     "VALUE":"'SM Kodu'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SMKOD",
     "NAME":"UI",
-    "POSITION":378,
+    "POSITION":377,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"P_SMKOD",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":379,
+    "POSITION":378,
     "VALUE":"230"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RECEIVER",
     "NAME":"UI",
-    "POSITION":209,
+    "POSITION":208,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RECEIVER",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":211,
+    "POSITION":210,
     "VALUE":"'E-posta'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RECEIVER",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":210,
+    "POSITION":209,
     "VALUE":"100"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"REMINDER",
     "NAME":"UI",
-    "POSITION":360,
+    "POSITION":359,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"REMINDER",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":362,
+    "POSITION":361,
     "VALUE":"'Hatırlatma Sayısı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"REMINDER",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":361,
+    "POSITION":360,
     "VALUE":"500"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RESPONDER_NAME",
     "NAME":"UI",
-    "POSITION":291,
+    "POSITION":290,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RESPONDER_NAME",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":293,
+    "POSITION":292,
     "VALUE":"'Cevaplayanın Adı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RESPONDER_NAME",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":292,
+    "POSITION":291,
     "VALUE":"330"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RESPONDER_SURNAM",
     "NAME":"UI",
-    "POSITION":294,
+    "POSITION":293,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RESPONDER_SURNAM",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":296,
+    "POSITION":295,
     "VALUE":"'Cevaplayanın Soyadı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"RESPONDER_SURNAM",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":295,
+    "POSITION":294,
     "VALUE":"340"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_BALANCE",
     "NAME":"SEMANTICS",
-    "POSITION":276,
+    "POSITION":275,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_BALANCE",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":277,
+    "POSITION":276,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_BALANCE",
     "NAME":"UI",
-    "POSITION":273,
+    "POSITION":272,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_BALANCE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":275,
+    "POSITION":274,
     "VALUE":"'Cevap Bakiye'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_BALANCE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":274,
+    "POSITION":273,
     "VALUE":"290"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_DMBTR",
     "NAME":"SEMANTICS",
-    "POSITION":281,
+    "POSITION":280,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_DMBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":282,
+    "POSITION":281,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_DMBTR",
     "NAME":"UI",
-    "POSITION":278,
+    "POSITION":277,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_DMBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":280,
+    "POSITION":279,
     "VALUE":"'Cevap UPB Tutar'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_DMBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":279,
+    "POSITION":278,
     "VALUE":"300"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_ERDAT",
     "NAME":"UI",
-    "POSITION":354,
+    "POSITION":353,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_ERDAT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":356,
+    "POSITION":355,
     "VALUE":"'Cevap Tarihi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_ERDAT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":355,
+    "POSITION":354,
     "VALUE":"480"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_ERZEI",
     "NAME":"UI",
-    "POSITION":357,
+    "POSITION":356,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_ERZEI",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":359,
+    "POSITION":358,
     "VALUE":"'Cevap Saati'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_ERZEI",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":358,
+    "POSITION":357,
     "VALUE":"490"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WAERS",
     "NAME":"UI",
-    "POSITION":288,
+    "POSITION":287,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WAERS",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":290,
+    "POSITION":289,
     "VALUE":"'Cevap PB'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WAERS",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":289,
+    "POSITION":288,
     "VALUE":"320"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WRBTR",
     "NAME":"SEMANTICS",
-    "POSITION":286,
+    "POSITION":285,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WRBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":287,
+    "POSITION":286,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WRBTR",
     "NAME":"UI",
-    "POSITION":283,
+    "POSITION":282,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WRBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":285,
+    "POSITION":284,
     "VALUE":"'Cevap BPB Tutar'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"R_WRBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":284,
+    "POSITION":283,
     "VALUE":"310"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"SDATE",
     "NAME":"UI",
-    "POSITION":233,
+    "POSITION":232,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"SDATE",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":235,
+    "POSITION":234,
     "VALUE":"'Mutabakat Başlama Tarihi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"SDATE",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":234,
+    "POSITION":233,
     "VALUE":"180"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"SPRAS",
     "NAME":"UI",
-    "POSITION":366,
+    "POSITION":365,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"SPRAS",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":368,
+    "POSITION":367,
     "VALUE":"'Dil anahtarı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"SPRAS",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":367,
+    "POSITION":366,
     "VALUE":"520"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":142,
+    "POSITION":141,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":143,
+    "POSITION":142,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":145,
+    "POSITION":144,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":144,
+    "POSITION":143,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"ENDUSERTEXT",
-    "POSITION":140,
+    "POSITION":139,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":141,
+    "POSITION":140,
     "VALUE":"'Gönderenme Tarihi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"UI",
-    "POSITION":138,
+    "POSITION":137,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERDAT",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":139,
+    "POSITION":138,
     "VALUE":"140"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":134,
+    "POSITION":133,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":135,
+    "POSITION":134,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":137,
+    "POSITION":136,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":136,
+    "POSITION":135,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"ENDUSERTEXT",
-    "POSITION":132,
+    "POSITION":131,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":133,
+    "POSITION":132,
     "VALUE":"'Gönderen Kullanıcı'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"UI",
-    "POSITION":130,
+    "POSITION":129,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERNAM",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":131,
+    "POSITION":130,
     "VALUE":"130"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":150,
+    "POSITION":149,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":151,
+    "POSITION":150,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":153,
+    "POSITION":152,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":152,
+    "POSITION":151,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"ENDUSERTEXT",
-    "POSITION":148,
+    "POSITION":147,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":149,
+    "POSITION":148,
     "VALUE":"'Gönderenme Saati'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"UI",
-    "POSITION":146,
+    "POSITION":145,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_ERZEI",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":147,
+    "POSITION":146,
     "VALUE":"150"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":43,
+    "POSITION":42,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":44,
+    "POSITION":43,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":46,
+    "POSITION":45,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":45,
+    "POSITION":44,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":41,
+    "POSITION":40,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":42,
+    "POSITION":41,
     "VALUE":"'Yıl'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"UI",
-    "POSITION":39,
+    "POSITION":38,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_GJAHR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":40,
+    "POSITION":39,
     "VALUE":"40"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":71,
+    "POSITION":70,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":72,
+    "POSITION":71,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":73,
+    "POSITION":72,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"ENDUSERTEXT",
-    "POSITION":69,
+    "POSITION":68,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":70,
+    "POSITION":69,
     "VALUE":"'Cari No'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"UI",
-    "POSITION":67,
+    "POSITION":66,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSPNO",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":68,
+    "POSITION":67,
     "VALUE":"70"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
     "NAME":"CONSUMPTION",
+    "POSITION":58,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_HSTUR",
+    "NAME":"CONSUMPTION.FILTER",
+    "POSITION":62,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_HSTUR",
+    "NAME":"CONSUMPTION.FILTER.MANDATORY",
+    "POSITION":63,
+    "VALUE":"false"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_HSTUR",
+    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
+    "POSITION":65,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_HSTUR",
+    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
+    "POSITION":64,
+    "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_HSTUR",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":59,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
-    "NAME":"CONSUMPTION.FILTER",
-    "POSITION":63,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_HSTUR",
-    "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":64,
-    "VALUE":"false"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_HSTUR",
-    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":66,
-    "VALUE":"true"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_HSTUR",
-    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":65,
-    "VALUE":"#RANGE"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_HSTUR",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":60,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_HSTUR",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":62,
+    "POSITION":61,
     "VALUE":"'AccountType'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":61,
+    "POSITION":60,
     "VALUE":"'ZRECO_DDL_VH_ACCOUNT_TYPE'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":57,
+    "POSITION":56,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":58,
+    "POSITION":57,
     "VALUE":"'Cari Türü'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
     "NAME":"UI",
-    "POSITION":55,
+    "POSITION":54,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_HSTUR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":56,
+    "POSITION":55,
     "VALUE":"60"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
     "NAME":"CONSUMPTION",
+    "POSITION":81,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_KUNNR",
+    "NAME":"CONSUMPTION.FILTER",
+    "POSITION":77,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_KUNNR",
+    "NAME":"CONSUMPTION.FILTER.MANDATORY",
+    "POSITION":78,
+    "VALUE":"false"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_KUNNR",
+    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
+    "POSITION":80,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_KUNNR",
+    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
+    "POSITION":79,
+    "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_KUNNR",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":82,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
-    "NAME":"CONSUMPTION.FILTER",
-    "POSITION":78,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_KUNNR",
-    "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":79,
-    "VALUE":"false"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_KUNNR",
-    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":81,
-    "VALUE":"true"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_KUNNR",
-    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":80,
-    "VALUE":"#RANGE"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_KUNNR",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":83,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_KUNNR",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":85,
+    "POSITION":84,
     "VALUE":"'Customer'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":84,
+    "POSITION":83,
     "VALUE":"'I_Customer_VH'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":76,
+    "POSITION":75,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":77,
+    "POSITION":76,
     "VALUE":"'Müşteri No'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
     "NAME":"UI",
-    "POSITION":74,
+    "POSITION":73,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_KUNNR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":75,
+    "POSITION":74,
     "VALUE":"80"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":92,
+    "POSITION":91,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":93,
+    "POSITION":92,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":95,
+    "POSITION":94,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":94,
+    "POSITION":93,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":90,
+    "POSITION":89,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":91,
+    "POSITION":90,
     "VALUE":"'Satıcının hesap numarası'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"UI",
-    "POSITION":86,
+    "POSITION":85,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":88,
+    "POSITION":87,
     "VALUE":"'Satıcının hesap numarası'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":87,
+    "POSITION":86,
     "VALUE":"90"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_LIFNR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":89,
+    "POSITION":88,
     "VALUE":"90"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":51,
+    "POSITION":50,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":52,
+    "POSITION":51,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":54,
+    "POSITION":53,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":53,
+    "POSITION":52,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"ENDUSERTEXT",
-    "POSITION":49,
+    "POSITION":48,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":50,
+    "POSITION":49,
     "VALUE":"'e-Mutabakat No'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"UI",
-    "POSITION":47,
+    "POSITION":46,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MNMBR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":48,
+    "POSITION":47,
     "VALUE":"50"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":35,
+    "POSITION":34,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":36,
+    "POSITION":35,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":38,
+    "POSITION":37,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":37,
+    "POSITION":36,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"ENDUSERTEXT",
-    "POSITION":33,
+    "POSITION":32,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":34,
+    "POSITION":33,
     "VALUE":"'Dönem'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI",
-    "POSITION":26,
+    "POSITION":25,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI.LINEITEM$1$.DATAACTION",
-    "POSITION":30,
+    "POSITION":29,
     "VALUE":"'reminder_mail'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI.LINEITEM$1$.INVOCATIONGROUPING",
-    "POSITION":31,
+    "POSITION":30,
     "VALUE":"#CHANGE_SET"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":29,
+    "POSITION":28,
     "VALUE":"'Hatırlatma Mail Gönder'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":27,
+    "POSITION":26,
     "VALUE":"30"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI.LINEITEM$1$.TYPE",
-    "POSITION":28,
+    "POSITION":27,
     "VALUE":"#FOR_ACTION"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MONAT",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":32,
+    "POSITION":31,
     "VALUE":"30"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
     "NAME":"CONSUMPTION",
+    "POSITION":121,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_MRSLT",
+    "NAME":"CONSUMPTION.FILTER",
+    "POSITION":125,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_MRSLT",
+    "NAME":"CONSUMPTION.FILTER.MANDATORY",
+    "POSITION":126,
+    "VALUE":"false"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_MRSLT",
+    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
+    "POSITION":128,
+    "VALUE":"true"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_MRSLT",
+    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
+    "POSITION":127,
+    "VALUE":"#RANGE"
+   },
+   {
+    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
+    "LFIELDNAME":"S_MRSLT",
+    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
     "POSITION":122,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
-    "NAME":"CONSUMPTION.FILTER",
-    "POSITION":126,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_MRSLT",
-    "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":127,
-    "VALUE":"false"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_MRSLT",
-    "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":129,
-    "VALUE":"true"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_MRSLT",
-    "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":128,
-    "VALUE":"#RANGE"
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_MRSLT",
-    "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":123,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
-    "LFIELDNAME":"S_MRSLT",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":125,
+    "POSITION":124,
     "VALUE":"'MResult'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":124,
+    "POSITION":123,
     "VALUE":"'ZRECO_DDL_VH_RESULT'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
     "NAME":"ENDUSERTEXT",
-    "POSITION":120,
+    "POSITION":119,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":121,
+    "POSITION":120,
     "VALUE":"'Mutabakat Sonucu'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
     "NAME":"UI",
-    "POSITION":118,
+    "POSITION":117,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_MRSLT",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":119,
+    "POSITION":118,
     "VALUE":"120"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION",
-    "POSITION":110,
+    "POSITION":109,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":114,
+    "POSITION":113,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":115,
+    "POSITION":114,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":117,
+    "POSITION":116,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":116,
+    "POSITION":115,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":111,
+    "POSITION":110,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":113,
+    "POSITION":112,
     "VALUE":"'MOutput'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":112,
+    "POSITION":111,
     "VALUE":"'ZRECO_DDL_VH_OUTPUT'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"ENDUSERTEXT",
-    "POSITION":108,
+    "POSITION":107,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":109,
+    "POSITION":108,
     "VALUE":"'Mutabakat Tipi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"UI",
-    "POSITION":104,
+    "POSITION":103,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":106,
+    "POSITION":105,
     "VALUE":"'Mutabakat Tipi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":105,
+    "POSITION":104,
     "VALUE":"110"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_OUTPT",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":107,
+    "POSITION":106,
     "VALUE":"90"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"CONSUMPTION.FILTER",
-    "POSITION":100,
+    "POSITION":99,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"CONSUMPTION.FILTER.MANDATORY",
-    "POSITION":101,
+    "POSITION":100,
     "VALUE":"false"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"CONSUMPTION.FILTER.MULTIPLESELECTIONS",
-    "POSITION":103,
+    "POSITION":102,
     "VALUE":"true"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"CONSUMPTION.FILTER.SELECTIONTYPE",
-    "POSITION":102,
+    "POSITION":101,
     "VALUE":"#RANGE"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"ENDUSERTEXT",
-    "POSITION":98,
+    "POSITION":97,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"ENDUSERTEXT.LABEL",
-    "POSITION":99,
+    "POSITION":98,
     "VALUE":"'VKN/TCKN'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"UI",
-    "POSITION":96,
+    "POSITION":95,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"S_STCD2",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":97,
+    "POSITION":96,
     "VALUE":"100"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELF1",
     "NAME":"UI",
-    "POSITION":212,
+    "POSITION":211,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELF1",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":214,
+    "POSITION":213,
     "VALUE":"'Telefon'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELF1",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":213,
+    "POSITION":212,
     "VALUE":"110"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELF2",
     "NAME":"UI",
-    "POSITION":215,
+    "POSITION":214,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELF2",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":217,
+    "POSITION":216,
     "VALUE":"'Mobil'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELF2",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":216,
+    "POSITION":215,
     "VALUE":"120"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELFX",
     "NAME":"UI",
-    "POSITION":218,
+    "POSITION":217,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELFX",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":220,
+    "POSITION":219,
     "VALUE":"'Faks'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"TELFX",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":219,
+    "POSITION":218,
     "VALUE":"130"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VD",
     "NAME":"UI",
-    "POSITION":372,
+    "POSITION":371,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VD",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":374,
+    "POSITION":373,
     "VALUE":"'Vergi Dairesi'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VD",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":373,
+    "POSITION":372,
     "VALUE":"540"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VERSION",
     "NAME":"UI",
-    "POSITION":191,
+    "POSITION":190,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VERSION",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":193,
+    "POSITION":192,
     "VALUE":"'Versiyon'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VERSION",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":192,
+    "POSITION":191,
     "VALUE":"40"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VKN_TCKN",
     "NAME":"UI",
-    "POSITION":369,
+    "POSITION":368,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VKN_TCKN",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":371,
+    "POSITION":370,
     "VALUE":"'VKN/TCKN'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"VKN_TCKN",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":370,
+    "POSITION":369,
     "VALUE":"530"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"WRBTR",
     "NAME":"SEMANTICS",
-    "POSITION":268,
+    "POSITION":267,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"WRBTR",
     "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":269,
+    "POSITION":268,
     "VALUE":"'currency'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"WRBTR",
     "NAME":"UI",
-    "POSITION":265,
+    "POSITION":264,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"WRBTR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":267,
+    "POSITION":266,
     "VALUE":"'Tutar'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"WRBTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":266,
+    "POSITION":265,
     "VALUE":"270"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XCOUNT",
     "NAME":"UI",
-    "POSITION":239,
+    "POSITION":238,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XCOUNT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":241,
+    "POSITION":240,
     "VALUE":"'Sayaç'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XCOUNT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":240,
+    "POSITION":239,
     "VALUE":"200"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XRESULT",
     "NAME":"UI",
-    "POSITION":182,
+    "POSITION":181,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XRESULT",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":184,
+    "POSITION":183,
     "VALUE":"'Sonuç'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XRESULT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":183,
+    "POSITION":182,
     "VALUE":"10"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XSUM",
     "NAME":"UI",
-    "POSITION":242,
+    "POSITION":241,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XSUM",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":244,
+    "POSITION":243,
     "VALUE":"'Bakiyeye Dahil'"
    },
    {
     "STRUCOBJN":"ZRECO_DDL_I_RECO_FOLLOW_REPORT",
     "LFIELDNAME":"XSUM",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":243,
+    "POSITION":242,
     "VALUE":"210"
    }
   ]
