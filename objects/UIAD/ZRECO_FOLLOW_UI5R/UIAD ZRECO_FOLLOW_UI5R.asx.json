@@ -4,18 +4,18 @@
   "data":
   [
    {
-    "APP_ID":"ZRECO_FOLLOW2_UI5R",
+    "APP_ID":"ZRECO_FOLLOW_UI5R",
     "CAT_ID":"SAP_TC_UI5_REPO_UIAD",
-    "SEM_OBJ":"zreco_follow_report2",
-    "SEM_ACT":"manage",
-    "TARGET_MAPPING_ID":"UI5R_6273657CB1C9392DB3D5CC6E80CF114A97ED4F3D_TM",
-    "TILE_ID":"UI5R_6273657CB1C9392DB3D5CC6E80CF114A97ED4F3D_AL",
+    "SEM_OBJ":"zreco_follow",
+    "SEM_ACT":"ma",
+    "TARGET_MAPPING_ID":"UI5R_225C3231BFF0ECC648ADABE394B938A40116E159_TM",
+    "TILE_ID":"UI5R_225C3231BFF0ECC648ADABE394B938A40116E159_AL",
     "APP_TYPE":"U",
     "TCODE":"",
     "WD_APPL_ID":"",
     "WD_CONF_ID":"",
     "WCF_TARGET_ID":"",
-    "UI5_APP_ID":"zrecofollowreport2.zrecofollowreport2",
+    "UI5_APP_ID":"zrecofollow.zrecofollow",
     "FIORI_ID":"",
     "ICF_PATH":"",
     "SYSTEM_ALIAS":"",
@@ -33,7 +33,7 @@
     "REFRESH_INTERVALL":0,
     "DISPLAY_NUMBER_UNIT":"",
     "FLAVOR_ID":"",
-    "CHANGED_AT":"+020251116221617",
+    "CHANGED_AT":"+020251116223410",
     "CHANGED_BY":"SAP_CUSTOMER",
     "MASTERLANG":"",
     "ACH_COMPONENT":"",
@@ -56,12 +56,12 @@
   "data":
   [
    {
-    "APP_ID":"ZRECO_FOLLOW2_UI5R",
-    "TILE_ID":"UI5R_6273657CB1C9392DB3D5CC6E80CF114A97ED4F3D_AL",
+    "APP_ID":"ZRECO_FOLLOW_UI5R",
+    "TILE_ID":"UI5R_225C3231BFF0ECC648ADABE394B938A40116E159_AL",
     "TILE_TYPE":"S",
     "CUSTOM_TILE_TYPE":"",
     "DEFAULT_TILE":"X",
-    "TILE_CONFIG_STRING":"{\"tileConfiguration\":\"{\\\"display_icon_url\\\":\\\"\\\",\\\"display_info_text\\\":\\\"\\\",\\\"display_title_text\\\":\\\"Mutabakat Takip Raporu\\\",\\\"display_subtitle_text\\\":\\\"\\\",\\\"navigation_use_semantic_object\\\":true,\\\"navigation_target_url\\\":\\\"#zreco_follow_report2-manage\\\",\\\"navigation_semantic_object\\\":\\\"zreco_follow_report2\\\",\\\"navigation_semantic_action\\\":\\\"manage\\\",\\\"navigation_semantic_parameters\\\":\\\"\\\",\\\"display_search_keywords\\\":\\\"\\\",\\\"display_number_unit\\\":\\\"\\\",\\\"service_url\\\":\\\"\\\",\\\"service_refresh_interval\\\":0}\"}",
+    "TILE_CONFIG_STRING":"{\"tileConfiguration\":\"{\\\"display_icon_url\\\":\\\"\\\",\\\"display_info_text\\\":\\\"\\\",\\\"display_title_text\\\":\\\"Mutabakat Takip Raporu\\\",\\\"display_subtitle_text\\\":\\\"\\\",\\\"navigation_use_semantic_object\\\":true,\\\"navigation_target_url\\\":\\\"#zreco_follow-ma\\\",\\\"navigation_semantic_object\\\":\\\"zreco_follow\\\",\\\"navigation_semantic_action\\\":\\\"ma\\\",\\\"navigation_semantic_parameters\\\":\\\"\\\",\\\"display_search_keywords\\\":\\\"\\\",\\\"display_number_unit\\\":\\\"\\\",\\\"service_url\\\":\\\"\\\",\\\"service_refresh_interval\\\":0}\"}",
     "TILE_ICON":"",
     "TILE_PARAMETERS":"",
     "SERVICE_BASE_URL":"",
@@ -79,8 +79,8 @@
   [
    {
     "LANGU":"E",
-    "APP_ID":"ZRECO_FOLLOW2_UI5R",
-    "TILE_ID":"UI5R_6273657CB1C9392DB3D5CC6E80CF114A97ED4F3D_AL",
+    "APP_ID":"ZRECO_FOLLOW_UI5R",
+    "TILE_ID":"UI5R_225C3231BFF0ECC648ADABE394B938A40116E159_AL",
     "TILE_TITLE":"Mutabakat Takip Raporu",
     "TILE_SUBTITLE":"",
     "TILE_KEYWORDS":"",
@@ -93,7 +93,7 @@
   "data":
   [
    {
-    "APP_ID":"ZRECO_FOLLOW2_UI5R",
+    "APP_ID":"ZRECO_FOLLOW_UI5R",
     "LANGU":"E",
     "TILE_TITLE":"Mutabakat Takip Raporu",
     "TILE_SUBTITLE":"",
@@ -111,7 +111,7 @@
    {
     "PGMID":"R3TR",
     "OBJECT":"UIAD",
-    "OBJ_NAME":"ZRECO_FOLLOW2_UI5R",
+    "OBJ_NAME":"ZRECO_FOLLOW_UI5R",
     "KORRNUM":"",
     "SRCSYSTEM":"...",
     "AUTHOR":"SAP_CUSTOMER",
