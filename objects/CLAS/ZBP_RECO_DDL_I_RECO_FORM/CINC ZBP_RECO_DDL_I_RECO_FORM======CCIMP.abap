@@ -155,18 +155,6 @@ CLASS lhc_zreco_ddl_i_reco_form IMPLEMENTATION.
 
     ENDTRY.
 
-        READ ENTITIES OF zreco_ddl_i_reco_form IN LOCAL MODE
-      ENTITY zreco_ddl_i_reco_form
-      ALL FIELDS WITH
-      CORRESPONDING #( keys )
-      RESULT data(result_).
-    result = VALUE #( FOR res IN result_
-                 ( %tky   = res-%tky
-                   %param = res ) ).
-
-    APPEND VALUE #( %msg = new_message( id       = 'ZETR_COMMON'
-                                        number   = '003'
-                                        severity = if_abap_behv_message=>severity-success ) ) TO reported-zreco_ddl_i_reco_form.
   ENDMETHOD.
 
 ENDCLASS.
