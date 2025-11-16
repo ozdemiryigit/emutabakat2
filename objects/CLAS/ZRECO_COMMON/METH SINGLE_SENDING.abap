@@ -1,6 +1,7 @@
   METHOD single_sending.
 
     DATA : lv_tabix TYPE int4.
+    DATA : lt_temp TYPE TABLE OF zreco_gtout.
 
     DATA(lt_cform) = it_cform[].
 
@@ -30,7 +31,13 @@
     gs_adrs = VALUE #(  gt_adrs[ 1 ] OPTIONAL ).
 
 
-    LOOP AT gt_out_c ASSIGNING FIELD-SYMBOL(<fs_out_c>).
+    MOVE-CORRESPONDING gt_out_c TO lt_temp.
+    DELETE ADJACENT DUPLICATES FROM lt_temp COMPARING               hesap_tur
+             hesap_no
+             kunnr
+             lifnr     .
+
+    LOOP AT lt_temp ASSIGNING FIELD-SYMBOL(<fs_temp>).
 
       lv_tabix = lv_tabix + 1.
 
@@ -38,29 +45,29 @@
         EXPORTING
             i_bukrs      = gs_adrs-bukrs
             i_ucomm      = ''
-            i_kunnr      = <fs_out_c>-kunnr
-            i_lifnr      = <fs_out_c>-lifnr
+            i_kunnr      = <fs_temp>-kunnr
+            i_lifnr      = <fs_temp>-lifnr
             i_abtnr      = ''
             i_pafkt      = ''
             i_remark     = ''
             i_all        = ''
-            i_stcd1      = <fs_out_c>-vkn_tckn
+            i_stcd1      = <fs_temp>-vkn_tckn
             i_no_general = gs_adrs-no_general
             i_mtype      = 'C'
         IMPORTING
-           e_mail       = <fs_out_c>-email
+           e_mail       = <fs_temp>-email
            t_receivers  = gt_receivers
       ).
       CLEAR :gs_mail_list,gs_receivers.
 
-      MOVE-CORRESPONDING <fs_out_c> TO gs_mail_list.
+      MOVE-CORRESPONDING <fs_temp> TO gs_mail_list.
 
       gs_receivers = VALUE #(  gt_receivers[ 1 ] OPTIONAL ). "YiğitcanÖzdemir
       MOVE-CORRESPONDING gs_receivers TO gs_mail_list.
 
       gs_mail_list-bukrs = gs_adrs-bukrs.
-      gs_mail_list-monat = <fs_out_c>-period.
-      gs_mail_list-gjahr = <fs_out_c>-gjahr.
+      gs_mail_list-monat = <fs_temp>-period.
+      gs_mail_list-gjahr = <fs_temp>-gjahr.
       gs_mail_list-posnr = lv_tabix.
 
       INSERT gs_mail_list INTO TABLE gt_mail_list.

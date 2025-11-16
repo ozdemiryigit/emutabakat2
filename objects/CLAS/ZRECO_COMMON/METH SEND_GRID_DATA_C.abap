@@ -301,7 +301,7 @@
             data = ls_response
         ).
 
-         IF ls_response-success EQ 'X'.
+        IF ls_response-success EQ 'X'.
           ls_response_data-companycode          = ls_response-data-companycode(4).
           ls_response_data-reconciliationnumber = ls_response-data-reconciliationnumber.
           ls_response_data-username             = ls_response-data-username.
@@ -309,7 +309,7 @@
           ls_response_data-success              = ls_response-success.
           ls_response_data-message              = ls_response-message.
           INSERT zreco_t_re FROM @ls_response_data.
-          endif.
+        ENDIF.
       CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
     ENDTRY.
 

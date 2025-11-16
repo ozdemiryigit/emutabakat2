@@ -997,50 +997,50 @@
 
 *    IF gs_flds-name2_use IS INITIAL.
 *      IF gs_flds-name2_x IS NOT INITIAL.
-        lv_name2 = gs_adrc-OrganizationName2.
+    lv_name2 = gs_adrc-OrganizationName2.
 *      ENDIF.
 *    ELSE.
 *      IF gs_flds-name2_x IS NOT INITIAL.
-        CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName2 INTO lv_cari_adres_1
-        SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName2 INTO lv_cari_adres_1
+    SEPARATED BY space.
 *      ENDIF.
 *    ENDIF.
 
 *    IF gs_flds-name3_use IS INITIAL.
 *      IF gs_flds-name3_x IS NOT INITIAL.
-        lv_name3 = gs_adrc-OrganizationName3.
+    lv_name3 = gs_adrc-OrganizationName3.
 *      ENDIF.
 *    ELSE.
 *      IF gs_flds-name3_x IS NOT INITIAL.
-        CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName3 INTO lv_cari_adres_1
-        SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName3 INTO lv_cari_adres_1
+    SEPARATED BY space.
 *      ENDIF.
 *    ENDIF.
 
 *    IF gs_flds-name4_use IS INITIAL.
 *      IF gs_flds-name4_x IS NOT INITIAL..
-        lv_name4 = gs_adrc-OrganizationName4.
+    lv_name4 = gs_adrc-OrganizationName4.
 *      ENDIF.
 *    ELSE.
 *      IF gs_flds-name4_x IS NOT INITIAL.
-        CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName4 INTO lv_cari_adres_1
-        SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName4 INTO lv_cari_adres_1
+    SEPARATED BY space.
 *      ENDIF.
 *    ENDIF.
 
 *    IF gs_flds-street_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-street INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-street INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 *
 *    IF gs_flds-str_suppl1_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-StreetPrefixName1 INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-StreetPrefixName1 INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-str_suppl2_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-StreetPrefixName2 INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-StreetPrefixName2 INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-str_suppl3_x IS NOT INITIAL.
@@ -1049,13 +1049,13 @@
 *    ENDIF.
 
 *    IF gs_flds-location_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-DistrictName INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-DistrictName INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-building_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-building INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-building INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 
     IF gs_flds-roomnumber_x IS NOT INITIAL.
@@ -1074,13 +1074,13 @@
 *    ENDIF.
 
 *    IF gs_flds-house_num1_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-HouseNumber INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-HouseNumber INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-house_num2_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_1 gs_adrc-HouseNumberSupplementText INTO lv_cari_adres_1
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_1 gs_adrc-HouseNumberSupplementText INTO lv_cari_adres_1
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-city2_x IS NOT INITIAL.
@@ -1094,13 +1094,13 @@
 *    ENDIF.
 
 *    IF gs_flds-post_code1_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_2 gs_adrc-CompanyPostalCode INTO lv_cari_adres_2
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_2 gs_adrc-CompanyPostalCode INTO lv_cari_adres_2
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-city1_x IS NOT INITIAL.
-      CONCATENATE lv_cari_adres_2 gs_adrc-CityName INTO lv_cari_adres_2
-      SEPARATED BY space.
+    CONCATENATE lv_cari_adres_2 gs_adrc-CityName INTO lv_cari_adres_2
+    SEPARATED BY space.
 *    ENDIF.
 
 *    IF gs_flds-region_x IS NOT INITIAL.
@@ -1150,34 +1150,34 @@
 *       gs_flds-tax_number_x IS NOT INITIAL.
 
 
-      IF gs_account-vd IS NOT INITIAL.
-        CONCATENATE gs_account-vd 'V.D.' INTO lv_vd
-        SEPARATED BY space.
+    IF gs_account-vd IS NOT INITIAL.
+      CONCATENATE gs_account-vd 'V.D.' INTO lv_vd
+      SEPARATED BY space.
+    ENDIF.
+
+    IF gs_account-vkn_tckn IS NOT INITIAL.
+
+      CLEAR lv_len.
+
+      lv_len = strlen( gs_account-vkn_tckn ).
+
+      IF lv_len EQ 11.
+        CONCATENATE 'TCKN:' gs_account-vkn_tckn
+        INTO lv_vkn_tckn SEPARATED BY space.
+      ELSE.
+        CONCATENATE 'VKN:' gs_account-vkn_tckn
+        INTO lv_vkn_tckn SEPARATED BY space.
       ENDIF.
 
-      IF gs_account-vkn_tckn IS NOT INITIAL.
+    ENDIF.
 
-        CLEAR lv_len.
+    IF gs_flds-tax_office_x IS INITIAL.
+      CLEAR lv_vd.
+    ENDIF.
 
-        lv_len = strlen( gs_account-vkn_tckn ).
-
-        IF lv_len EQ 11.
-          CONCATENATE 'TCKN:' gs_account-vkn_tckn
-          INTO lv_vkn_tckn SEPARATED BY space.
-        ELSE.
-          CONCATENATE 'VKN:' gs_account-vkn_tckn
-          INTO lv_vkn_tckn SEPARATED BY space.
-        ENDIF.
-
-      ENDIF.
-
-      IF gs_flds-tax_office_x IS INITIAL.
-        CLEAR lv_vd.
-      ENDIF.
-
-      IF gs_flds-tax_number_x IS INITIAL.
-        CLEAR lv_vkn_tckn.
-      ENDIF.
+    IF gs_flds-tax_number_x IS INITIAL.
+      CLEAR lv_vkn_tckn.
+    ENDIF.
 
 *    ENDIF.
 
@@ -1324,7 +1324,7 @@
 *      ENDIF.
 *
 *      IF r_bform IS INITIAL.
-        MODIFY Zreco_rcai FROM TABLE @lt_cform.
+      MODIFY Zreco_rcai FROM TABLE @lt_cform.
 *        COMMIT WORK AND WAIT.
 *          INSERT /itetr/reco_rcai FROM TABLE lt_cform.
 *      ENDIF.
