@@ -5,19 +5,19 @@
 
     single_sending( it_cform = lt_cform ).
 
-    SELECT *
-        FROM zreco_gtout
-        FOR ALL ENTRIES IN @lt_cform
-        WHERE uuid = @lt_cform-uuid
-        INTO TABLE @gt_out_c.
+*    SELECT *
+*        FROM zreco_gtout
+*        FOR ALL ENTRIES IN @lt_cform
+*        WHERE uuid = @lt_cform-uuid
+*        INTO TABLE @gt_out_c.
 
 
-    LOOP AT gt_out_c INTO DATA(ls_out_c).
-
-      MOVE-CORRESPONDING ls_out_c TO gs_cform.
-      COLLECT gs_cform INTO gt_cform.
-
-    ENDLOOP.
+*    LOOP AT gt_out_c INTO DATA(ls_out_c).
+*
+*      MOVE-CORRESPONDING ls_out_c TO gs_cform.
+*      COLLECT gs_cform INTO gt_cform.
+*
+*    ENDLOOP.
 
 
     SELECT *
