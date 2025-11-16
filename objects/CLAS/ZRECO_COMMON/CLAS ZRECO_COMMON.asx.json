@@ -3621,8 +3621,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":250,
-    "TYPESRC":"BEGIN OF ty_cform,\r\n             hesap_tur TYPE zreco_account_type,\r\n             hesap_no  TYPE zreco_ktonr_av,\r\n             waers     TYPE waers,\r\n             kunnr     TYPE kunnr,\r\n             lifnr     TYPE lifnr,\r\n           END OF ty_cform\r\n"
+    "TYPESRC_LENG":251,
+    "TYPESRC":"BEGIN OF ty_cform,\r\n             hesap_tur TYPE zreco_account_type,\r\n             hesap_no  TYPE zreco_ktonr_av,\r\n*             waers     TYPE waers,\r\n             kunnr     TYPE kunnr,\r\n             lifnr     TYPE lifnr,\r\n           END OF ty_cform\r\n"
    },
    {
     "CLSNAME":"ZRECO_COMMON",

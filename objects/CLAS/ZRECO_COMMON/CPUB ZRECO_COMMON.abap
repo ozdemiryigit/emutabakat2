@@ -25,7 +25,7 @@ CLASS zreco_common DEFINITION
     TYPES: BEGIN OF ty_cform,
              hesap_tur TYPE zreco_account_type,
              hesap_no  TYPE zreco_ktonr_av,
-             waers     TYPE waers,
+*             waers     TYPE waers,
              kunnr     TYPE kunnr,
              lifnr     TYPE lifnr,
            END OF ty_cform.
