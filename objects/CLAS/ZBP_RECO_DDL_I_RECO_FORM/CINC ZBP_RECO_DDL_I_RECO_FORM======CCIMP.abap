@@ -150,6 +150,103 @@ CLASS lhc_zreco_ddl_i_reco_form IMPLEMENTATION.
         iv_output = 'X'
          ).
 
+        READ ENTITIES OF zreco_ddl_i_reco_form IN LOCAL MODE
+    ENTITY zreco_ddl_i_reco_form
+    FROM CORRESPONDING #( keys )
+    RESULT DATA(foundS).
+
+        LOOP AT foundS INTO DATA(found).
+*          MODIFY ENTITIES OF zreco_ddl_i_reco_form IN LOCAL MODE
+*                 ENTITY zreco_ddl_i_reco_form
+*                 UPDATE FROM VALUE #( ( bukrs               = found-bukrs
+*                                        %control-description = if_abap_behv=>mk-on ) ).
+
+
+          MODIFY ENTITIES OF zreco_ddl_i_reco_form IN LOCAL MODE
+              ENTITY zreco_ddl_i_reco_form
+              UPDATE FROM VALUE #(
+                (
+                  %tky     = found-%tky
+                  %data    = CORRESPONDING zreco_ddl_i_reco_form( found )
+                      %control = VALUE #(
+                                bukrs     = if_abap_behv=>mk-on
+                                akont     = if_abap_behv=>mk-on
+                                uuid      = if_abap_behv=>mk-on
+                                period    = if_abap_behv=>mk-on
+                                gjahr     = if_abap_behv=>mk-on
+                                waers     = if_abap_behv=>mk-on
+                                xsum      = if_abap_behv=>mk-on
+                                ltext     = if_abap_behv=>mk-on
+                                hesap_tur = if_abap_behv=>mk-on
+                                hesap_no  = if_abap_behv=>mk-on
+                                name1     = if_abap_behv=>mk-on
+                                gsber     = if_abap_behv=>mk-on
+                                ktokl     = if_abap_behv=>mk-on
+                                dmbtr     = if_abap_behv=>mk-on
+                                kursf     = if_abap_behv=>mk-on
+                                wrbtr     = if_abap_behv=>mk-on
+                                vkn_tckn  = if_abap_behv=>mk-on
+                                vd        = if_abap_behv=>mk-on
+                                spras     = if_abap_behv=>mk-on
+                                telf1     = if_abap_behv=>mk-on
+                                telf2     = if_abap_behv=>mk-on
+                                telfx     = if_abap_behv=>mk-on
+                                email     = if_abap_behv=>mk-on
+                                kep_use   = if_abap_behv=>mk-on
+                                kep_mail  = if_abap_behv=>mk-on
+                                merge     = if_abap_behv=>mk-on
+                                kunnr     = if_abap_behv=>mk-on
+                                lifnr     = if_abap_behv=>mk-on
+                                xausz     = if_abap_behv=>mk-on
+                                no_local_curr = if_abap_behv=>mk-on
+                                umskz     = if_abap_behv=>mk-on
+                                p_daily   = if_abap_behv=>mk-on
+                                rdate     = if_abap_behv=>mk-on
+                                p_gsber   = if_abap_behv=>mk-on
+                                p_waers   = if_abap_behv=>mk-on
+                                p_seld    = if_abap_behv=>mk-on
+                                ktokd     = if_abap_behv=>mk-on
+                                dkont     = if_abap_behv=>mk-on
+                                vkn_cr    = if_abap_behv=>mk-on
+                                p_selk    = if_abap_behv=>mk-on
+                                ktokk     = if_abap_behv=>mk-on
+                                kkont     = if_abap_behv=>mk-on
+                                brsch1    = if_abap_behv=>mk-on
+                                brsch2    = if_abap_behv=>mk-on
+                                vkn_ve    = if_abap_behv=>mk-on
+                                p_tran    = if_abap_behv=>mk-on
+                                p_all     = if_abap_behv=>mk-on
+                                p_blist   = if_abap_behv=>mk-on
+                                p_diff    = if_abap_behv=>mk-on
+                                p_last    = if_abap_behv=>mk-on
+                                p_cred    = if_abap_behv=>mk-on
+                                p_print   = if_abap_behv=>mk-on
+                                limit     = if_abap_behv=>mk-on
+                                p_dmbtr   = if_abap_behv=>mk-on
+                                p_shk     = if_abap_behv=>mk-on
+                                p_date    = if_abap_behv=>mk-on
+                                p_bli     = if_abap_behv=>mk-on
+                                p_bsiz    = if_abap_behv=>mk-on
+                                p_exch    = if_abap_behv=>mk-on
+                                p_zero    = if_abap_behv=>mk-on
+                                p_sgli    = if_abap_behv=>mk-on
+                                s_sgli    = if_abap_behv=>mk-on
+                                s_og      = if_abap_behv=>mk-on
+                                p_novl    = if_abap_behv=>mk-on
+                                p_nolc    = if_abap_behv=>mk-on
+                                p_smkod   = if_abap_behv=>mk-on
+                                p_salma   = if_abap_behv=>mk-on
+                              )
+                )
+              ).
+
+          INSERT VALUE #(
+         %param = found
+      ) INTO TABLE result.
+
+
+        ENDLOOP.
+
       CATCH cx_root INTO DATA(lx_err).
 
 
