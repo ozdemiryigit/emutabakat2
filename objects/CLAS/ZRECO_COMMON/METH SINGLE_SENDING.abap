@@ -15,10 +15,10 @@
     delete ADJACENT DUPLICATES FROM gt_out_c COMPARING uuid.
 
 
-*    LOOP AT gt_out_c INTO DATA(ls_out_C).
-*      MOVE-CORRESPONDING ls_out_C TO gs_cform.
-*      COLLECT gs_cform INTO gt_cform.
-*    ENDLOOP.
+    LOOP AT gt_out_c INTO DATA(ls_out_C).
+      MOVE-CORRESPONDING ls_out_C TO gs_cform.
+      COLLECT gs_cform INTO gt_cform.
+    ENDLOOP.
 
     SELECT  * FROM zreco_adrs
     FOR ALL ENTRIES IN @gt_out_c
