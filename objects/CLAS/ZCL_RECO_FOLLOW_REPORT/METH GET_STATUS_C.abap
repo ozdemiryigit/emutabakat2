@@ -66,6 +66,10 @@
       ENDIF.
     ENDIF.
 
+    IF lv_recousername IS NOT INITIAL.
+      ls_input_rtn-reconciliationuniqnumber = lv_recousername.
+    ENDIF.
+
     TRY .
 *        lv_sjson = zreco_cl_json=>data_to_json( i_data = ls_input_rtn ).               "D_MBAYEL
 
