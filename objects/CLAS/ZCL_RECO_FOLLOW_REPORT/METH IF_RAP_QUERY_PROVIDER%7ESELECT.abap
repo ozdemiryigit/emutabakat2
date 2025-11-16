@@ -214,6 +214,7 @@
       ls_output-p_ftype = ls_out_c-ftype.
       ls_output-s_mnmbr = ls_out_c-mnumber.
       ls_output-s_monat = ls_out_c-monat.
+      ls_output-s_gjahr = ls_out_c-gjahr.
 
       APPEND ls_output TO lt_output.
     ENDLOOP.

@@ -556,7 +556,7 @@
     LOOP AT gt_h001 INTO gs_h001.
 
       CLEAR: lv_auth, gs_v001, gs_b001, gs_c001, gs_h002, gs_r000,
-             gs_r001, gs_r002.
+             gs_r001, gs_r002,gs_out.
 
       READ TABLE gt_v001 INTO gs_v001 WITH KEY bukrs = gs_h001-bukrs
                                              gsber = gs_h001-gsber
