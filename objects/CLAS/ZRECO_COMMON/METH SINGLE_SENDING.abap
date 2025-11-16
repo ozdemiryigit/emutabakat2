@@ -39,7 +39,8 @@
 
     LOOP AT lt_temp ASSIGNING FIELD-SYMBOL(<fs_temp>).
 
-      lv_tabix = lv_tabix + 1.
+
+      CLEAR :gs_mail_list,gs_receivers, gt_receivers.
 
       zreco_to_mail_adrs(
         EXPORTING
@@ -58,30 +59,34 @@
            e_mail       = <fs_temp>-email
            t_receivers  = gt_receivers
       ).
-      CLEAR :gs_mail_list,gs_receivers.
-
-      MOVE-CORRESPONDING <fs_temp> TO gs_mail_list.
-
-      gs_receivers = VALUE #(  gt_receivers[ 1 ] OPTIONAL ). "YiğitcanÖzdemir
-      MOVE-CORRESPONDING gs_receivers TO gs_mail_list.
-
-      gs_mail_list-bukrs = gs_adrs-bukrs.
-      gs_mail_list-monat = <fs_temp>-period.
-      gs_mail_list-gjahr = <fs_temp>-gjahr.
-      gs_mail_list-posnr = lv_tabix.
-
-      INSERT gs_mail_list INTO TABLE gt_mail_list.
-    ENDLOOP.
 
 
-    LOOP AT gt_cform INTO DATA(ls_cform).
 
-      LOOP AT gt_mail_list INTO gs_mail_list WHERE kunnr EQ ls_cform-kunnr
-                         AND lifnr EQ ls_cform-lifnr.
-        gs_email-email = gs_mail_list-receiver.
-        APPEND gs_email TO gt_email.
+
+
+      LOOP AT gt_receivers INTO gs_receivers.
+        lv_tabix = lv_tabix + 1.
+
+        MOVE-CORRESPONDING <fs_temp> TO gs_mail_list.
+        MOVE-CORRESPONDING gs_receivers TO gs_mail_list.
+
+        gs_mail_list-bukrs = gs_adrs-bukrs.
+        gs_mail_list-monat = <fs_temp>-period.
+        gs_mail_list-gjahr = <fs_temp>-gjahr.
+        gs_mail_list-posnr = lv_tabix.
+
+        INSERT gs_mail_list INTO TABLE gt_mail_list.
       ENDLOOP.
 
-    ENDLOOP.
 
+      LOOP AT gt_cform INTO DATA(ls_cform).
+
+        LOOP AT gt_mail_list INTO gs_mail_list WHERE kunnr EQ ls_cform-kunnr
+                           AND lifnr EQ ls_cform-lifnr.
+          gs_email-email = gs_mail_list-receiver.
+          APPEND gs_email TO gt_email.
+        ENDLOOP.
+
+      ENDLOOP.
+    ENDLOOP.
   ENDMETHOD.
