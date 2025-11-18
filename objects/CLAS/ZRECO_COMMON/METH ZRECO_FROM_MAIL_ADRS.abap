@@ -73,7 +73,7 @@
 
     ENDIF.
 
-    IF i_lifnr IS NOT INITIAL.
+    IF i_lifnr IS NOT INITIAL AND e_mail IS INITIAL. "YiğitcanÖzdemir e_mail eklendi müşteriden aldıysa satıcıdan almasın
 * Kullanıcıya özgü satıcı tayini yapılmış mı?
       SELECT SINGLE uname1, uname2, uname3 FROM zreco_cvua
         WHERE bukrs EQ @i_bukrs

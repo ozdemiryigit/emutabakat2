@@ -966,14 +966,59 @@
       lv_ilgili_telefon = gs_adrs-m_telefon.
     ENDIF.
 
-    CONCATENATE lv_unvan lv_adres_1 lv_adres_2 lv_telefon lv_faks lv_vd_vkn
-    lv_tsicil
-    lv_mersis
-    lv_ilgili_adi
-    lv_ilgili_telefon
-*                     LV_IMZA LV_LOGO
-     INTO ls_data-sirket_adres
-     SEPARATED BY space.
+*    CONCATENATE lv_unvan lv_adres_1 lv_adres_2 lv_telefon lv_faks lv_vd_vkn
+*    lv_tsicil
+*    lv_mersis
+*    lv_ilgili_adi
+*    lv_ilgili_telefon
+*     INTO ls_data-sirket_adres
+*     SEPARATED BY space.
+    CLEAR ls_data.
+
+    "Her bir alan doluysa başına \n ekle ve CONCATENATE ile birleştir
+
+    IF lv_unvan IS NOT INITIAL.
+      ls_data-sirket_adres = lv_unvan.
+    ENDIF.
+
+    IF lv_adres_1 IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_adres_1 INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_adres_2 IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_adres_2 INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_telefon IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_telefon INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_faks IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_faks INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_vd_vkn IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_vd_vkn INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_tsicil IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_tsicil INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_mersis IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_mersis INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_ilgili_adi IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_ilgili_adi INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+    IF lv_ilgili_telefon IS NOT INITIAL.
+      CONCATENATE ls_data-sirket_adres '\n' lv_ilgili_telefon INTO ls_data-sirket_adres SEPARATED BY space.
+    ENDIF.
+
+
+
 
     """""""""""""" Şirket Bilgileri
     """""""""""""" Müşteri Bilgileri
@@ -1185,12 +1230,56 @@
     SHIFT lv_cari_adres_2 LEFT DELETING LEADING space.
 
 
-    CONCATENATE lv_name1 lv_name2 lv_vd lv_vkn_tckn lv_telf1
-*                        LV_TELF2  LV_TELFX
-                lv_name3 lv_name4
-                lv_cari_adres_1 lv_cari_adres_2
-         INTO ls_data-cari_adres
-    SEPARATED BY space.
+*    CONCATENATE lv_name1 lv_name2 lv_vd lv_vkn_tckn lv_telf1
+*                lv_name3 lv_name4
+*                lv_cari_adres_1 lv_cari_adres_2
+*         INTO ls_data-cari_adres
+*    SEPARATED BY space.
+
+    "lv_name1
+    IF lv_name1 IS NOT INITIAL.
+      ls_data-cari_adres = lv_name1.
+    ENDIF.
+
+    "lv_name2
+    IF lv_name2 IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_name2 INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_vd
+    IF lv_vd IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_vd INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_vkn_tckn
+    IF lv_vkn_tckn IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_vkn_tckn INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_telf1
+    IF lv_telf1 IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_telf1 INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_name3
+    IF lv_name3 IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_name3 INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_name4
+    IF lv_name4 IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_name4 INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_cari_adres_1
+    IF lv_cari_adres_1 IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_cari_adres_1 INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
+
+    "lv_cari_adres_2
+    IF lv_cari_adres_2 IS NOT INITIAL.
+      CONCATENATE ls_data-cari_adres '\n' lv_cari_adres_2 INTO ls_data-cari_adres SEPARATED BY space.
+    ENDIF.
 
     """""""""""""" Müşteri Bilgileri
 
