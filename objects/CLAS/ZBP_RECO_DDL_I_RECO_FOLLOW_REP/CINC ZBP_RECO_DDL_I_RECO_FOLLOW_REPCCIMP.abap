@@ -3,7 +3,7 @@ CLASS lhc_follow_report DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       IMPORTING keys REQUEST requested_authorizations FOR follow_report RESULT result.
-"
+    "
 *    METHODS create FOR MODIFY
 *      IMPORTING entities FOR CREATE follow_report.
 
@@ -25,8 +25,11 @@ CLASS lhc_follow_report DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS reminder_mail FOR MODIFY
       IMPORTING keys FOR ACTION follow_report~reminder_mail RESULT result.
 
-    METHODS show_form FOR MODIFY
-      IMPORTING keys FOR ACTION follow_report~show_form RESULT result.
+    METHODS print FOR MODIFY
+      IMPORTING keys FOR ACTION follow_report~print RESULT result.
+
+*    METHODS show_form FOR MODIFY
+*      IMPORTING keys FOR ACTION follow_report~show_form RESULT result.
 
     DATA: lt_h001 TYPE TABLE OF zreco_hdr .
     METHODS send_reminder IMPORTING VALUE(it_h001) LIKE lt_h001 .
@@ -53,6 +56,11 @@ CLASS lhc_follow_report IMPLEMENTATION.
 
   METHOD lock.
   ENDMETHOD.
+
+  METHOD print.
+
+  ENDMETHOD.
+
 
 *  METHOD analiz.
 
@@ -474,66 +482,69 @@ CLASS lhc_follow_report IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD show_form. "YiğitcanÖzdemir
+*  METHOD show_form. "YiğitcanÖzdemir
+*
+*
+*
+*
+*
+*    DATA: gt_mnumber TYPE TABLE OF zreco_hdr.
+*    DATA : gs_mnumber TYPE zreco_hdr.
+*    DATA : lt_mnumber TYPE TABLE OF zreco_hdr.
+*    DATA(lt_keys) = keys.
+*
+*    READ TABLE lt_keys INTO DATA(ls_keys) INDEX 1.
+*    IF sy-subrc EQ 0.
+*      gs_mnumber-bukrs = 1000."ls_keys-%param-bukrs.
+*      gs_mnumber-gjahr = ls_keys-%param-gjahr.
+*      gs_mnumber-monat = ls_keys-%param-monat.
+*      gs_mnumber-mnumber = ls_keys-%param-mnmbr .
+*      gs_mnumber-hesap_no = ls_keys-%param-hesap_no.
+*      gs_mnumber-hesap_tur = ls_keys-%param-hesap_tur.
+*    ENDIF.
+*
+*    APPEND gs_mnumber TO gt_mnumber.
+*
+*    SORT gt_mnumber BY gjahr monat mnumber.
+*    DELETE ADJACENT DUPLICATES FROM gt_mnumber
+*    COMPARING gjahr monat mnumber.
+*
+*    IF gt_mnumber IS NOT INITIAL.
+*
+*      SELECT * FROM Zreco_hdr
+*    FOR ALL ENTRIES IN @gt_mnumber
+*    WHERE bukrs EQ @gt_mnumber-bukrs
+**    AND gsber EQ @gt_mnumber-gsber
+*    AND mnumber EQ @gt_mnumber-mnumber
+**    AND monat EQ @gt_mnumber-monat
+**    AND gjahr EQ @gt_mnumber-gjahr
+**    AND hesap_tur EQ @gt_mnumber-hesap_tur
+**    AND hesap_no EQ @gt_mnumber-hesap_no
+*      INTO TABLE @lt_h001.
+*
+*
+*    ENDIF.
+*
+*
+*    DATA:    zreco_object TYPE REF TO zreco_common.
+**    CREATE OBJECT zreco_object.
+*    zreco_object = NEW zreco_common( ).
+*
+*    zreco_object->zreco_pdf_preview(
+* EXPORTING
+*             i_sort_indicator = 1
+*            i_down           = ''
+*            i_fn_number      = 'X'
+*            i_fn_account     = 'X'
+*            i_fn_name        = 'X'
+*
+*            it_h001          = lt_h001
+*    ).
+*
+*  ENDMETHOD.
 
 
 
-
-
-    DATA: gt_mnumber TYPE TABLE OF zreco_hdr.
-    DATA : gs_mnumber TYPE zreco_hdr.
-    DATA : lt_mnumber TYPE TABLE OF zreco_hdr.
-    DATA(lt_keys) = keys.
-
-    READ TABLE lt_keys INTO DATA(ls_keys) INDEX 1.
-    IF sy-subrc EQ 0.
-      gs_mnumber-bukrs = 1000."ls_keys-%param-bukrs.
-      gs_mnumber-gjahr = ls_keys-%param-gjahr.
-      gs_mnumber-monat = ls_keys-%param-monat.
-      gs_mnumber-mnumber = ls_keys-%param-mnmbr .
-      gs_mnumber-hesap_no = ls_keys-%param-hesap_no.
-      gs_mnumber-hesap_tur = ls_keys-%param-hesap_tur.
-    ENDIF.
-
-    APPEND gs_mnumber TO gt_mnumber.
-
-    SORT gt_mnumber BY gjahr monat mnumber.
-    DELETE ADJACENT DUPLICATES FROM gt_mnumber
-    COMPARING gjahr monat mnumber.
-
-    IF gt_mnumber IS NOT INITIAL.
-
-      SELECT * FROM Zreco_hdr
-    FOR ALL ENTRIES IN @gt_mnumber
-    WHERE bukrs EQ @gt_mnumber-bukrs
-*    AND gsber EQ @gt_mnumber-gsber
-    AND mnumber EQ @gt_mnumber-mnumber
-*    AND monat EQ @gt_mnumber-monat
-*    AND gjahr EQ @gt_mnumber-gjahr
-*    AND hesap_tur EQ @gt_mnumber-hesap_tur
-*    AND hesap_no EQ @gt_mnumber-hesap_no
-      INTO TABLE @lt_h001.
-
-
-    ENDIF.
-
-
-    DATA:    zreco_object TYPE REF TO zreco_common.
-*    CREATE OBJECT zreco_object.
-    zreco_object = NEW zreco_common( ).
-
-    zreco_object->zreco_pdf_preview(
- EXPORTING
-             i_sort_indicator = 1
-            i_down           = ''
-            i_fn_number      = 'X'
-            i_fn_account     = 'X'
-            i_fn_name        = 'X'
-
-            it_h001          = lt_h001
-    ).
-
-  ENDMETHOD.
 
   METHOD send_reminder_c.
     TYPES: BEGIN OF ty_userinfo,

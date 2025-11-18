@@ -7,13 +7,14 @@ lock master
 authorization master ( instance )
 //etag master <field_name>
 {
-//   create;
-//   update;
-//   delete;
-  field ( readonly : update  ) p_bukrs, p_ftype, s_monat, s_gjahr, s_mnmbr;
+  //   create;
+  //   update;
+  //   delete;
+  field ( readonly : update ) p_bukrs, p_ftype, s_monat, s_gjahr, s_mnmbr;
 
 
-   action show_form parameter zreco_ddl_i_follow_report_form result [1] $self;
-//  static action analiz result [1] $self;
-   action reminder_mail result [1] $self;
+  //   action show_form parameter zreco_ddl_i_follow_report_form result [1] $self;
+  //  static action analiz result [1] $self;
+  action print result [1] zreco_s_result;
+  action reminder_mail result [1] $self;
 }
