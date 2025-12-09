@@ -629,20 +629,20 @@
 
 *    CHECK gv_subrc EQ 0.
 
-    IF gv_otf EQ 'X'.
-      IF iv_output NE 'F'.
+*    IF gv_otf EQ 'X'.
+*      IF iv_output NE 'F'.
+*
+*      ELSE.
+**          REFRESH gt_body.
+*      ENDIF.
 
-      ELSE.
-*          REFRESH gt_body.
-      ENDIF.
+    ls_random-bukrs     = gs_adrs-bukrs.
+    ls_random-mnumber   = lv_number.
+    ls_random-randomkey = lv_random.
+    ls_random-datum     = sy-datum.
+    ls_random-uzeit     = sy-uzeit.
 
-      ls_random-bukrs     = gs_adrs-bukrs.
-      ls_random-mnumber   = lv_number.
-      ls_random-randomkey = lv_random.
-      ls_random-datum     = sy-datum.
-      ls_random-uzeit     = sy-uzeit.
-
-    ENDIF.
+*    ENDIF.
 
 
 *    * Notelar
@@ -977,44 +977,44 @@
 
     "Her bir alan doluysa başına \n ekle ve CONCATENATE ile birleştir
 
-    IF lv_unvan IS NOT INITIAL.
-      ls_data-sirket_adres = lv_unvan.
-    ENDIF.
+*    IF lv_unvan IS NOT INITIAL.
+*      ls_data-sirket_adres = lv_unvan.
+*    ENDIF.
 
     IF lv_adres_1 IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_adres_1 INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_adres_1 INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_adres_2 IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_adres_2 INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_adres_2 INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_telefon IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_telefon INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_telefon INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_faks IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_faks INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_faks INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_vd_vkn IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_vd_vkn INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_vd_vkn INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_tsicil IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_tsicil INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_tsicil INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_mersis IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_mersis INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_mersis INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_ilgili_adi IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_ilgili_adi INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_ilgili_adi INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
     IF lv_ilgili_telefon IS NOT INITIAL.
-      CONCATENATE ls_data-sirket_adres '\n' lv_ilgili_telefon INTO ls_data-sirket_adres SEPARATED BY space.
+      CONCATENATE ls_data-sirket_adres cl_abap_char_utilities=>cr_lf lv_ilgili_telefon INTO ls_data-sirket_adres ."SEPARATED BY space.
     ENDIF.
 
 
@@ -1064,12 +1064,12 @@
 
 *    IF gs_flds-name4_use IS INITIAL.
 *      IF gs_flds-name4_x IS NOT INITIAL..
-    lv_name4 = gs_adrc-OrganizationName4.
+*    lv_name4 = gs_adrc-OrganizationName4.
 *      ENDIF.
 *    ELSE.
 *      IF gs_flds-name4_x IS NOT INITIAL.
-    CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName4 INTO lv_cari_adres_1
-    SEPARATED BY space.
+*    CONCATENATE lv_cari_adres_1 gs_adrc-OrganizationName4 INTO lv_cari_adres_1
+*    SEPARATED BY space.
 *      ENDIF.
 *    ENDIF.
 
@@ -1216,13 +1216,13 @@
 
     ENDIF.
 
-    IF gs_flds-tax_office_x IS INITIAL.
-      CLEAR lv_vd.
-    ENDIF.
+*    IF gs_flds-tax_office_x IS INITIAL.
+*      CLEAR lv_vd.
+*    ENDIF.
 
-    IF gs_flds-tax_number_x IS INITIAL.
-      CLEAR lv_vkn_tckn.
-    ENDIF.
+*    IF gs_flds-tax_number_x IS INITIAL.
+*      CLEAR lv_vkn_tckn.
+*    ENDIF.
 
 *    ENDIF.
 
@@ -1237,48 +1237,48 @@
 *    SEPARATED BY space.
 
     "lv_name1
-    IF lv_name1 IS NOT INITIAL.
-      ls_data-cari_adres = lv_name1.
-    ENDIF.
+*    IF lv_name1 IS NOT INITIAL.
+    ls_data-cari_adres = lv_name1.
+*    ENDIF.
 
     "lv_name2
-    IF lv_name2 IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_name2 INTO ls_data-cari_adres SEPARATED BY space.
-    ENDIF.
+*    IF lv_name2 IS NOT INITIAL.
+*      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_name2 INTO ls_data-cari_adres ."SEPARATED BY space.
+*    ENDIF.
 
     "lv_vd
     IF lv_vd IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_vd INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_vd INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     "lv_vkn_tckn
     IF lv_vkn_tckn IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_vkn_tckn INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_vkn_tckn INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     "lv_telf1
     IF lv_telf1 IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_telf1 INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_telf1 INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     "lv_name3
     IF lv_name3 IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_name3 INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_name3 INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     "lv_name4
     IF lv_name4 IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_name4 INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_name4 INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     "lv_cari_adres_1
     IF lv_cari_adres_1 IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_cari_adres_1 INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_cari_adres_1 INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     "lv_cari_adres_2
     IF lv_cari_adres_2 IS NOT INITIAL.
-      CONCATENATE ls_data-cari_adres '\n' lv_cari_adres_2 INTO ls_data-cari_adres SEPARATED BY space.
+      CONCATENATE ls_data-cari_adres cl_abap_char_utilities=>cr_lf lv_cari_adres_2 INTO ls_data-cari_adres ."SEPARATED BY space.
     ENDIF.
 
     """""""""""""" Müşteri Bilgileri
@@ -1302,12 +1302,15 @@
 
     ls_data-duzenleme_tarihi = cl_abap_context_info=>get_system_date( ).
 *    ls_data-takip            = lv_number.
-    ls_data-mutabakat_tarihi = gv_last_date.
+    ls_data-mutabakat_tarihi = |{ gv_last_date+6(2) }.{ gv_last_date+4(2) }.{ gv_last_date+0(4) }|.
     ls_data-cari_no          = gs_account-hesap_no.
     ls_data-iletisim         = cl_abap_context_info=>get_user_formatted_name( )."gs_adrs-m_name.
 
+    ls_data-cari_unvan = gs_adrc-OrganizationName1.
+    ls_data-sirket_unvan =  lv_unvan.
 
     ls_data-sirket_kodu =  |{ VALUE #( gt_out_c[ 1 ]-bukrs OPTIONAL ) }|.
+    ls_data-donemyil =  |{ VALUE #( gt_out_c[ 1 ]-period OPTIONAL ) } / { VALUE #( gt_out_c[ 1 ]-gjahr OPTIONAL ) }|.
 
     IF ls_out-nolocal IS NOT INITIAL.
       DELETE gt_cform_sf WHERE waers NE 'TRY'.
@@ -1395,8 +1398,16 @@
                      ).
 
 
-      INSERT zreco_hdr FROM @ls_head.
+      SELECT SINGLE *
+      FROM i_businesspartner
+      WHERE businesspartner =   @ls_out-hesap_no
+      INTO @DATA(ls_businesspartner).
+      IF ls_businesspartner IS NOT INITIAL.
+        ls_head-smkod = ls_businesspartner-SearchTerm1.
+        ls_head-salma = ls_businesspartner-BusinessPartnerGrouping.
+      ENDIF.
 
+      INSERT zreco_hdr FROM @ls_head.
 
       MOVE-CORRESPONDING ls_head TO ls_fpdf.
       ls_fpdf-pdf_file = lv_pdfbase64.
@@ -1419,8 +1430,8 @@
 *      ENDIF.
 
 *      IF iv_output EQ 'E' OR iv_output EQ 'K'.
-*        INSERT /itetr/reco_rand FROM ls_random.
-*        INSERT /itetr/reco_refi FROM TABLE lt_mail.
+      INSERT zreco_rand FROM @ls_random.
+      INSERT zreco_refi FROM TABLE @lt_mail.
 *      ENDIF.
 
 *      IF iv_output EQ 'F'.

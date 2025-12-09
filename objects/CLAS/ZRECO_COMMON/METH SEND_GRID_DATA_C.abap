@@ -88,10 +88,10 @@
     ENDIF.
 
     SELECT *
-  FROM zreco_tole
- WHERE bukrs EQ @i_head_c-bukrs
- AND stcd2 EQ @i_head_c-vkn_tckn
- INTO TABLE @lt_tole.
+     FROM zreco_tole
+     WHERE bukrs EQ @i_head_c-bukrs
+     AND stcd2 EQ @i_head_c-vkn_tckn
+     INTO TABLE @lt_tole.
 
     IF i_head_c-land1 IS NOT INITIAL .
       IF i_head_c-land1 EQ 'TR'.
@@ -145,11 +145,18 @@
       ls_input_grid-formtype         = '3'.
     ENDIF.
 
-    SELECT SINGLE mail
-      FROM zreco_rtm
+*    SELECT SINGLE mail
+*      FROM zreco_rtm
+*      WHERE bukrs EQ @i_head_c-bukrs
+*      AND hesap_tur EQ @i_head_c-hesap_tur
+*      INTO @lv_rtm_mail.
+    SELECT SINGLE info_mail                  "YiğitcanÖzdemir Clouda özel eklendi
+      FROM zreco_adrs
       WHERE bukrs EQ @i_head_c-bukrs
-      AND hesap_tur EQ @i_head_c-hesap_tur
+*      AND hesap_tur EQ @i_head_c-hesap_tur
       INTO @lv_rtm_mail.
+
+
     IF sy-subrc EQ 0.
       lv_mailreturn = lv_rtm_mail.
       APPEND lv_mailreturn TO ls_input_grid-mailreturn.

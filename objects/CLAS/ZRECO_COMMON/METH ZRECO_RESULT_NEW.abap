@@ -167,11 +167,11 @@
               AND version EQ @ls_version-version
               INTO CORRESPONDING FIELDS OF TABLE @lt_cform.
             LOOP AT lt_cform ASSIGNING FIELD-SYMBOL(<lt_cform>).
-              LOOP AT et_cform ASSIGNING FIELD-SYMBOL(<et_cform>).
+              LOOP AT et_cform INTO DATA(es_cform).
                 EXIT.
               ENDLOOP.
-              <lt_cform>-responder_name = <et_cform>-responder_name.
-              <lt_cform>-responder_surname = <et_cform>-responder_surname.
+              <lt_cform>-responder_name = es_cform-responder_name.
+              <lt_cform>-responder_surname = es_cform-responder_surname.
               "lt_cform-wrbtr = lt_cform-wrbtr * -1.
               "lt_cform-dmbtr = lt_cform-dmbtr * -1.
               <lt_cform>-version = ls_version-version.
