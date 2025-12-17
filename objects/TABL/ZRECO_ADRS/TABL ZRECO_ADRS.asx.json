@@ -180,6 +180,39 @@
    },
    {
     "TABNAME":"ZRECO_ADRS",
+    "FIELDNAME":"ADRES",
+    "AS4LOCAL":"N",
+    "AS4VERS":0,
+    "POSITION":102,
+    "KEYFLAG":"",
+    "MANDATORY":"",
+    "ROLLNAME":"",
+    "CHECKTABLE":"",
+    "ADMINFIELD":"0",
+    "INTTYPE":"C",
+    "INTLEN":510,
+    "REFTABLE":"",
+    "PRECFIELD":"",
+    "REFFIELD":"",
+    "CONROUT":"",
+    "NOTNULL":"",
+    "DATATYPE":"CHAR",
+    "LENG":255,
+    "DECIMALS":0,
+    "DOMNAME":"",
+    "SHLPORIGIN":"",
+    "TABLETYPE":"",
+    "DEPTH":0,
+    "COMPTYPE":"",
+    "REFTYPE":"",
+    "LANGUFLAG":"",
+    "DBPOSITION":0,
+    "ANONYMOUS":"",
+    "OUTPUTSTYLE":0,
+    "SRS_ID":0
+   },
+   {
+    "TABNAME":"ZRECO_ADRS",
     "FIELDNAME":"ADRES1",
     "AS4LOCAL":"N",
     "AS4VERS":0,
@@ -3418,6 +3451,13 @@
   "table":"DD03T",
   "data":
   [
+   {
+    "TABNAME":"ZRECO_ADRS",
+    "DDLANGUAGE":"T",
+    "AS4LOCAL":"N",
+    "FIELDNAME":"ADRES",
+    "DDTEXT":""
+   },
    {
     "TABNAME":"ZRECO_ADRS",
     "DDLANGUAGE":"T",

@@ -70,6 +70,7 @@
 *                 <lt_attac>     TYPE /itetr/reco_attachments,
                    <lt_files>     TYPE zreco_files.
 
+
     SELECT SINGLE *
         FROM zreco_srvc
         WHERE srvid EQ '001'
@@ -259,7 +260,10 @@
 *      APPEND LINES OF  it_srv_attachment TO ls_input_grid-files.
 *    ENDIF.
 
-    DATA(lv_comp) = 'hesapci.com'.
+
+
+
+    DATA(lv_comp) = ls_adrs-adres.
 
     DATA(lv_json) =  /ui2/cl_json=>serialize( EXPORTING data = ls_input_grid pretty_name = 'X' ).
 

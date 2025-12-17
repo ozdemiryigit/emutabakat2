@@ -40,8 +40,8 @@
               lt_p_sgli_range  TYPE RANGE OF abap_boolean,
               lt_p_novl_range  TYPE RANGE OF abap_boolean,
               lt_p_nolc_range  TYPE RANGE OF abap_boolean,
-              lt_p_smkod_RANGE TYPE RANGE OF char72,
-              lt_p_salma_RANGE TYPE RANGE OF char05,
+              lt_S_smkod_RANGE TYPE RANGE OF zreco_salma,
+              lt_S_salma_RANGE TYPE RANGE OF zreco_smkod,
 
               lt_output        TYPE TABLE OF zreco_ddl_i_reco_form,
               ls_output        TYPE zreco_ddl_i_reco_form,
@@ -137,11 +137,11 @@
             WHEN 'P_NOLC'.
               lt_p_nolc_range = CORRESPONDING #( ls_filter-range ).
 
-            WHEN 'P_SMKOD'.
-              lt_P_SMKOD_range = CORRESPONDING #( ls_filter-range ).
+            WHEN 'S_SMKOD'.
+              s_smkod = CORRESPONDING #( ls_filter-range ).
 
-            WHEN 'P_SALMA'.
-              lt_P_SALMA_range = CORRESPONDING #( ls_filter-range ).
+            WHEN 'S_SALMA'.
+              s_salma = CORRESPONDING #( ls_filter-range ).
 
           ENDCASE.
         ENDLOOP.
@@ -166,8 +166,6 @@
         p_novl   = VALUE #( lt_p_novl_range[ 1 ]-low OPTIONAL ).
         p_nolc   = VALUE #( lt_p_nolc_range[ 1 ]-low OPTIONAL ).
         p_tran   = VALUE #( LT_p_tran_RANGE[ 1 ]-low OPTIONAL ).
-        p_salma   = VALUE #( LT_p_salma_RANGE[ 1 ]-low OPTIONAL ).
-        p_smkod   = VALUE #( LT_p_smkod_RANGE[ 1 ]-low OPTIONAL ).
 
 *START-OF-SELECTION.
         sos(  ).

@@ -8,58 +8,58 @@ CLASS zcl_reco_form DEFINITION
 
     "
 
-    DATA : p_runty  TYPE c LENGTH 1 VALUE '1', "Önyüz de çalışacak sadece "YiğitcanÖzdemir
-           r_mform  TYPE c LENGTH 1 VALUE 'X', "Cari Mutabakat Formu için çalışacak sadece Ba / Bs formu (r_bform) yok "YiğitcanÖzdemir
-           p_ftype  TYPE c LENGTH 2 VALUE '01', "Cari Mutabakat Formu için çalışacak  "YiğitcanÖzdemir
-           p_period TYPE monat,
-           p_gjahr  TYPE gjahr,
-           p_daily  TYPE abap_boolean,
-           p_rdate  TYPE budat,
-           s_bukrs  TYPE RANGE OF bukrs,
-           p_gsber  TYPE abap_boolean,
-           s_gsber  TYPE RANGE OF gsber,
-           p_waers  TYPE abap_boolean,
-           s_waers  TYPE RANGE OF waers,
-           p_seld   TYPE abap_boolean,
-           s_kunnr  TYPE RANGE OF kunnr,
-           s_ktokd  TYPE RANGE OF akont,
-           s_dkont  TYPE RANGE OF akont,
-           s_vkn_cr TYPE RANGE OF zreco_vkn,
-           p_selk   TYPE  abap_boolean,
-           s_lifnr  TYPE RANGE OF lifnr,
-           s_ktokk  TYPE RANGE OF ktokk,
-           S_kkont  TYPE RANGE OF akont,
-           S_brsch1 TYPE RANGE OF brsch,
-           S_brsch2 TYPE RANGE OF brsch,
-           s_vkn_ve TYPE RANGE OF zreco_vkn,
-           p_tran   TYPE abap_boolean,
-           p_all    TYPE abap_boolean,
-           p_blist  TYPE abap_boolean,
-           p_diff   TYPE abap_boolean,
+    DATA : p_runty      TYPE c LENGTH 1 VALUE '1', "Önyüz de çalışacak sadece "YiğitcanÖzdemir
+           r_mform      TYPE c LENGTH 1 VALUE 'X', "Cari Mutabakat Formu için çalışacak sadece Ba / Bs formu (r_bform) yok "YiğitcanÖzdemir
+           p_ftype      TYPE c LENGTH 2 VALUE '01', "Cari Mutabakat Formu için çalışacak  "YiğitcanÖzdemir
+           p_period     TYPE monat,
+           p_gjahr      TYPE gjahr,
+           p_daily      TYPE abap_boolean,
+           p_rdate      TYPE budat,
+           s_bukrs      TYPE RANGE OF bukrs,
+           p_gsber      TYPE abap_boolean,
+           s_gsber      TYPE RANGE OF gsber,
+           p_waers      TYPE abap_boolean,
+           s_waers      TYPE RANGE OF waers,
+           p_seld       TYPE abap_boolean,
+           s_kunnr      TYPE RANGE OF kunnr,
+           s_ktokd      TYPE RANGE OF akont,
+           s_dkont      TYPE RANGE OF akont,
+           s_vkn_cr     TYPE RANGE OF zreco_vkn,
+           p_selk       TYPE  abap_boolean,
+           s_lifnr      TYPE RANGE OF lifnr,
+           s_ktokk      TYPE RANGE OF ktokk,
+           S_kkont      TYPE RANGE OF akont,
+           S_brsch1     TYPE RANGE OF brsch,
+           S_brsch2     TYPE RANGE OF brsch,
+           s_vkn_ve     TYPE RANGE OF zreco_vkn,
+           p_tran       TYPE abap_boolean,
+           p_all        TYPE abap_boolean,
+           p_blist      TYPE abap_boolean,
+           p_diff       TYPE abap_boolean,
            "Çıktı İşlemleri
-           p_last   TYPE abap_boolean,
-           p_cred   TYPE abap_boolean,
-           p_print  TYPE c LENGTH 4,
-           p_limit  TYPE wrbtr,
-           p_shk    TYPE abap_boolean,
-           p_date   TYPE datum,
-           p_bli    TYPE abap_boolean,
-           p_bsiz   TYPE abap_boolean,
-           p_exch   TYPE abap_boolean,
-           p_zero   TYPE abap_boolean,
-           p_sgli   TYPE abap_boolean,
-           s_sgli   TYPE RANGE OF zreco_account_type,
-           s_og     TYPE RANGE OF zreco_umskz,
-           p_novl   TYPE abap_boolean,
-           p_nolc   TYPE abap_boolean,
-           p_salma  TYPE c LENGTH 4,
-           p_smkod  TYPE c LENGTH 20.
+           p_last       TYPE abap_boolean,
+           p_cred       TYPE abap_boolean,
+           p_print      TYPE c LENGTH 4,
+           p_limit      TYPE wrbtr,
+           p_shk        TYPE abap_boolean,
+           p_date       TYPE datum,
+           p_bli        TYPE abap_boolean,
+           p_bsiz       TYPE abap_boolean,
+           p_exch       TYPE abap_boolean,
+           p_zero       TYPE abap_boolean,
+           p_sgli       TYPE abap_boolean,
+           s_sgli       TYPE RANGE OF zreco_account_type,
+           s_og         TYPE RANGE OF zreco_umskz,
+           p_novl       TYPE abap_boolean,
+           p_nolc       TYPE abap_boolean,
+           s_salma  TYPE range of zreco_salma,
+           s_smkod  TYPE range of zreco_smkod.
 
-    DATA: gv_b_belnr   TYPE abap_boolean, "B formunu belge bazında özetle
-          gv_b_xblnr   TYPE abap_boolean, "B formunda aynı referansları birleştir
-          gv_b_decimal TYPE abap_boolean, "B formunda kuruş hanesini sıfırla
-          gv_s4hana    TYPE abap_boolean, "HANA
-          gv_ledger    TYPE c LENGTH 2. "Defter kodu
+           data:        gv_b_belnr   TYPE abap_boolean, "B formunu belge bazında özetle
+           gv_b_xblnr   TYPE abap_boolean, "B formunda aynı referansları birleştir
+           gv_b_decimal TYPE abap_boolean, "B formunda kuruş hanesini sıfırla
+           gv_s4hana    TYPE abap_boolean, "HANA
+           gv_ledger    TYPE c LENGTH 2. "Defter kodu
 
 
     DATA: gs_adrs  TYPE zreco_adrs, "Şirket adres bilgileri

@@ -33,7 +33,9 @@ CLASS zcl_reco_follow_report DEFINITION
           mt_range_zreco_result TYPE RANGE OF zreco_result,
           mt_range_daily        TYPE RANGE OF abap_boolean,
           mt_range_odk          TYPE RANGE OF abap_boolean,
-          mt_out                TYPE TABLE OF zreco_monitor.
+          mt_out                TYPE TABLE OF zreco_monitor,
+          mt_range_salma        TYPE RANGE OF zreco_salma,
+          mt_range_smkod        TYPE RANGE OF zreco_smkod.
 
     DATA: r_mtype TYPE RANGE OF zreco_hdr-mtype,
           r_ftype TYPE RANGE OF zreco_hdr-ftype,
@@ -158,6 +160,8 @@ CLASS zcl_reco_follow_report DEFINITION
                          VALUE(iv_bal)          TYPE abap_boolean OPTIONAL
                          VALUE(it_del)          LIKE mt_range_del OPTIONAL
                          VALUE(iv_all)          TYPE abap_boolean OPTIONAL "YiğitcanÖzdemir
+                         VALUE(it_salma)        LIKE mt_range_salma OPTIONAL "YiğitcanÖzdemir
+                         VALUE(it_smkod)        LIKE mt_range_smkod OPTIONAL "YiğitcanÖzdemir
                EXPORTING VALUE(gt_out)          LIKE mt_out ,
 
       partner_selection IMPORTING VALUE(iv_bukrs)        TYPE bukrs OPTIONAL

@@ -113,6 +113,7 @@ authorization master ( instance )
     ZeroSplind = zero_splind;
     MasterData = master_data;
     Waers = waers;
+    adres = adres;
 
     }
 

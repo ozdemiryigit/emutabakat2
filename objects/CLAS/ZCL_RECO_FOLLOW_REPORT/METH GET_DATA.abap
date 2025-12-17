@@ -235,6 +235,8 @@
     AND lifnr IN @it_lifnr
     AND ftype EQ '01' "@it_reco_form           "YiğitcanÖzdemir
     AND daily IN @r_daily
+    AND salma IN @it_salma
+    AND smkod IN @it_smkod
     INTO CORRESPONDING FIELDS OF TABLE @gt_h001.
 
 *    CHECK sy-subrc EQ 0.

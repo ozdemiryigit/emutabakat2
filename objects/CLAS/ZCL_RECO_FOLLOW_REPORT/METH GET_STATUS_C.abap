@@ -24,6 +24,10 @@
     DATA: zreco_cl_json TYPE REF TO zreco_common.
     CREATE OBJECT zreco_cl_json.
 
+    SELECT SINGLE *
+          FROM zreco_adrs
+         WHERE bukrs EQ @ls_h001-bukrs
+        INTO @DATA(ls_adrs).
 
     SELECT SINGLE *
       FROM zreco_srvc

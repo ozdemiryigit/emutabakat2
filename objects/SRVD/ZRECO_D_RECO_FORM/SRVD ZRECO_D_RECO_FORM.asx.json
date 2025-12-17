@@ -7,9 +7,9 @@
     "SRVDNAME":"ZRECO_D_RECO_FORM",
     "VERSION":"A",
     "CHANGED_BY":"SAP_CUSTOMER",
-    "CHANGED_ON":"2024-12-12",
-    "CHANGED_AT":"12:53:42",
-    "DT_UUID":"CB92D17136801EEFAE9103AE3E1582DA",
+    "CHANGED_ON":"2025-11-20",
+    "CHANGED_AT":"09:22:01",
+    "DT_UUID":"FA163EBBCF7E1FE0B1BE4BCA10D4A6DD",
     "SOURCE_ORIGIN":"0",
     "SRVD_SOURCE_TYPE":"S",
     "ABAP_LANGUAGE_VERSION":"5"
@@ -35,7 +35,7 @@
    {
     "SRVDNAME":"ZRECO_D_RECO_FORM",
     "VERSION":"A",
-    "SOURCE":"@EndUserText.label: 'Mutabakat Formu'\r\ndefine service Zreco_d_reco_form {\r\n  expose zreco_ddl_i_reco_form as RecoForm;\r\n}"
+    "SOURCE":"@EndUserText.label: 'Mutabakat Formu'\r\ndefine service Zreco_d_reco_form {\r\n  expose zreco_ddl_i_reco_form as RecoForm;\r\n  expose ZRECO_DDL_VH_SMKOD;\r\n}"
    }
   ]
  },
@@ -74,6 +74,15 @@
     "EXPOSED_ALIAS":"RECOFORM",
     "EXPOSED_ALIAS_RAW":"RecoForm",
     "INCL_SERVICE":""
+   },
+   {
+    "SRVDNAME":"ZRECO_D_RECO_FORM",
+    "SERVICE":"ZRECO_D_RECO_FORM",
+    "EXPOSED_ARTIFACT":"ZRECO_DDL_VH_SMKOD",
+    "EXPOSED_ARTIFACT_TYPE":"E",
+    "EXPOSED_ALIAS":"",
+    "EXPOSED_ALIAS_RAW":"",
+    "INCL_SERVICE":""
    }
   ]
  },
@@ -86,8 +95,8 @@
     "SERVICE":"ZRECO_D_RECO_FORM",
     "SERVICE_RAW":"Zreco_d_reco_form",
     "SOURCE_TYPE":"S",
-    "DT_UUID":"CB92D17136801EEFAE9103AE3E1582DA",
-    "RT_HASH":"4DD96B87AA35ACDAED21CC9570601FD858E5F9A6",
+    "DT_UUID":"FA163EBBCF7E1FE0B1BE4BCA10D4A6DD",
+    "RT_HASH":"45A4F8D2734AE8EB090B52C87608F65245401026",
     "GEN_VERSION":"0"
    }
   ]

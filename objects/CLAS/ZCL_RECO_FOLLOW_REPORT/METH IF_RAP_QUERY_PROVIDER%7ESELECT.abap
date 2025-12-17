@@ -19,6 +19,8 @@
           odk          TYPE RANGE OF abap_boolean,
           bal          TYPE abap_boolean,
           all          TYPE abap_boolean,  "YiğitcanÖzdemir
+          salma        TYPE RANGE OF zreco_salma,  "YiğitcanÖzdemir
+          smkod        TYPE RANGE OF zreco_smkod,  "YiğitcanÖzdemir
           del          TYPE RANGE OF abap_boolean.
 
 
@@ -174,10 +176,31 @@
             WHEN 'P_ALL'.   "YiğitcanÖzdemir
               all        = VALUE #( condition-range[ 1 ]-low OPTIONAL ).
 
+            WHEN 'S_SALMA'.
+              LOOP AT condition-range INTO ls_range.
+                APPEND VALUE #( sign   = ls_range-sign
+                    option = ls_range-option
+                    low    = ls_range-low
+                    high   = ls_range-high ) TO salma.
+              ENDLOOP.
+
+            WHEN 'S_SMKOD'.
+              LOOP AT condition-range INTO ls_range.
+                APPEND VALUE #( sign   = ls_range-sign
+                    option = ls_range-option
+                    low    = ls_range-low
+                    high   = ls_range-high ) TO smkod.
+              ENDLOOP.
+
+
+
           ENDCASE.
         ENDLOOP.
       CATCH cx_rap_query_filter_no_range.
     ENDTRY.
+
+    p_all = 'X'. "YiğitcanÖzdemir
+
     me->get_data(
     iv_bukrs        = company_code
     it_reco_form    = reco_form
@@ -199,6 +222,8 @@
     iv_bal          = bal
     it_del          = del
     iv_all          = all
+    it_salma        = salma
+    it_smkod        = smkod
     ).
 
 *    me->partner_selection(             "YiğitcanÖzdemir ~???
