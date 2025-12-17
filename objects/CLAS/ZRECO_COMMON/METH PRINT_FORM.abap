@@ -1393,7 +1393,7 @@
     IF iv_output EQ 'X'.
       send_grid_data_c( it_out_c = gt_cform_sf
                     i_head_c = ls_head
-                    it_receivers = gt_receivers
+                    it_receivers = gt_mail_list
                     i_param = ''
                      ).
 

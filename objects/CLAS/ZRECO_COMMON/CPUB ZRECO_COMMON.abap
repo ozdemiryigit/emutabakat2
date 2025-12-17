@@ -223,7 +223,7 @@ CLASS zreco_common DEFINITION
                                    VALUE(t_receivers)  LIKE gt_receivers,
       send_grid_data_c IMPORTING VALUE(it_out_c) LIKE    mt_sform
                                  i_head_c        TYPE zreco_hdr
-                                 it_receivers    LIKE gt_receivers
+                                 it_receivers    LIKE gt_mail_list
 *                                 it_srv_attachment    TYPE /itetr/reco_tt_attachments
                                  i_param         LIKE lv_c1,
 *                       CHANGING  lv_all          like lv_c1

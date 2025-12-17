@@ -177,7 +177,7 @@
 
 
 
-    LOOP AT it_receivers INTO ls_rece.
+    LOOP AT it_receivers INTO ls_rece where kunnr = i_head_c-kunnr.
       lv_mailto = ls_rece-receiver.
 *      APPEND lv_mailto TO ls_input_grid-mailto.
       APPEND INITIAL LINE TO  ls_input_grid-mailto ASSIGNING FIELD-SYMBOL(<fs_mailto>).
