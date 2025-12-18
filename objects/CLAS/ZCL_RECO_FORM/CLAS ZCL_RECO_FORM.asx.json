@@ -1196,6 +1196,13 @@
    },
    {
     "CLSNAME":"ZCL_RECO_FORM",
+    "CMPNAME":"P_EK",
+    "CMPTYPE":0,
+    "MTDTYPE":0,
+    "MTDTYPE2":0
+   },
+   {
+    "CLSNAME":"ZCL_RECO_FORM",
     "CMPNAME":"P_EXCH",
     "CMPTYPE":0,
     "MTDTYPE":0,
@@ -15498,6 +15505,12 @@
    {
     "CLSNAME":"ZCL_RECO_FORM",
     "CMPNAME":"P_DIFF",
+    "LANGU":"T",
+    "DESCRIPT":""
+   },
+   {
+    "CLSNAME":"ZCL_RECO_FORM",
+    "CMPNAME":"P_EK",
     "LANGU":"T",
     "DESCRIPT":""
    },
