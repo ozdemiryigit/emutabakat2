@@ -1603,15 +1603,47 @@
       ENDLOOP.
 
     ENDLOOP.
+    """YiğitcanÖzdemir "Marviz Cari çalışması "Hesapçı
+    DATA lr_bp TYPE RANGE OF i_businesspartner-businesspartner.
+    IF p_ek IS NOT INITIAL.
+
+
+      SELECT Supplier AS lifnr
+       FROM I_suppliercompanY
+       INNER JOIN @gt_lfa1_tax AS bp
+       ON supplier = bp~lifnr
+       AND accountingclerk = '01'
+           INTO TABLE @DATA(lt_businesspartner2).
+
+
+
+      LOOP AT lt_businesspartner2 ASSIGNING FIELD-SYMBOL(<bp2>).
+        APPEND VALUE #( sign = 'I'
+                        option = 'EQ'
+                        low = <bp2>-lifnr ) TO lr_bp.
+      ENDLOOP.
+
+      IF lr_bp IS INITIAL.
+        APPEND VALUE #( sign = 'I'
+                  option = 'EQ'
+                  low = '' ) TO lr_bp.
+      ENDIF.
+
+      DELETE gt_lfa1_tax WHERE lifnr NOT IN lr_bp.
+
+
+    ENDIF.
+
+    """YiğitcanÖzdemir "Marviz Cari çalışması "Hesapçı
+
+
 
     """YiğitcanÖzdemir "SmKodu&Satınalma grubu geliştirmesi
 
     IF s_salma IS NOT INITIAL.
       SELECT businesspartner FROM i_businesspartner
-      WHERE BusinessPartnerGrouping in @s_salma
+      WHERE BusinessPartnerGrouping IN @s_salma
       INTO TABLE @DATA(lt_businesspartner).
-
-      DATA lr_bp TYPE RANGE OF i_businesspartner-businesspartner.
 
       LOOP AT lt_businesspartner ASSIGNING FIELD-SYMBOL(<bp>).
         APPEND VALUE #( sign = 'I'
@@ -1635,14 +1667,14 @@
 
     IF s_smkod IS NOT INITIAL.
       SELECT businesspartner FROM i_businesspartner
-      WHERE searchterm1 in @s_smkod
-      INTO TABLE @DATA(lt_businesspartner2).
+      WHERE searchterm1 IN @s_smkod
+      INTO TABLE @DATA(lt_businesspartner3).
 
 
-      LOOP AT lt_businesspartner2 ASSIGNING FIELD-SYMBOL(<bp2>).
+      LOOP AT lt_businesspartner3 ASSIGNING FIELD-SYMBOL(<bp3>).
         APPEND VALUE #( sign = 'I'
                         option = 'EQ'
-                        low = <bp2>-businesspartner ) TO lr_bp.
+                        low = <bP3>-businesspartner ) TO lr_bp.
       ENDLOOP.
 
       IF lr_bp IS INITIAL.
