@@ -140,10 +140,18 @@
 *  ENDIF.
     "YiğitcanÖzdemiir *Mutabakat Geçerlilik
 
-    IF i_head_c-xbli EQ 'X'.
-      ls_input_grid-formtype         = '2'.
-    ELSE.
+*    IF i_head_c-xbli EQ 'X'.
+*      ls_input_grid-formtype         = '2'.
+*    ELSE.
+*      ls_input_grid-formtype         = '3'.
+*    ENDIF.
+
+    DATA(lv_bsiz) = |{ VALUE #( gt_out_c[ 1 ]-p_bsiz OPTIONAL ) }|.
+
+    IF lv_bsiz EQ 'X'.
       ls_input_grid-formtype         = '3'.
+    ELSE.
+      ls_input_grid-formtype         = '2'.
     ENDIF.
 
 *    SELECT SINGLE mail
