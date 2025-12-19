@@ -361,6 +361,8 @@
             AND Customer        EQ @gt_kna1_tax-kunnr
             AND SpecialGLCode   IN @r_umskz_m
             AND TransactionCurrency IN @s_waers
+            AND IsReversal       EQ ''
+            AND IsReversed       EQ ''
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsid.
 
 
@@ -485,6 +487,8 @@
             AND Customer         EQ @gt_kna1_tax-kunnr
             AND SpecialGLCode    IN @r_umskz_m
             AND TransactionCurrency IN @s_waers
+            AND IsReversal       EQ ''
+            AND IsReversed       EQ ''
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsid.
 
 ** MÜŞTERI DENKLEŞTIRILMIŞ KALEMLER
@@ -668,6 +672,8 @@
             AND Supplier        EQ @gt_lfa1_tax-lifnr
             AND SpecialGLCode   IN @r_umskz_m
             AND TransactionCurrency IN @s_waers
+            AND IsReversal       EQ ''
+            AND IsReversed       EQ ''
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
 
@@ -785,6 +791,8 @@
             AND Supplier        EQ @gt_lfa1_tax-lifnr
             AND SpecialGLCode   IN @r_umskz_m
             AND TransactionCurrency IN @s_waers
+            AND IsReversal       EQ ''
+            AND IsReversed       EQ ''
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
 ** SATıCı DENKLEŞTIRILMIŞ KALEMLER
