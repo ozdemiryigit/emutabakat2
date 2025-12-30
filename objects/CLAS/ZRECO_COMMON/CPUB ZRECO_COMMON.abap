@@ -111,8 +111,9 @@ CLASS zreco_common DEFINITION
                                  VALUE(i_no_data)  TYPE  zreco_no_data OPTIONAL
                                  VALUE(is_bform)   TYPE  zreco_bform_sf OPTIONAL
                                  VALUE(i_terminal) TYPE  string OPTIONAL
+                                 VALUE(et_cform)   LIKE  lt_reco_cform_sf
                        EXPORTING VALUE(e_text)     TYPE  char256
-                                 VALUE(et_cform)   LIKE  lt_reco_cform_sf,
+                       ,
 
       zreco_get_balance IMPORTING VALUE(i_bukrs)  TYPE  bukrs OPTIONAL
                                   VALUE(i_kunnr)  TYPE  kunnr OPTIONAL

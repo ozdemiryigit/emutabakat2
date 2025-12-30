@@ -335,7 +335,6 @@
         i_text    = lv_text
         i_no_data = lv_answer
         is_bform  = ls_bform
-        IMPORTING
          et_cform  = lt_cform
        ).
 
