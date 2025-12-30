@@ -27,7 +27,12 @@
 *    DATA(lt_filter) = io_request->get_filter( )->get_as_ranges( ).
     DATA: lt_output TYPE TABLE OF zreco_ddl_i_reco_follow_report,
           ls_output TYPE zreco_ddl_i_reco_follow_report.
-    DATA(lo_page)           = io_request->get_paging( ).
+    DATA(lo_paging) = io_request->get_paging( ).
+    DATA(top)       = lo_paging->get_page_size( ).
+    DATA(skip)      = lo_paging->get_offset( ).
+    IF top < 0.
+      top = 1.
+    ENDIF.
     TRY.
         DATA(filter_conditions) = io_request->get_filter( )->get_as_ranges( ). "  get_filter_conditions( ).
 
@@ -233,6 +238,10 @@
 *  ).
 
     LOOP AT mt_out INTO DATA(ls_out_c) .
+      IF skip IS NOT INITIAL.
+        CHECK sy-tabix > skip.
+      ENDIF.
+
       MOVE-CORRESPONDING ls_out_c TO ls_output.
       ls_output-s_outpt = ls_out_c-moutput.
       ls_output-p_bukrs = ls_out_c-bukrs.
@@ -242,13 +251,19 @@
       ls_output-s_gjahr = ls_out_c-gjahr.
 
       APPEND ls_output TO lt_output.
+
+      IF lines( lt_output ) >= top.
+        EXIT.
+      ENDIF.
+
     ENDLOOP.
 
     TRY.
-        IF io_request->is_total_numb_of_rec_requested(  ).
+         IF io_request->is_total_numb_of_rec_requested(  ).
           io_response->set_total_number_of_records( iv_total_number_of_records = lines( lt_output ) ).
         ENDIF.
         io_response->set_data( it_data = lt_output ).
+
 
       CATCH cx_rap_query_filter_no_range.
     ENDTRY.
