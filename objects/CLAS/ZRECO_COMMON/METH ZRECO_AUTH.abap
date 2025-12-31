@@ -140,41 +140,7 @@
         ENDIF.
     ENDCASE.
 
-* Sadece kendi mutabakatları
-*  SELECT SINGLE *
-*           FROM /itetr/reco_unam
-*           INTO ls_unam
-*          WHERE bukrs EQ i_bukrs
-*            AND uname EQ sy-uname
-*            AND mtype IN r_mtype
-*            AND ftype IN r_ftype
-*            AND xuser  EQ /itetr/reco_if_common_types=>mc_select_yes.
-*
-*  IF sy-subrc EQ 0.
-*    CHECK sy-uname EQ i_uname.
-*    CASE i_hesap_tur.
-*      WHEN /itetr/reco_if_common_types=>mc_hesap_tur_s.
-*        IF ls_unam-ktokk EQ '*'.
-*          e_auth = /itetr/reco_if_common_types=>mc_select_yes.
-*          EXIT.
-*        ELSE.
-*          IF ls_unam-ktokk EQ i_ktokl.
-*            e_auth = /itetr/reco_if_common_types=>mc_select_yes.
-*            EXIT.
-*          ENDIF.
-*        ENDIF.
-*      WHEN /itetr/reco_if_common_types=>mc_hesap_tur_m.
-*        IF ls_unam-ktokd EQ '*'.
-*          e_auth = /itetr/reco_if_common_types=>mc_select_yes.
-*          EXIT.
-*        ELSE.
-*          IF ls_unam-ktokd EQ i_ktokl.
-*            e_auth = /itetr/reco_if_common_types=>mc_select_yes.
-*            EXIT.
-*          ENDIF.
-*        ENDIF.
-*    ENDCASE.
-*  ENDIF.
+
 
 
   ENDMETHOD.

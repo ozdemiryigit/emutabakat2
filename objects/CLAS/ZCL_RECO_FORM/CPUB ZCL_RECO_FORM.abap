@@ -297,10 +297,7 @@ CLASS zcl_reco_form DEFINITION
 
     DATA: gv_master TYPE abap_boolean.
 
-    DATA: "gt_exch_rate TYPE TABLE OF bapi1093_0, "Değerleme
-      "gs_exch_rate TYPE bapi1093_0 , "Değerleme
-      "gt_tcure TYPE TABLE OF tcure , "Tedavülden kalkan PB
-      "gs_tcure TYPE tcure, "Tedavülden kalkan PB
+    DATA:
       gt_curr TYPE TABLE OF zreco_ccur, "İkame edilen PB
       gs_curr LIKE LINE OF gt_curr, "İkame edilen PB
       gt_cloc TYPE TABLE OF zreco_cloc, "Sadece UPB mutab.

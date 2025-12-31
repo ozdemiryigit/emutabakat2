@@ -137,14 +137,6 @@
       FROM zreco_flds
       INTO CORRESPONDING FIELDS OF TABLE @gt_flds. "TODO
 
-* TOPLU MAIL/FAKS GÖNDERIMI   @YiğitcanÖzdemir
-*    IF p_job IS NOT INITIAL.
-*      gv_job = p_job.
-*    ENDIF.
-*
-*    IF p_job2 IS NOT INITIAL.
-*      gv_job = p_job2.
-*    ENDIF.
 
 * DÖNEM KONTROLÜ
     IF p_period NOT BETWEEN 1 AND 12.
@@ -451,14 +443,6 @@
 
       CONCATENATE p_gjahr p_period '01' INTO gv_first_date.
 
-*      CALL FUNCTION 'RP_LAST_DAY_OF_MONTHS'    "YiğitcanÖzdemir
-*        EXPORTING
-*          day_in            = gv_first_date
-*        IMPORTING
-*          last_day_of_month = gv_last_date
-*        EXCEPTIONS
-*          day_in_no_date    = 1
-*          OTHERS            = 2.
 
       DATA lo_zreco_common  TYPE REF TO zreco_common.
       CREATE OBJECT lo_zreco_common.
@@ -576,78 +560,7 @@
 
 *SEÇIM KRITERLERINE GÖRE GIRILMIŞ MÜŞTERILERI BUL
       IF p_seld IS NOT INITIAL.
-*        IF gt_knc1[] IS NOT INITIAL.   "YiğitcanÖzdemir gt_knc1 sadece get_bform_accounts methodunda doldurulduğu için yazmadım /B formu yok
-*
-*          TYPES : BEGIN OF t_knb1,
-*                    kunnr TYPE knb1-kunnr,
-*                    bukrs TYPE knb1-bukrs,
-*                    akont TYPE knb1-akont,
-*                    sperr TYPE knb1-sperr,
-*                    loevm TYPE knb1-loevm,
-*                  END OF t_knb1,
-*                  BEGIN OF t_kna1,
-*                    kunnr TYPE kna1-kunnr,
-*                    brsch TYPE kna1-brsch,
-*                    ktokd TYPE kna1-ktokd,
-*                    sperr TYPE kna1-sperr,
-*                    loevm TYPE kna1-loevm,
-*                  END OF t_kna1.
-*
-*          DATA : lt_knb1_z TYPE SORTED TABLE OF t_knb1
-*                                WITH UNIQUE KEY kunnr bukrs,
-*                 lt_kna1_z TYPE SORTED TABLE OF t_kna1
-*                               WITH UNIQUE KEY kunnr.
-*
-*          FIELD-SYMBOLS : <fs_knc1>   LIKE LINE OF gt_knc1,
-*                          <fs_kna1_z> LIKE LINE OF lt_kna1_z.
-*
-*          FREE : lt_knb1_z, lt_kna1_z.
-*
-*          SELECT kunnr bukrs akont sperr loevm
-*      INTO TABLE lt_knb1_z
-*            FROM knb1
-*             FOR ALL ENTRIES IN gt_knc1
-*           WHERE kunnr EQ gt_knc1-kunnr
-*             AND bukrs EQ gt_knc1-bukrs.
-*
-*          DELETE lt_knb1_z WHERE akont EQ space.
-*          DELETE lt_knb1_z WHERE akont NOT IN s_dkont.
-*          DELETE lt_knb1_z WHERE sperr NOT IN r_sperr.
-*          DELETE lt_knb1_z WHERE loevm NOT IN r_loevm.
-*
-*          SELECT kunnr brsch ktokd sperr loevm
-*            INTO TABLE lt_kna1_z
-*            FROM kna1
-*             FOR ALL ENTRIES IN gt_knc1
-*           WHERE kunnr EQ gt_knc1-kunnr.
-*
-*          DELETE lt_kna1_z WHERE ktokd NOT IN s_ktokd.
-*          DELETE lt_kna1_z WHERE brsch NOT IN s_brsch1.
-*          DELETE lt_kna1_z WHERE sperr NOT IN r_sperr.
-*          DELETE lt_kna1_z WHERE loevm NOT IN r_loevm.
-*
-*          LOOP AT gt_knc1 ASSIGNING <fs_knc1>.
-*            FREE : ls_kna1_all.
-*
-*            READ TABLE lt_knb1_z TRANSPORTING NO FIELDS WITH KEY kunnr = <fs_knc1>-kunnr
-*                                                                 bukrs = <fs_knc1>-bukrs.
-*            IF sy-subrc NE 0.
-*              CONTINUE.
-*            ENDIF.
-*
-*            READ TABLE lt_kna1_z ASSIGNING <fs_kna1_z> WITH KEY kunnr = <fs_knc1>-kunnr.
-*            IF sy-subrc NE 0.
-*              CONTINUE.
-*            ENDIF.
-*
-*            ls_kna1_all-kunnr = <fs_kna1_z>-kunnr.
-*            ls_kna1_all-ktokd = <fs_kna1_z>-ktokd.
-*            INSERT ls_kna1_all INTO TABLE lt_kna1_all.
-*          ENDLOOP.
-*
-*          lv_kunnr_all = /itetr/reco_if_common_types=>mc_select_yes.
-*
-*        ELSE.
+
         SELECT kna1~customer AS kunnr, kna1~CustomerAccountGroup AS ktokd
           FROM i_customer AS kna1
     INNER JOIN i_customercompany AS knb1 ON kna1~customer EQ knb1~customer
@@ -719,61 +632,6 @@
 
       ENDIF.
 
-*       IF gt_knc1[] IS NOT INITIAL. "YiğitcanÖzdemir gt_knc1 doldurulmadğı için kapaatıldı
-*
-*          SELECT SINGLE COUNT( * )
-*                   FROM /itetr/reco_parm
-*                  WHERE pname EQ /itetr/reco_if_common_types=>mc_parm_no_merge.
-*
-*          IF sy-subrc EQ 0.
-*
-*            get_merge_kna1_tax( ).
-*
-*          ENDIF.
-*
-*          SELECT *
-*            FROM /itetr/reco_taxm
-*       APPENDING CORRESPONDING FIELDS OF TABLE gt_kna1_tax
-*             FOR ALL ENTRIES IN gt_knc1
-*           WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_m
-*             AND /itetr/reco_taxm~vkn_tckn IN s_vkn_cr "hkizilkaya müşteri tckn
-*             AND hesap_no EQ gt_knc1-kunnr.
-*
-*          SELECT * FROM /itetr/reco_taxm
-*            APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*            FOR ALL ENTRIES IN gt_knc1
-*            WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*            AND /itetr/reco_taxm~vkn_tckn IN s_vkn_ve "hkizilkaya satıcı tckn
-*            AND kunnr EQ gt_knc1-kunnr.
-*
-** ARIZi MÜŞTERILERI SEÇ
-*          SELECT *
-*            FROM kna1
-*       APPENDING CORRESPONDING FIELDS OF TABLE lt_kna1
-*             FOR ALL ENTRIES IN gt_knc1
-*           WHERE kunnr EQ gt_knc1-kunnr
-*             AND xcpdk EQ /itetr/reco_if_common_types=>mc_select_yes.
-*
-*          LOOP AT lt_kna1 INTO ls_kna1.
-*
-*            CALL FUNCTION '/ITETR/RECO_TAX_INFO'
-*              EXPORTING
-*                i_bukrs      = gs_adrs-bukrs
-*                i_kunnr      = ls_kna1-kunnr
-*                i_number     = 'X'
-*                i_office     = ''
-*              IMPORTING
-*                e_tax_number = gs_kna1_tax-vkn_tckn
-*                e_ktokl      = gs_kna1_tax-ktokl
-*              EXCEPTIONS
-*                other        = 1.
-*
-*            gs_kna1_tax-hesap_no = ls_kna1-kunnr.
-*            gs_kna1_tax-kunnr    = ls_kna1-kunnr.
-*            gs_kna1_tax-lifnr    = ls_kna1-lifnr.
-*
-*            INSERT gs_kna1_tax INTO TABLE gt_kna1_tax. CLEAR gs_kna1_tax.
-*          ENDLOOP.
 
       IF r_lifnr[] IS INITIAL AND
            s_ktokk[] IS INITIAL AND
@@ -784,26 +642,6 @@
 
       IF p_selk IS NOT INITIAL .
 
-*        IF gt_lfc1[] IS NOT INITIAL.       "YiğitcanÖzdemir gt_lfc1 doldurulmadğı için kapaatıldı
-*          SELECT lfa1~lifnr lfa1~ktokk
-*            FROM lfa1
-*           INNER JOIN lfb1 ON lfa1~lifnr EQ lfb1~lifnr
-*       APPENDING CORRESPONDING FIELDS OF TABLE lt_lfa1_all
-*             FOR ALL ENTRIES IN gt_lfc1
-*           WHERE lfb1~bukrs IN s_bukrs
-*             AND lfa1~lifnr EQ gt_lfc1-lifnr
-*             AND lfa1~ktokk IN s_ktokk
-*             AND lfa1~brsch IN s_brsch2
-*             AND lfb1~akont IN s_kkont
-*             AND lfb1~akont NE ''
-*             AND lfa1~sperr IN r_sperr
-*             AND lfa1~loevm IN r_loevm
-*             AND lfb1~sperr IN r_sperr
-*             AND lfb1~loevm IN r_loevm.
-*
-*          lv_lifnr_all = /itetr/reco_if_common_types=>mc_select_yes.
-*
-*        ELSE.
         SELECT lfa1~supplier AS lifnr , lfa1~SupplierAccountGroup AS ktokk
           FROM i_supplier AS lfa1
          INNER JOIN i_suppliercompany AS lfb1 ON lfa1~supplier EQ lfb1~supplier
@@ -868,61 +706,6 @@
         ENDIF.
 
 
-*         IF gt_lfc1[] IS NOT INITIAL. @YiğitcanÖzdemir
-*
-*          SELECT SINGLE COUNT( * )
-*                         FROM /itetr/reco_parm
-*                        WHERE pname EQ /itetr/reco_if_common_types=>mc_parm_no_merge.
-*
-*          IF sy-subrc EQ 0.
-*
-*            get_merge_lfa1_tax( ).
-*
-*          ENDIF.
-*
-*          SELECT *
-*            FROM /itetr/reco_taxm
-*       APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*             FOR ALL ENTRIES IN gt_lfc1
-*           WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*             AND /itetr/reco_taxm~vkn_tckn IN s_vkn_ve "hkizilkaya satıcı tckn
-*             AND hesap_no EQ gt_lfc1-lifnr.
-*
-*          SELECT * FROM /itetr/reco_taxm
-*            APPENDING CORRESPONDING FIELDS OF TABLE gt_kna1_tax
-*            FOR ALL ENTRIES IN gt_lfc1
-*            WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_m
-*            AND /itetr/reco_taxm~vkn_tckn IN s_vkn_cr "hkizilkaya müşteri tckn
-*            AND lifnr EQ gt_lfc1-lifnr.
-** ARIZi SATıCıLAR SEÇ
-*          SELECT *
-*            FROM lfa1
-*       APPENDING CORRESPONDING FIELDS OF TABLE lt_lfa1
-*             FOR ALL ENTRIES IN gt_lfc1
-*           WHERE lifnr EQ gt_lfc1-lifnr
-*             AND xcpdk EQ /itetr/reco_if_common_types=>mc_select_yes.
-*
-*          LOOP AT lt_lfa1 INTO ls_lfa1.
-*
-*            CALL FUNCTION '/ITETR/RECO_TAX_INFO'
-*              EXPORTING
-*                i_bukrs      = gs_adrs-bukrs
-*                i_lifnr      = ls_lfa1-lifnr
-*                i_number     = 'X'
-*                i_office     = ''
-*              IMPORTING
-*                e_tax_number = gs_lfa1_tax-vkn_tckn
-*                e_ktokl      = gs_lfa1_tax-ktokl
-*              EXCEPTIONS
-*                other        = 1.
-*
-*            gs_lfa1_tax-hesap_no = ls_lfa1-lifnr.
-*            gs_lfa1_tax-lifnr    = ls_lfa1-lifnr.
-*            gs_lfa1_tax-kunnr    = ls_lfa1-kunnr.
-*
-*            INSERT gs_lfa1_tax INTO TABLE gt_lfa1_tax.CLEAR gs_lfa1_tax.
-*          ENDLOOP.
-*        ENDIF.
       ENDIF.
 
       LOOP AT gt_taxm_d INTO ls_taxm_d.
@@ -998,24 +781,6 @@
      APPENDING CORRESPONDING FIELDS OF TABLE @gt_kna1_tax.
       ENDIF.
 
-*<--- BIRLEŞTIRME YAPıLMAYACAK AMA SEÇIMDE OLAN CARILER
-*      IF gt_knc1[] IS NOT INITIAL.
-*        SELECT *
-*          FROM /itetr/reco_taxn
-*     APPENDING CORRESPONDING FIELDS OF TABLE gt_kna1_tax
-*           FOR ALL ENTRIES IN gt_knc1
-*         WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_m
-*           AND /itetr/reco_taxn~vkn_tckn IN s_vkn_cr "hkizilkaya müşteri tckn
-*           AND hesap_no EQ gt_knc1-kunnr.
-*
-*        SELECT * FROM /itetr/reco_taxn
-*          APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*          FOR ALL ENTRIES IN gt_knc1
-*          WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*          AND /itetr/reco_taxn~vkn_tckn IN s_vkn_ve "hkizilkaya satıcı tckn
-*          AND kunnr EQ gt_knc1-kunnr.
-*
-*      ELSE.
       SELECT *
         FROM zreco_taxn
        INNER JOIN  i_customercompany AS knb1 ON zreco_taxn~kunnr EQ knb1~customer
@@ -1033,115 +798,10 @@
          AND knb1~PhysicalInventoryBlockInd IN @r_sperr
          AND knb1~DeletionIndicator IN @r_loevm
    APPENDING CORRESPONDING FIELDS OF TABLE @gt_kna1_tax.
-*      ENDIF.
 
-*      IF gt_lfc1[] IS NOT INITIAL. "YiğitcanÖzdemir
-*        SELECT *
-*          FROM /itetr/reco_taxn
-*     APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*           FOR ALL ENTRIES IN gt_lfc1
-*         WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*           AND /itetr/reco_taxn~vkn_tckn IN s_vkn_ve "hkizilkaya satıcı tckn
-*           AND hesap_no EQ gt_lfc1-lifnr.
-*
-*        SELECT * FROM /itetr/reco_taxn
-*          APPENDING CORRESPONDING FIELDS OF TABLE gt_kna1_tax
-*          FOR ALL ENTRIES IN gt_lfc1
-*          WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_m
-*          AND /itetr/reco_taxn~vkn_tckn IN s_vkn_cr "hkizilkaya müşteri tckn
-*          AND lifnr EQ gt_lfc1-lifnr.
-*      ELSE.
-*        IF p_selk IS NOT INITIAL.
-*          SELECT *
-*            FROM /itetr/reco_taxn
-*     INNER JOIN lfb1 ON /itetr/reco_taxn~lifnr EQ lfb1~lifnr
-*     INNER JOIN lfa1 ON lfa1~lifnr EQ lfb1~lifnr
-*      APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*          WHERE lfb1~bukrs IN s_bukrs
-*            AND /itetr/reco_taxn~hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*            AND /itetr/reco_taxn~hesap_no IN r_lifnr
-*            AND lfa1~ktokk IN s_ktokk
-*            AND lfa1~brsch IN s_brsch2
-*            AND lfb1~akont IN s_kkont
-*            AND lfb1~akont NE ''
-*            AND lfa1~sperr IN r_sperr
-*            AND lfa1~loevm IN r_loevm
-*            AND lfb1~sperr IN r_sperr
-*            AND lfb1~loevm IN r_loevm.
-*        ENDIF.
-*      ENDIF.
 *BIRLEŞTIRME YAPıLMAYACAK AMA SEÇIMDE OLAN CARILER--->
 
     ELSE.
-*<--- VKN BIRLEŞTIR YOK ISE
-
-* B FORMUNDA SADECE IŞLEM GÖRMÜŞ MÜŞTERI/SATıCıLARA BAK
-*      IF gv_mtype NE 'C'.          "YiğitcanÖzdemir
-*
-*        get_bform_accounts( ).
-*
-*      ENDIF.
-
-*      IF gt_knc1[] IS NOT INITIAL.             "YiğitcanÖzdemir
-*        DATA : ls_taxm TYPE /itetr/reco_taxm,
-*               ls_taxn TYPE /itetr/reco_taxn.
-*
-*        FREE : ls_taxm,ls_taxn.
-*        SELECT * INTO ls_taxm FROM /itetr/reco_taxm  UP TO 1 ROWS.
-*          EXIT.
-*        ENDSELECT.
-*        IF sy-subrc EQ 0.
-*          SELECT *
-*            FROM /itetr/reco_taxm
-*       APPENDING CORRESPONDING FIELDS OF TABLE gt_kna1_tax
-*             FOR ALL ENTRIES IN gt_knc1
-*           WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_m
-*             AND /itetr/reco_taxm~vkn_tckn IN s_vkn_cr "hkizilkaya müşteri tckn
-*             AND hesap_no EQ gt_knc1-kunnr.
-*        ENDIF.
-*
-*        SELECT * INTO ls_taxn FROM /itetr/reco_taxn UP TO 1 ROWS.
-*          EXIT.
-*        ENDSELECT.
-*        IF sy-subrc EQ 0.
-*          SELECT *
-*            FROM /itetr/reco_taxn
-*       APPENDING CORRESPONDING FIELDS OF TABLE gt_kna1_tax
-*             FOR ALL ENTRIES IN gt_knc1
-*           WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_m
-*             AND /itetr/reco_taxn~vkn_tckn IN s_vkn_cr "hkizilkaya müşteri tckn
-*             AND hesap_no EQ gt_knc1-kunnr.
-*        ENDIF.
-*
-** ARıZI MÜŞTERILERI SEÇ
-*        SELECT *
-*          FROM kna1
-*     APPENDING CORRESPONDING FIELDS OF TABLE lt_kna1
-*           FOR ALL ENTRIES IN gt_knc1
-*         WHERE kunnr EQ gt_knc1-kunnr
-*           AND xcpdk EQ 'X'.
-*
-*        LOOP AT lt_kna1 INTO ls_kna1.
-*
-*          CALL FUNCTION '/ITETR/RECO_TAX_INFO'
-*            EXPORTING
-*              i_bukrs      = gs_adrs-bukrs
-*              i_kunnr      = ls_kna1-kunnr
-*              i_number     = 'X'
-*              i_office     = ''
-*            IMPORTING
-*              e_tax_number = gs_kna1_tax-vkn_tckn
-*              e_ktokl      = gs_kna1_tax-ktokl
-*            EXCEPTIONS
-*              other        = 1.
-*
-*          gs_kna1_tax-hesap_no = ls_kna1-kunnr.
-*          gs_kna1_tax-kunnr    = ls_kna1-kunnr.
-*          gs_kna1_tax-lifnr    = ls_kna1-lifnr.
-*
-*          INSERT gs_kna1_tax INTO TABLE gt_kna1_tax. CLEAR gs_kna1_tax.
-*        ENDLOOP.
-*      ELSE.
       SELECT *
         FROM zreco_taxm
   INNER JOIN  i_customercompany AS knb1 ON zreco_taxm~kunnr EQ knb1~customer
@@ -1177,54 +837,7 @@
          AND knb1~PhysicalInventoryBlockInd IN @r_sperr
          AND knb1~DeletionIndicator IN @r_loevm
               APPENDING CORRESPONDING FIELDS OF TABLE @gt_kna1_tax.
-*      ENDIF.
-
-*      IF gt_lfc1[] IS NOT INITIAL.             "YiğitcanÖzdemir
-*        SELECT *
-*          FROM /itetr/reco_taxm
-*     APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*           FOR ALL ENTRIES IN gt_lfc1
-*         WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*           AND /itetr/reco_taxm~vkn_tckn IN s_vkn_ve "hkizilkaya satıcı tckn
-*           AND hesap_no EQ gt_lfc1-lifnr.
 *
-*        SELECT *
-*          FROM /itetr/reco_taxn
-*     APPENDING CORRESPONDING FIELDS OF TABLE gt_lfa1_tax
-*           FOR ALL ENTRIES IN gt_lfc1
-*         WHERE hesap_tur EQ /itetr/reco_if_common_types=>mc_hesap_tur_s
-*           AND /itetr/reco_taxn~vkn_tckn IN s_vkn_ve "hkizilkaya satıcı tckn
-*           AND hesap_no EQ gt_lfc1-lifnr.
-*
-** ARıZI MÜŞTERILERI SEÇ
-*        SELECT *
-*          FROM lfa1
-*     APPENDING CORRESPONDING FIELDS OF TABLE lt_lfa1
-*           FOR ALL ENTRIES IN gt_lfc1
-*         WHERE lifnr EQ gt_lfc1-lifnr
-*           AND xcpdk EQ 'X'.
-*
-*        LOOP AT lt_lfa1 INTO ls_lfa1.
-*
-*          CALL FUNCTION '/ITETR/RECO_TAX_INFO'
-*            EXPORTING
-*              i_bukrs      = gs_adrs-bukrs
-*              i_lifnr      = ls_lfa1-lifnr
-*              i_number     = 'X'
-*              i_office     = ''
-*            IMPORTING
-*              e_tax_number = gs_lfa1_tax-vkn_tckn
-*              e_ktokl      = gs_lfa1_tax-ktokl
-*            EXCEPTIONS
-*              other        = 1.
-*
-*          gs_lfa1_tax-hesap_no = ls_lfa1-lifnr.
-*          gs_lfa1_tax-lifnr = ls_lfa1-lifnr.
-*          gs_lfa1_tax-kunnr = ls_lfa1-kunnr.
-*
-*          INSERT gs_lfa1_tax INTO TABLE gt_lfa1_tax. CLEAR gs_lfa1_tax.
-*        ENDLOOP.
-*      ELSE.
       IF p_selk IS NOT INITIAL.
 
         SELECT *
@@ -1427,42 +1040,6 @@
 * YETKI VE GÖNDERIM KONTROLÜ
     LOOP AT lt_kna1_tax_srt INTO ls_kna1_tax_srt.
 
-*YETKI KONTROLÜ
-*      IF gv_auth IS INITIAL.  "YiğitcanÖzdemir
-*
-*        CLEAR lv_auth.
-*
-*        CALL FUNCTION '/ITETR/RECO_AUTH'
-*          EXPORTING
-*            i_bukrs     = gs_adrs-bukrs
-*            i_hesap_tur = 'M'
-*            i_hesap_no  = ls_kna1_tax_srt-kunnr
-*            i_mtype     = gv_mtype
-*            i_uname     = sy-uname
-*            i_ftype     = p_ftype
-*            i_ktokl     = ls_kna1_tax_srt-ktokl
-*          IMPORTING
-*            e_auth      = lv_auth.
-*
-*      ENDIF.
-
-*      IF lv_auth IS INITIAL. "YETKI YOK
-*
-*        CALL METHOD go_log->bal_log_msg_add
-*          EXPORTING
-*            i_type       = /itetr/reco_if_common_types=>mc_msg_e
-*            i_no         = '173'
-*            i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*            i_v1         = ls_kna1_tax_srt-kunnr
-*            i_v2         = TEXT-tr1
-*            i_v3         = ''
-*            i_v4         = ''
-*            i_log_handle = gv_log_handle
-*          EXCEPTIONS
-*            OTHERS       = 1.
-*
-*        CONTINUE.
-*      ELSE.
 
 *GÖNDERIM KONTROLÜ
       control_send( EXPORTING iv_kunnr    = ls_kna1_tax_srt-kunnr
@@ -1473,18 +1050,6 @@
 
       IF gv_send IS NOT INITIAL. "DAHA ÖNCE GÖNDERILMIŞ
 
-*          CALL METHOD go_log->bal_log_msg_add      "YİğitcanÖzdemir
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '174'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = ls_kna1_tax_srt-kunnr
-*              i_v2         = TEXT-tr1
-*              i_v3         = p_period
-*              i_v4         = gv_mnumber
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
 
         CONTINUE.
       ELSE.
@@ -1506,35 +1071,8 @@
       IF gv_auth IS INITIAL.
         CLEAR lv_auth.
 
-*YETKI KONTROLÜ
-*        CALL FUNCTION '/ITETR/RECO_AUTH' "YiğitcanÖzdemir
-*          EXPORTING
-*            i_bukrs     = gs_adrs-bukrs
-*            i_hesap_tur = /itetr/reco_if_common_types=>mc_hesap_tur_s
-*            i_hesap_no  = ls_lfa1_tax_srt-lifnr
-*            i_mtype     = gv_mtype
-*            i_uname     = sy-uname
-*            i_ftype     = p_ftype
-*            i_ktokl     = ls_lfa1_tax_srt-ktokl
-*          IMPORTING
-*            e_auth      = lv_auth.
       ENDIF.
 
-*      IF lv_auth IS INITIAL. "YETKI YOK
-*        CALL METHOD go_log->bal_log_msg_add   "YiğitcanÖzdemir
-*          EXPORTING
-*            i_type       = /itetr/reco_if_common_types=>mc_msg_e
-*            i_no         = '173'
-*            i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*            i_v1         = ls_lfa1_tax_srt-lifnr
-*            i_v2         = TEXT-tr2
-*            i_v3         = /itetr/reco_if_common_types=>mc_select_no
-*            i_v4         = /itetr/reco_if_common_types=>mc_select_no
-*            i_log_handle = gv_log_handle
-*          EXCEPTIONS
-*            OTHERS       = 1.
-*        CONTINUE.
-*      ELSE.
 
 *GÖNDERIM KONTROLÜ
       control_send( EXPORTING iv_kunnr    = ''
@@ -1544,18 +1082,7 @@
                               c_mnumber   = gv_mnumber ).
 
       IF gv_send IS NOT INITIAL. "DAHA ÖNCE GÖNDERILMIŞ
-*          CALL METHOD go_log->bal_log_msg_add                      "YiğitcanÖzdemir
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '174'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = ls_lfa1_tax_srt-lifnr
-*              i_v2         = TEXT-tr2
-*              i_v3         = p_period
-*              i_v4         = gv_mnumber
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
+
         CONTINUE.
       ELSE.
         MOVE-CORRESPONDING ls_lfa1_tax_srt TO gs_lfa1_tax.

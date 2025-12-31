@@ -144,30 +144,11 @@
 
         CLEAR: lv_opening_rc, lv_closing_rc.
 
-*        check_bsik( EXPORTING iv_lifnr = ls_lfa1_tax-lifnr
-*                              iv_budat = p_date
-*            CHANGING cv_closing_rc = lv_opening_rc ).
-*
-*        check_bsak( EXPORTING iv_lifnr = ls_lfa1_tax-lifnr
-*                              iv_budat = p_date
-*                    CHANGING cv_closing_rc = lv_closing_rc ).
 
         IF lv_opening_rc IS NOT INITIAL AND
            lv_closing_rc IS NOT INITIAL.
 
-*          CALL METHOD go_log->bal_log_msg_add                      "YiğitcanÖzdemir
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '178'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = ls_lfa1_tax-lifnr
-*              i_v2         = TEXT-tr2
-*              i_v3         = p_date
-*              i_v4         = '1'
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
-
+*
           DELETE gt_lfa1_tax.
           CONTINUE.
         ENDIF.
@@ -192,20 +173,6 @@
                                 c_mnumber   = gv_mnumber ).
 
         IF gv_send IS NOT INITIAL. "DAHA ÖNCE GÖNDERILMIŞ
-
-*          CALL METHOD go_log->bal_log_msg_add                                  "YiğitcanÖzdemir
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '174'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = gs_kna1_tax-kunnr
-*              i_v2         = TEXT-tr1
-*              i_v3         = p_period
-*              i_v4         = gv_mnumber
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
-
           DELETE gt_kna1_tax.
         ENDIF.
 
@@ -222,18 +189,6 @@
                       CHANGING  c_send      = gv_send
                                 c_mnumber   = gv_mnumber ).
         IF gv_send IS NOT INITIAL. "DAHA ÖNCE GÖNDERILMIŞ
-*          CALL METHOD go_log->bal_log_msg_add                                              ""YiğitcanÖzdemir
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '174'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = gs_lfa1_tax-lifnr
-*              i_v2         = TEXT-tr2
-*              i_v3         = p_period
-*              i_v4         = gv_mnumber
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
           DELETE gt_lfa1_tax.
         ENDIF.
 
@@ -305,21 +260,6 @@
 
       CASE gs_adrs-c_date_selection.
         WHEN 'BT'.
-** MÜŞTERI AÇıK KALEMLER (BELGE TARIHINE GÖRE)
-*          SELECT kunnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsid APPENDING CORRESPONDING FIELDS OF TABLE gt_bsid
-*            FOR ALL ENTRIES IN gt_kna1_tax
-*            WHERE bldat LE gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   kunnr EQ gt_kna1_tax-kunnr
-*            AND   umskz IN r_umskz_m
-*            AND   waers IN s_waers.
-
 
           SELECT
               Customer                AS kunnr,
@@ -366,23 +306,6 @@
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsid.
 
 
-
-
-** MÜŞTERI DENKLEŞTIRILMIŞ KALEMLER (BELGE TARIHINE GÖRE)
-*          SELECT kunnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsad APPENDING CORRESPONDING FIELDS OF TABLE gt_bsid
-*            FOR ALL ENTRIES IN gt_kna1_tax
-*            WHERE bldat LE gv_last_date
-*            AND   augdt GT gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   kunnr EQ gt_kna1_tax-kunnr
-*            AND   umskz IN r_umskz_m
-*            AND   waers IN s_waers.
 
           SELECT
               Customer                AS kunnr,
@@ -430,22 +353,6 @@
 
 
         WHEN OTHERS.
-** MÜŞTERI AÇıK KALEMLER
-*          "BREAK mcelik.
-
-*          SELECT kunnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsid APPENDING CORRESPONDING FIELDS OF TABLE gt_bsid
-*            FOR ALL ENTRIES IN gt_kna1_tax
-*            WHERE budat LE gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   kunnr EQ gt_kna1_tax-kunnr
-*            AND   umskz IN r_umskz_m
-*            AND   waers IN s_waers.
 
           SELECT
                         Customer                AS kunnr,
@@ -493,78 +400,10 @@
 
 ** MÜŞTERI DENKLEŞTIRILMIŞ KALEMLER
 
-*          SELECT kunnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsad APPENDING CORRESPONDING FIELDS OF TABLE gt_bsid
-*            FOR ALL ENTRIES IN gt_kna1_tax
-*            WHERE budat LE gv_last_date
-*            AND   augdt GT gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   kunnr EQ gt_kna1_tax-kunnr
-*            AND   umskz IN r_umskz_m
-*            AND   waers IN s_waers.
-
-*          SELECT
-*              Customer                AS kunnr,
-*              AccountingDocument      AS belnr,
-*              FiscalYear              AS gjahr,
-*              AccountingDocumentItem  AS buzei,
-*              SpecialGLCode           AS umskz,
-*              DebitCreditCode        AS shkzg,
-*              BusinessArea           AS gsber,
-*              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
-*              AbsoluteAmountInTransacCrcy AS wrbtr,
-*              TransactionCurrency     AS waers,
-*              OriginalReferenceDocument AS xblnr,
-*              AccountingDocumentType  AS blart,
-*              OperationalGLAccount                 AS saknr,
-*              GLAccount                 AS hkont,
-*              DocumentDate           AS bldat,
-*              PostingDate            AS budat,
-*              DueCalculationBaseDate AS zfbdt,
-*              PaymentTerms           AS zterm,
-*              CashDiscount2Days                 AS zbd2t,
-*              NetPaymentDays                 AS zbd3t,
-*              CashDiscount1Days      AS zbd1t,
-*              ClearingJournalEntry   AS rebzg,
-*              DocumentItemText       AS sgtxt
-*              " Saknr ve Hkont CDS'te tanımlı değil
-*              " Saknr                 AS saknr,
-*              " Hkont                 AS hkont,
-*              " ZBD2T ve ZBD3T CDS'te tanımlı değil
-*              " ZBD2T                 AS zbd2t,
-*              " ZBD3T                 AS zbd3t
-*          FROM I_OperationalAcctgDocItem
-*          FOR ALL ENTRIES IN @gt_kna1_tax
-*          WHERE PostingDate    LE @gv_last_date
-*           AND ClearingDate     GT @gv_last_date  " augdt'nin CDS karşılığı
-*            AND CompanyCode     IN @s_bukrs
-*            AND BusinessArea    IN @s_gsber  "hkizilkaya
-*            AND AccountingDocument IN @lt_belnr
-*            AND AccountingDocumentType IN @lt_blart
-*            AND Customer        EQ @gt_kna1_tax-kunnr
-*            AND SpecialGLCode   IN @r_umskz_m
-*            AND TransactionCurrency IN @s_waers
-*            AND FinancialAccountType = 'D'
-*          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsid.
 
 *
       ENDCASE.
 
-*      IF p_verzn IS NOT INITIAL AND gt_bsid[] IS NOT INITIAL. "YiğitcanÖzdemir
-* İHTAR IÇIN DIĞER ALANLAR
-*        SELECT belnr ,gjahr ,bktxt ,awkey ,xref1_hd ,xref2_hd ,xblnr_alt
-*          FROM bkpf
-*          FOR ALL ENTRIES IN @gt_bsid
-*          WHERE bukrs IN @s_bukrs
-*          AND belnr EQ @gt_bsid-belnr
-*          AND gjahr EQ @gt_bsid-gjahr
-*          INTO TABLE @gt_cform_bkpf.
-*      ENDIF.
 
     ENDIF.
 
@@ -617,20 +456,6 @@
 
       CASE gs_adrs-c_date_selection.   "YiğitcanÖzdemir
         WHEN 'BT'.
-** SATıCı AÇıK KALEMLER (BELGE TARIHINE GÖRE)
-*          SELECT lifnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsik APPENDING CORRESPONDING FIELDS OF TABLE gt_bsik
-*            FOR ALL ENTRIES IN gt_lfa1_tax
-*            WHERE bldat LE gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   lifnr EQ gt_lfa1_tax-lifnr
-*            AND   umskz IN r_umskz_s
-*            AND   waers IN s_waers.
 
           SELECT
               supplier                AS lifnr,
@@ -677,79 +502,8 @@
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
 
-** SATıCı DENKLEŞTIRILMIŞ KALEMLER (BELGE TARIHINE GÖRE)
-*          SELECT lifnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsak APPENDING CORRESPONDING FIELDS OF TABLE gt_bsik
-*            FOR ALL ENTRIES IN gt_lfa1_tax
-*            WHERE bldat LE gv_last_date
-*            AND   augdt GT gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   lifnr EQ gt_lfa1_tax-lifnr
-*            AND   umskz IN r_umskz_s
-*            AND   waers IN s_waers.
-
-*          SELECT
-*              supplier                AS lifnr,
-*              AccountingDocument      AS belnr,
-*              FiscalYear              AS gjahr,
-*              AccountingDocumentItem  AS buzei,
-*              SpecialGLCode           AS umskz,
-*              DebitCreditCode        AS shkzg,
-*              BusinessArea           AS gsber,
-*              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
-*              AbsoluteAmountInTransacCrcy AS wrbtr,
-*              TransactionCurrency     AS waers,
-*              OriginalReferenceDocument AS xblnr,
-*              AccountingDocumentType  AS blart,
-*              OperationalGLAccount                 AS saknr,
-*              GLAccount                 AS hkont,
-*              DocumentDate           AS bldat,
-*              PostingDate            AS budat,
-*              DueCalculationBaseDate AS zfbdt,
-*              PaymentTerms           AS zterm,
-*              CashDiscount2Days                 AS zbd2t,
-*              NetPaymentDays                 AS zbd3t,
-*              CashDiscount1Days      AS zbd1t,
-*              ClearingJournalEntry   AS rebzg,
-*              DocumentItemText       AS sgtxt
-*              " Saknr ve Hkont CDS'te tanımlı değil
-*              " Saknr                 AS saknr,
-*              " Hkont                 AS hkont,
-*              " ZBD2T ve ZBD3T CDS'te tanımlı değil
-*              " ZBD2T                 AS zbd2t,
-*              " ZBD3T                 AS zbd3t
-*          FROM zetr_reco_ddl_bsak
-*          FOR ALL ENTRIES IN @gt_lfa1_tax
-*          WHERE DocumentDate    LE @gv_last_date
-*            AND CompanyCode     IN @s_bukrs
-*            AND BusinessArea    IN @s_gsber
-*            AND AccountingDocument IN @lt_belnr
-*            AND AccountingDocumentType IN @lt_blart
-*            AND Supplier        EQ @gt_lfa1_tax-lifnr
-*            AND SpecialGLCode   IN @r_umskz_m
-*            AND TransactionCurrency IN @s_waers
-*          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
         WHEN OTHERS.
-** SATıCı AÇıK KALEMLER
-*          SELECT lifnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsik APPENDING CORRESPONDING FIELDS OF TABLE gt_bsik
-*            FOR ALL ENTRIES IN gt_lfa1_tax
-*            WHERE budat LE gv_last_date
-*            AND   bukrs IN s_bukrs
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   lifnr EQ gt_lfa1_tax-lifnr
-*            AND   umskz IN r_umskz_s
-*            AND   waers IN s_waers.
 
           SELECT
               supplier                AS lifnr,
@@ -794,64 +548,6 @@
             AND IsReversal       EQ ''
             AND IsReversed       EQ ''
           APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
-
-** SATıCı DENKLEŞTIRILMIŞ KALEMLER
-*          SELECT lifnr belnr gjahr buzei umskz shkzg gsber dmbtr wrbtr
-*                 waers xblnr blart saknr hkont bldat budat zfbdt zterm
-*                 zbd1t zbd2t zbd3t rebzg sgtxt
-*            FROM bsak APPENDING CORRESPONDING FIELDS OF TABLE gt_bsik
-*            FOR ALL ENTRIES IN gt_lfa1_tax
-*            WHERE budat LE gv_last_date
-*            AND   augdt GT gv_last_date
-*            AND   gsber IN s_gsber "hkizilkaya
-*            AND   bukrs IN s_bukrs
-*            AND   belnr IN lt_belnr
-*            AND   blart IN lt_blart
-*            AND   lifnr EQ gt_lfa1_tax-lifnr
-*            AND   umskz IN r_umskz_s
-*            AND   waers IN s_waers.
-
-*          SELECT
-*              supplier                AS lifnr,
-*              AccountingDocument      AS belnr,
-*              FiscalYear              AS gjahr,
-*              AccountingDocumentItem  AS buzei,
-*              SpecialGLCode           AS umskz,
-*              DebitCreditCode        AS shkzg,
-*              BusinessArea           AS gsber,
-*              AbsoluteAmountInCoCodeCrcy  AS dmbtr,
-*              AbsoluteAmountInTransacCrcy AS wrbtr,
-*              TransactionCurrency     AS waers,
-*              OriginalReferenceDocument AS xblnr,
-*              AccountingDocumentType  AS blart,
-*              OperationalGLAccount                 AS saknr,
-*              GLAccount                 AS hkont,
-*              DocumentDate           AS bldat,
-*              PostingDate            AS budat,
-*              DueCalculationBaseDate AS zfbdt,
-*              PaymentTerms           AS zterm,
-*              CashDiscount2Days                 AS zbd2t,
-*              NetPaymentDays                 AS zbd3t,
-*              CashDiscount1Days      AS zbd1t,
-*              ClearingJournalEntry   AS rebzg,
-*              DocumentItemText       AS sgtxt
-*              " Saknr ve Hkont CDS'te tanımlı değil
-*              " Saknr                 AS saknr,
-*              " Hkont                 AS hkont,
-*              " ZBD2T ve ZBD3T CDS'te tanımlı değil
-*              " ZBD2T                 AS zbd2t,
-*              " ZBD3T                 AS zbd3t
-*          FROM zetr_reco_ddl_bsak
-*          FOR ALL ENTRIES IN @gt_lfa1_tax
-*          WHERE PostingDate    LE @gv_last_date
-*            AND CompanyCode     IN @s_bukrs
-*            AND BusinessArea    IN @s_gsber
-*            AND AccountingDocument IN @lt_belnr
-*            AND AccountingDocumentType IN @lt_blart
-*            AND Supplier        EQ @gt_lfa1_tax-lifnr
-*            AND SpecialGLCode   IN @r_umskz_m
-*            AND TransactionCurrency IN @s_waers
-*          APPENDING CORRESPONDING FIELDS OF TABLE @gt_bsik.
 
       ENDCASE.
     ENDIF.

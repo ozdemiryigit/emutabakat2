@@ -206,13 +206,6 @@
         APPEND INITIAL LINE TO  ls_input_grid-mailto ASSIGNING FIELD-SYMBOL(<fs_mailto2>).
         <fs_mailto2> = lv_mailto.
 
-*      IF ( ls_adrs-opbel EQ 'X' OR ls_adrs-submit EQ 'X' ).
-*        CLEAR ls_range.
-*        ls_range-sign   = 'I'.
-*        ls_range-option = 'EQ'.
-*        ls_range-low    = ls_rece-receiver.
-*        APPEND ls_range TO lt_email_range.
-*      ENDIF.
       ENDIF.
     ENDLOOP.
 
@@ -248,44 +241,6 @@
     <lt_files>-filebinarydata = gv_pdf."gv_binarydata.
     CONDENSE <lt_files>-filelength.
 
-*    IF ls_adrs-opbel EQ 'X' OR ls_adrs-submit EQ 'X'.
-*      CONCATENATE i_head_c-gjahr i_head_c-monat '01' INTO lv_begda.
-*      CALL FUNCTION 'RP_LAST_DAY_OF_MONTHS'
-*        EXPORTING
-*          day_in            = lv_begda
-*        IMPORTING
-*          last_day_of_month = lv_endda.
-*
-*      CLEAR lr_budat.
-*      lr_budat-sign   = 'I'.
-*      lr_budat-option = 'BT'.
-*      lr_budat-low    = lv_begda.
-*      lr_budat-high   = lv_endda.
-*      APPEND lr_budat TO r_budat.
-*    ENDIF.
-
-*    IF ls_adrs-opbel EQ 'X' AND i_param IS INITIAL.
-*
-*      PERFORM send_open_items TABLES it_out_c
-*                               USING i_head_c
-*                                     it_receivers
-*                            CHANGING lv_excel_b64.
-*
-*      lv_exc_length = strlen( lv_excel_b64 ).
-*      APPEND INITIAL LINE TO ls_input_grid-files ASSIGNING <lt_files>.
-*      <lt_files>-filename = 'Acik_Kalemler'.
-*      <lt_files>-filetype = '.XLS'.
-*      <lt_files>-filelength = lv_exc_length.
-*      <lt_files>-filebinarydata = lv_excel_b64.
-*      CONDENSE <lt_files>-filelength.
-*    ENDIF.
-
-*    IF it_srv_attachment[] IS NOT INITIAL.
-*      APPEND LINES OF  it_srv_attachment TO ls_input_grid-files.
-*    ENDIF.
-
-
-
 
     DATA(lv_comp) = ls_adrs-adres.
 
@@ -319,13 +274,6 @@
         IF ls_status-code = lc_success_code. "success
           .
         ELSE.
-*          MESSAGE ID ycl_eho_utils=>mc_message_class
-*                  TYPE ycl_eho_utils=>mc_error
-*                  NUMBER 017
-*                  WITH ls_status-code
-*                  INTO DATA(lv_message).
-*          APPEND VALUE #( message = lv_message messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
-*          APPEND VALUE #( message = lv_response messagetype = ycl_eho_utils=>mc_error ) TO et_error_messages.
         ENDIF.
 
 

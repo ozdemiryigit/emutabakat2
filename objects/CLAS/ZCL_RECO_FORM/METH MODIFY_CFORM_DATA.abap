@@ -1,59 +1,5 @@
   METHOD modify_cform_data.
 
-    " <-- hkizilkaya
-* Müşteri kalem yapısı
-*    TYPES : BEGIN OF ty_bsid,
-*              kunnr TYPE bsid-kunnr,
-*              belnr TYPE bsid-belnr,
-*              gjahr TYPE bsid-gjahr,
-*              buzei TYPE bsid-buzei,
-*              umskz TYPE bsid-umskz,
-*              shkzg TYPE bsid-shkzg,
-*              gsber TYPE bsid-gsber,
-*              dmbtr TYPE bsid-dmbtr,
-*              wrbtr TYPE bsid-wrbtr,
-*              waers TYPE bsid-waers,
-*              xblnr TYPE bsid-xblnr,
-*              blart TYPE bsid-blart,
-*              saknr TYPE bsid-saknr,
-*              hkont TYPE bsid-hkont,
-*              bldat TYPE bsid-bldat,
-*              budat TYPE bsid-budat,
-*              zfbdt TYPE bsid-zfbdt,
-*              zterm TYPE bsid-zterm,
-*              zbd1t TYPE bsid-zbd1t,
-*              zbd2t TYPE bsid-zbd2t,
-*              zbd3t TYPE bsid-zbd3t,
-*              rebzg TYPE bsid-rebzg,
-*              sgtxt TYPE bsid-sgtxt,
-*            END OF ty_bsid.
-
-* Satıcı kalem yapısı
-*    TYPES : BEGIN OF ty_bsik,
-*              lifnr TYPE bsik-lifnr,
-*              belnr TYPE bsik-belnr,
-*              gjahr TYPE bsik-gjahr,
-*              buzei TYPE bsid-buzei,
-*              umskz TYPE bsik-umskz,
-*              shkzg TYPE bsik-shkzg,
-*              gsber TYPE bsik-gsber,
-*              dmbtr TYPE bsik-dmbtr,
-*              wrbtr TYPE bsik-wrbtr,
-*              waers TYPE bsik-waers,
-*              xblnr TYPE bsik-xblnr,
-*              blart TYPE bsik-blart,
-*              saknr TYPE bsik-saknr,
-*              hkont TYPE bsik-hkont,
-*              bldat TYPE bsik-bldat,
-*              budat TYPE bsik-budat,
-*              zfbdt TYPE bsik-zfbdt,
-*              zterm TYPE bsik-zterm,
-*              zbd1t TYPE bsik-zbd1t,
-*              zbd2t TYPE bsik-zbd2t,
-*              zbd3t TYPE bsik-zbd3t,
-*              rebzg TYPE bsik-rebzg,
-*              sgtxt TYPE bsik-sgtxt,
-*            END OF ty_bsik.
 
     DATA: ls_bsid TYPE ty_bsid,
           ls_bsik TYPE ty_bsik.
@@ -196,16 +142,6 @@
 *          ENDIF.
         ENDIF.
 
-* TEDAVÜLDEN KALKAN PARA BIRIMLERI
-*        READ TABLE gt_tcure INTO gs_tcure "YiğitcanÖzdemir
-*        WITH KEY curc_old = gs_bsid-waers.
-
-*        IF sy-subrc EQ 0.
-*
-*          gs_bsid-wrbtr = gs_bsid-wrbtr / 10000.
-**          gs_bsid-waers = gs_tcure-curc_new.
-*
-*        ENDIF. "YiğitcanÖzdemir
 
 * DEĞERLENMIŞ TUTAR
         IF p_exch IS NOT INITIAL.
@@ -423,54 +359,6 @@
         APPEND gs_bsid_temp TO gt_bsid_temp.
 
       ENDLOOP.
-      " <--- hkizilkaya eşleşen bakiyeleri bozdugu için kosul kaldırıldı.
-*      IF sy-subrc NE 0 AND p_zero IS INITIAL AND p_verzn IS INITIAL.
-*
-*        CLEAR: gt_cform_temp, gt_account_info.
-*
-*        " <--- hkizilkaya
-*        REFRESH gt_cform_temp.
-*
-*        "MOVE-CORRESPONDING lt_kna1_tax TO gt_cform_temp.
-*
-*        LOOP AT lt_kna1_tax INTO ls_kna1_tax.
-*          CLEAR gs_cform_temp.
-*
-*          MOVE-CORRESPONDING  ls_kna1_tax TO  gs_cform_temp.
-*          APPEND gs_cform_temp TO gt_cform_temp.
-*
-*        ENDLOOP.
-*        " hkizilkaya --->
-*
-*        READ TABLE gt_account_info INTO gs_account_info
-*        WITH KEY kunnr = ls_kna1_tax-kunnr.
-*
-** EĞER YARATMA TARIHI DÖNEM IÇINDE DEĞILSE
-*        IF gs_account_info-erdat GT gv_last_date.
-*          DELETE lt_kna1_tax.
-*          CONTINUE.
-*        ENDIF.
-*
-*        IF sy-subrc EQ 0.
-*          MOVE-CORRESPONDING gs_account_info TO gs_cform_temp.
-*        ENDIF.
-*
-*        READ TABLE gt_htxt INTO gs_htxt WITH KEY spras = gv_spras.
-*
-*        IF sy-subrc EQ 0.
-*          gs_cform_temp-ltext = gs_htxt-customer_text.
-*          gs_cform_temp-xsort = 0.
-*        ENDIF.
-*
-*        gs_cform_temp-hesap_tur = 'M'.
-*        gs_cform_temp-waers = t001-waers.
-*        gs_cform_temp-no_local_curr = gs_adrs-no_local_curr.
-*        gs_cform_temp-xsum  = 'X'.
-*
-*        APPEND gs_cform_temp TO gt_cform_temp.
-*
-*      ENDIF.
-      " eşleşen bakiyeleri bozdugu için kosul kaldırıldı. hkizilkaya --->
     ENDLOOP.
 
 
@@ -1252,43 +1140,7 @@
     ENDIF.
 
     IF p_zero IS NOT INITIAL.
-      " <-- hkizilkaya
-*      LOOP AT gt_balance INTO gs_balance WHERE dmbtr EQ 0.
-*        IF gs_balance-kunnr IS NOT INITIAL.
-*          CALL METHOD go_log->bal_log_msg_add
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '180'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = gs_balance-kunnr
-*              i_v2         = TEXT-tr1
-*              i_v3         = ''
-*              i_v4         = ''
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
-*        ELSE.
-*          CALL METHOD go_log->bal_log_msg_add
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '180'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = gs_balance-lifnr
-*              i_v2         = TEXT-tr2
-*              i_v3         = ''
-*              i_v4         = ''
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
-*
-*          DELETE gt_out_c WHERE kunnr EQ gs_balance-kunnr
-*                         AND lifnr EQ gs_balance-lifnr.
-*
-*          DELETE gt_balance.
-*        ENDIF.
-*
-*      ENDLOOP.
-      " hkizilkaya -->
+
 
       "<-- hkizilkaya dmbtr = '0' olan bütün satırları sil.
       LOOP AT gt_out_c INTO gs_out_c WHERE dmbtr EQ 0.
@@ -1319,13 +1171,6 @@
 
         IF sy-subrc NE 0.
 
-
-*        SELECT SINGLE COUNT(*) FROM bsad      "YiğitcanÖzdemir
-*                 WHERE bukrs IN @s_bukrs AND
-*                       kunnr EQ @gs_balance-kunnr AND
-*                       umskz IN @r_umskz_m.
-
-
           SELECT SINGLE COUNT(*)
           FROM I_OperationalAcctgDocItem
           INNER JOIN I_OplAcctgDocItemClrgHist
@@ -1347,10 +1192,6 @@
       ENDIF.
 
       IF gs_balance-lifnr IS NOT INITIAL.
-*      SELECT SINGLE COUNT(*) FROM bsik           "YiğitcanÖzdemir
-*             WHERE bukrs IN s_bukrs AND
-*                   lifnr EQ gs_balance-lifnr AND
-*                   umskz IN r_umskz_s.
 
         SELECT SINGLE COUNT(*)
         FROM zetr_reco_ddl_bsik
@@ -1359,10 +1200,6 @@
               SpecialGLCode IN @r_umskz_m.
 
         IF sy-subrc NE 0.
-*        SELECT SINGLE COUNT(*) FROM bsak          "YiğitcanÖzdemir
-*         WHERE bukrs IN s_bukrs AND
-*               lifnr EQ gs_balance-lifnr AND
-*               umskz IN r_umskz_s.
 
 
           SELECT SINGLE COUNT(*)
@@ -1518,19 +1355,6 @@
             IF lv_opening_rc IS NOT INITIAL AND
                lv_closing_rc IS NOT INITIAL.
 
-*              CALL METHOD go_log->bal_log_msg_add   "YiğitcanÖzdemir
-*                EXPORTING
-*                  i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                  i_no         = '178'
-*                  i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                  i_v1         = gs_out_c-hesap_no
-*                  i_v2         = TEXT-tr1
-*                  i_v3         = p_date
-*                  i_v4         = '2'
-*                  i_log_handle = gv_log_handle
-*                EXCEPTIONS
-*                  OTHERS       = 1.
-
               DELETE gt_out_c WHERE hesap_tur = gs_out_c-hesap_tur
                                 AND hesap_no = gs_out_c-hesap_no.
 
@@ -1552,18 +1376,6 @@
             IF lv_opening_rc IS NOT INITIAL AND
                lv_closing_rc IS NOT INITIAL.
 
-*              CALL METHOD go_log->bal_log_msg_add    "YiğitcanÖzdemir
-*                EXPORTING
-*                  i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                  i_no         = '178'
-*                  i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                  i_v1         = gs_out_c-hesap_no
-*                  i_v2         = TEXT-tr2
-*                  i_v3         = p_date
-*                  i_v4         = '2'
-*                  i_log_handle = gv_log_handle
-*                EXCEPTIONS
-*                  OTHERS       = 1.
 
               DELETE gt_out_c WHERE hesap_tur = gs_out_c-hesap_tur
                                 AND hesap_no = gs_out_c-hesap_no.
@@ -1576,53 +1388,6 @@
       ENDLOOP.
     ENDIF.
 
-* BELIRTILEN BAKIYEYE GÖRE ALTıNDA KALANLARı SIL
-*    IF p_dmbtr IS NOT INITIAL.                                     "YiğitcanÖzdemir
-*
-*      LOOP AT gt_balance INTO gs_balance WHERE dmbtr NE 0.
-*
-*        IF abs( gs_balance-dmbtr ) LT p_dmbtr.
-*
-*          IF gs_balance-kunnr IS NOT INITIAL.
-*            CALL METHOD go_log->bal_log_msg_add
-*              EXPORTING
-*                i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                i_no         = '181'
-*                i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                i_v1         = gs_balance-kunnr
-*                i_v2         = TEXT-tr1
-*                i_v3         = p_dmbtr
-*                i_v4         = ''
-*                i_log_handle = gv_log_handle
-*              EXCEPTIONS
-*                OTHERS       = 1.
-*          ELSE.
-*            CALL METHOD go_log->bal_log_msg_add
-*              EXPORTING
-*                i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                i_no         = '181'
-*                i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                i_v1         = gs_balance-lifnr
-*                i_v2         = TEXT-tr2
-*                i_v3         = p_dmbtr
-*                i_v4         = ''
-*                i_log_handle = gv_log_handle
-*              EXCEPTIONS
-*                OTHERS       = 1.
-*          ENDIF.
-*
-*          DELETE gt_out_c WHERE kunnr = gs_balance-kunnr
-*                            AND lifnr = gs_balance-lifnr.
-*
-*          DELETE gt_balance.
-*
-*          CONTINUE.
-*
-*        ENDIF.
-*
-*      ENDLOOP.
-*
-*    ENDIF.
 
 
 * İHTAR VAR ISE 0 VE TERS BAKIYELERI SIL
@@ -1636,18 +1401,7 @@
       LOOP AT gt_balance INTO gs_balance WHERE dmbtr LE 0.
 
         IF gs_balance-kunnr IS NOT INITIAL.
-*          CALL METHOD go_log->bal_log_msg_add                    "YiğitcanÖzdemir
-*            EXPORTING
-*              i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*              i_no         = '182'
-*              i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*              i_v1         = gs_balance-kunnr
-*              i_v2         = TEXT-tr1
-*              i_v3         = ''
-*              i_v4         = ''
-*              i_log_handle = gv_log_handle
-*            EXCEPTIONS
-*              OTHERS       = 1.
+
         ENDIF.
 
         DELETE gt_out_c WHERE kunnr = gs_balance-kunnr
@@ -1668,18 +1422,6 @@
       LOOP AT gt_balance INTO gs_balance WHERE kunnr IS NOT INITIAL
                            AND dmbtr LE 0.
 
-*        CALL METHOD go_log->bal_log_msg_add             "YiğitcanÖzdemir
-*          EXPORTING
-*            i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*            i_no         = '183'
-*            i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*            i_v1         = gs_balance-kunnr
-*            i_v2         = TEXT-tr1
-*            i_v3         = ''
-*            i_v4         = ''
-*            i_log_handle = gv_log_handle
-*          EXCEPTIONS
-*            OTHERS       = 1.
         DELETE gt_out_c WHERE kunnr = gs_balance-kunnr
                           AND lifnr = gs_balance-lifnr.
 
@@ -1704,12 +1446,16 @@
         gs_h001-monat = p_period.
         gs_h001-gjahr = p_gjahr.
 
-*        CALL FUNCTION '/ITETR/RECO_LST_COMPARE_DATE_2'         "YiğitcanÖzdemir
-*          EXPORTING
-*            is_h001     = gs_h001
-*            i_last      = p_last
-*          IMPORTING
-*            e_last_info = gs_last_info.
+        DATA:    zreco_object TYPE REF TO zreco_common.
+
+        zreco_object = NEW zreco_common( ).
+        zreco_object->zreco_lst_compare_date_2(
+          EXPORTING
+            is_h001     = gs_h001
+             i_last      = p_last
+          IMPORTING
+            e_last_info = gs_last_info
+        ).
 
         CHECK gs_last_info-mresult EQ 'E'. "MUTABıK ISE
 
@@ -1729,18 +1475,6 @@
               IF lv_opening_rc IS NOT INITIAL AND
                  lv_closing_rc IS NOT INITIAL.
 
-*                CALL METHOD go_log->bal_log_msg_add                "YiğitcanÖzdemir
-*                  EXPORTING
-*                    i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                    i_no         = '184'
-*                    i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                    i_v1         = gs_out_c-hesap_no
-*                    i_v2         = TEXT-tr1
-*                    i_v3         = ''
-*                    i_v4         = ''
-*                    i_log_handle = gv_log_handle
-*                  EXCEPTIONS
-*                    OTHERS       = 1.
                 DELETE gt_out_c WHERE hesap_tur = gs_out_c-hesap_tur
                                   AND hesap_no = gs_out_c-hesap_no.
 
@@ -1760,19 +1494,6 @@
 
               IF lv_opening_rc IS NOT INITIAL AND
                  lv_closing_rc IS NOT INITIAL.
-
-*                CALL METHOD go_log->bal_log_msg_add "YiğitcanÖzdemir
-*                  EXPORTING
-*                    i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                    i_no         = '184'
-*                    i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                    i_v1         = gs_out_c-hesap_no
-*                    i_v2         = TEXT-tr2
-*                    i_v3         = ''
-*                    i_v4         = ''
-*                    i_log_handle = gv_log_handle
-*                  EXCEPTIONS
-*                    OTHERS       = 1.
 
                 DELETE gt_out_c WHERE hesap_tur = gs_out_c-hesap_tur
                                   AND hesap_no = gs_out_c-hesap_no.
@@ -1805,32 +1526,8 @@
 
           CASE <fs_out_c>-hesap_tur.
             WHEN 'M'.
-*            CALL METHOD go_log->bal_log_msg_add         "YiğitcanÖzdemir
-*              EXPORTING
-*                i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                i_no         = '185'
-*                i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                i_v1         = <fs_out_c>-hesap_no
-*                i_v2         = TEXT-tr1
-*                i_v3         = <fs_out_c>-waers
-*                i_v4         = ''
-*                i_log_handle = gv_log_handle
-*              EXCEPTIONS
-*                OTHERS       = 1.
 
             WHEN 'S'.
-*            CALL METHOD go_log->bal_log_msg_add          "YiğitcanÖzdemir
-*              EXPORTING
-*                i_type       = /itetr/reco_if_common_types=>mc_msg_w
-*                i_no         = '185'
-*                i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                i_v1         = <fs_out_c>-hesap_no
-*                i_v2         = TEXT-tr2
-*                i_v3         = <fs_out_c>-waers
-*                i_v4         = ''
-*                i_log_handle = gv_log_handle
-*              EXCEPTIONS
-*                OTHERS       = 1.
           ENDCASE.
 
           DELETE gt_out_c.
@@ -1900,23 +1597,6 @@
         ).
 
 
-*        CALL FUNCTION '/ITETR/RECO_TO_MAIL_ADRS'
-*          EXPORTING
-*            i_bukrs      = gs_adrs-bukrs
-*            i_kunnr      = <fs_out_c>-kunnr
-*            i_lifnr      = <fs_out_c>-lifnr
-*            i_abtnr      = gv_abtnr
-*            i_pafkt      = gv_pafkt
-*            i_remark     = gv_remark
-*            i_all        = p_all
-*            i_stcd1      = <fs_out_c>-vkn_tckn
-*            i_no_general = gs_adrs-no_general
-*            i_mtype      = gv_mtype
-*          IMPORTING
-*            e_mail       = <fs_out_c>-email
-*          TABLES
-*            t_receivers  = gt_receivers.
-
         CLEAR lv_tabix.
 
         LOOP AT gt_receivers INTO gs_receivers.    "YiğitcanÖzdemir
@@ -1927,18 +1607,6 @@
           WITH KEY receiver = gs_receivers-receiver.
 
           IF sy-subrc EQ 0.
-*            CALL METHOD go_log->bal_log_msg_add
-*              EXPORTING
-*                i_type       = /itetr/reco_if_common_types=>mc_msg_e
-*                i_no         = '205'
-*                i_id         = /itetr/reco_if_common_types=>mc_msg_class
-*                i_v1         = gs_receivers-receiver
-*                i_v2         = ''
-*                i_v3         = ''
-*                i_v4         = ''
-*                i_log_handle = gv_log_handle
-*              EXCEPTIONS
-*                OTHERS       = 1.
             DELETE gt_receivers.
 *
             CONTINUE.
@@ -1981,15 +1649,6 @@
       CLEAR gt_receivers.
 
       CLEAR ls_out_c.
-
-*      CALL FUNCTION '/ITETR/RECO_EXIT_004'
-*        EXPORTING
-*          i_bukrs  = gs_adrs-bukrs
-*          i_period = p_period
-*          i_gjahr  = p_gjahr
-*          is_cform = <fs_out_c>
-*        IMPORTING
-*          es_cform = ls_out_c.
 
       IF ls_out_c IS NOT INITIAL.
         <fs_out_c> = ls_out_c.

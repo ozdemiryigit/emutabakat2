@@ -102,33 +102,8 @@
 
     CLEAR gs_out.
 
-*    AUTHORITY-CHECK OBJECT 'F_BKPF_BUK'
-*    ID 'BUKRS' FIELD iv_bukrs
-*    ID 'ACTVT' FIELD '03'.
-
     IF sy-subrc NE 0.
-*    data(lv_msg) = new_message_with_text(  text = 'şirket kodunda görüntüleme yetkiniz yok' severity = cl_abap_behv=>ms-success ).         D_MBAYEL
-*       APPEND VALUE #( %msg = lv_msg ) to
-*      MESSAGE s100 WITH p_bukrs DISPLAY LIKE 'E'.
-*      LEAVE LIST-PROCESSING.
     ENDIF.
-
-
-*    IF it_reco_form IS NOT INITIAL.
-
-*    AUTHORITY-CHECK OBJECT 'ZFRM'                                                                                                             D_MBAYEL
-*    ID 'BUKRS' FIELD p_bukrs
-*    ID 'FORMNAME' FIELD p_ftype.
-*
-*    IF sy-subrc NE 0.
-*      MESSAGE s152 WITH p_bukrs p_ftype DISPLAY LIKE 'E'.                                                                                      D_MBAYEL
-*      LEAVE LIST-PROCESSING.
-*    ENDIF.
-
-**  ENDIF.
-
-
-*   SELECT SINGLE * FROM  t001 WHERE bukrs EQ p_bukrs.
 
 
 * Silinenleri de göster
@@ -138,45 +113,6 @@
                       low = 'X'   ) TO r_loekz.
     ENDIF.
 *
-*    IF r_bform IS NOT INITIAL.     "İptal edildi
-*      r_mtype-sign = 'I'.
-*      r_mtype-option = ''.
-*      r_mtype-low = 'B'.
-*      APPEND r_mtype.
-*
-*      r_mtype-sign = 'I'.
-*      r_mtype-option = 'EQ'.
-*      r_mtype-low = 'X'.
-*      APPEND r_mtype.
-*    ENDIF.
-*
-*    IF r_mform IS NOT INITIAL.     "İptal edildi
-*      r_mtype-sign = 'I'.
-
-*      r_mtype-option = 'EQ'.
-*      r_mtype-low = 'C'.
-*      APPEND r_mtype.
-*
-*      r_mtype-sign = 'I'.
-*      r_mtype-option = 'EQ'.
-*      r_mtype-low = 'X'.
-*      APPEND r_mtype.
-*    ENDIF.
-*
-*    IF it_reco_number IS NOT INITIAL.
-*    IF it_reco_form IS NOT INITIAL."YiğitcanÖzdemir
-**      APPEND VALUE #( sign   = 'I'
-**                     option  = 'EQ'
-**                      low    = 'X'  ) TO r_ftype. "YiğitcanÖzdemir
-**                      low    = 'X'  ) TO r_ftype.
-*      LOOP AT it_reco_form INTO DATA(ls_form).
-*        APPEND VALUE #(
-*          sign   = 'I'
-*          option = 'EQ'
-*          low    = ls_form-low
-*        ) TO r_ftype.
-*      ENDLOOP.
-*    ENDIF.
 
     "YiğitcanÖzdemir
     IF iv_all IS NOT INITIAL.
@@ -683,24 +619,6 @@
 
       CHECK sy-subrc EQ 0.
 
-*      zreco_object->zreco_auth(
-*      EXPORTING
-*        i_bukrs     = gs_h001-bukrs
-*        i_hesap_tur = gs_h001-hesap_tur
-*        i_hesap_no  = gs_h001-hesap_no
-*        i_mtype     = gs_h001-mtype
-*        i_uname     = gs_v001-ernam
-*        i_ftype     = gs_h001-ftype
-*        i_ktokl     = gs_h001-ktokl
-*      IMPORTING
-*        e_auth      = lv_auth
-*       ).
-
-*      IF lv_auth IS INITIAL.
-*        DELETE gt_h001.
-*        CONTINUE.
-*      ENDIF.
-
       lv_row = lv_row + 1.
 
       IF p_all IS INITIAL.
@@ -800,34 +718,27 @@
 
         CASE gs_r000-mresult.
           WHEN 'H'.
-*          WRITE icon_incomplete AS ICON TO gs_out-xresult.
 
             CONCATENATE gs_out-xresult 'Mutabık değil' "TEXT-s03 "Yiğitcan Özdemir
             INTO gs_out-xresult SEPARATED BY space.
           WHEN 'E'.
-*          WRITE icon_checked AS ICON TO gs_out-xresult.
 
             CONCATENATE gs_out-xresult 'Mutabık'"TEXT-s02
             INTO gs_out-xresult SEPARATED BY space.
           WHEN 'T'.
-*          WRITE icon_information AS ICON TO gs_out-xresult.
 
             CONCATENATE gs_out-xresult 'Kayıt bulunmamakta'"TEXT-s25
             INTO gs_out-xresult SEPARATED BY space.
-          WHEN 'I'. "
-*          WRITE icon_message_warning AS ICON TO gs_out-xresult.
+          WHEN 'I'.
 
             CONCATENATE gs_out-xresult 'İlgili kişi ben değilim'"TEXT-s30
             INTO gs_out-xresult SEPARATED BY space.
 
           WHEN 'V'.
-*          WRITE icon_led_red AS ICON TO gs_out-xresult.
-
             CONCATENATE gs_out-xresult 'Hükümsüz'"TEXT-s31
             INTO gs_out-xresult SEPARATED BY space.
 
           WHEN OTHERS.
-*          WRITE icon_time AS ICON TO gs_out-xresult.
 
             CONCATENATE gs_out-xresult 'Cevap Bekleniyor'"TEXT-s01
             INTO gs_out-xresult SEPARATED BY space.
@@ -1248,69 +1159,16 @@
 
                 gs_out-d_wrbtr = gs_out-wrbtr - gs_out-r_wrbtr.
 
-*              gs_color-fname = 'D_BALANCE'.
-*              gs_color-color-col = 6.
-*              gs_color-color-inv = 1.
-*              APPEND gs_color TO gs_out-xcolorc.
 
-*              gs_color-fname = 'D_DMBTR'.
-*              gs_color-color-col = 6.
-*              gs_color-color-inv = 1.
-*              APPEND gs_color TO gs_out-xcolorc.
 
-*              gs_color-fname = 'D_WRBTR'.
-*              gs_color-color-col = 6.
-*              gs_color-color-inv = 1.
-*              APPEND gs_color TO gs_out-xcolorc.
 
-*              gs_color-fname = 'O_BALANCE'.
-*              gs_color-color-col = 4.
-*              gs_color-color-inv = 1.
-*              APPEND gs_color TO gs_out-xcolorc.
 
-*              gs_color-fname = 'O_DMBTR'.
-*              gs_color-color-col = 4.
-*              gs_color-color-inv = 1.
-*              APPEND gs_color TO gs_out-xcolorc.
-
-*              gs_color-fname = 'O_WRBTR'.
-*              gs_color-color-col = 4.
-*              gs_color-color-inv = 1.
-*              APPEND gs_color TO gs_out-xcolorc.
-*
-*              gs_color-fname = 'N_BALANCE'.
-*              gs_color-color-col = 3.
-*              gs_color-color-inv = 0.
-*              APPEND gs_color TO gs_out-xcolorc.
-*
-*              gs_color-fname = 'N_DMBTR'.
-*              gs_color-color-col = 3.
-*              gs_color-color-inv = 0.
-*              APPEND gs_color TO gs_out-xcolorc.
-*
-*              gs_color-fname = 'N_WRBTR'.
-*              gs_color-color-col = 3.
-*              gs_color-color-inv = 0.
-*              APPEND gs_color TO gs_out-xcolorc.
 
               ENDIF.
 
               IF p_bal IS NOT INITIAL.
 
-*              gs_color-fname = 'C_BALANCE'.
-*              gs_color-color-col = 3.
-*              gs_color-color-inv = 0.
-*              APPEND gs_color TO gs_out-xcolorc.
-*
-*              gs_color-fname = 'C_DMBTR'.
-*              gs_color-color-col = 3.
-*              gs_color-color-inv = 0.
-*              APPEND gs_color TO gs_out-xcolorc.
-*
-*              gs_color-fname = 'C_WRBTR'.
-*              gs_color-color-col = 3.
-*              gs_color-color-inv = 0.
-*              APPEND gs_color TO gs_out-xcolorc.
+
 
                 CLEAR gs_balance.
 

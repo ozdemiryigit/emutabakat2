@@ -195,19 +195,7 @@
                 IF lt_kna1[] IS NOT INITIAL. "Aynı VKN'ye sahip olanlar
 
                   IF i_remark IS NOT INITIAL.
-*                    SELECT EmailAddress AS smtp_addr "YiğitcanÖzdemir2
-*                      FROM I_AddressEmailAddress_2 AS a
-*                     INNER JOIN i_addresscommunicationremark AS b  ON a~AddressID EQ b~addressid
-*                                          AND a~AddressPersonID EQ b~person
-**                                        AND a~date_from  EQ b~date_from
-*                                          AND a~CommMediumSequenceNumber EQ b~ordinalnumber
-*
-*                       FOR ALL ENTRIES IN @lt_kna1
-*                     WHERE a~AddressID EQ @lt_kna1-adrnr
-*                       AND a~AddressPersonID EQ ''
-*                       AND b~communicationmediumtype   EQ 'INT'
-*                       AND b~addresscommunicationremarktext    EQ @i_remark
-*                        INTO CORRESPONDING FIELDS OF TABLE @lt_adr6.
+
                   ELSE.
                     SELECT EmailAddress AS smtp_addr
                       FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
@@ -235,18 +223,6 @@
 
                   IF i_remark IS NOT INITIAL.
                     IF r_adrnr[] IS NOT INITIAL.
-*                      SELECT SINGLE a~smtp_addr "YiğitcanÖzdemir
-*                               FROM adr6 AS a
-*                              INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                                  AND a~persnumber EQ b~persnumber
-*                                                  AND a~date_from  EQ b~date_from
-*                                                  AND a~consnumber EQ b~consnumber
-*                      WHERE a~addrnumber IN @r_adrnr
-*                        AND a~persnumber EQ ''
-*                        AND b~comm_type EQ 'INT'
-*                        AND b~remark EQ @i_remark
-*
-*                       INTO @e_mail.
                     ENDIF.
                   ELSE.
                     IF r_adrnr[] IS NOT INITIAL.
@@ -329,19 +305,6 @@
             IF lt_kna1[] IS NOT INITIAL. "Aynı VKN'ye sahip olanlar
 
               IF i_remark IS NOT INITIAL.
-*                SELECT *                   "YiğitcanÖzdemir
-*                  FROM adr6 AS a
-*                 INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                     AND a~persnumber EQ b~persnumber
-*                                     AND a~date_from  EQ b~date_from
-*                                     AND a~consnumber EQ b~consnumber
-*
-*                   FOR ALL ENTRIES IN @lt_kna1
-*                 WHERE a~addrnumber EQ @lt_kna1-adrnr
-*                   AND a~persnumber   EQ ''
-*                   AND b~comm_type EQ 'INT'
-*                   AND b~remark EQ @i_remark
-*                   INTO CORRESPONDING FIELDS OF TABLE @lt_adr6.
               ELSE.
                 SELECT EmailAddress AS smtp_addr
                   FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
@@ -357,11 +320,6 @@
                   e_mail = ls_adr6-smtp_addr.
                 ENDIF.
 
-*              t_receivers-receiver = lt_adr6-smtp_addr. "YiğitcanÖzdemir2
-*              t_receivers-rec_type = 'U'.
-*              APPEND t_receivers .
-*              CLEAR  t_receivers .
-
                 ls_receivers-receiver = ls_adr6-smtp_addr.
                 ls_receivers-rec_type = 'U'.
                 APPEND ls_receivers TO t_receivers .
@@ -371,18 +329,6 @@
 
               IF i_remark IS NOT INITIAL.
                 IF r_adrnr IS NOT INITIAL.
-*                  SELECT SINGLE a~smtp_addr "YiğitcanÖzdemir
-*                           FROM adr6 AS a
-*                          INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                              AND a~persnumber EQ b~persnumber
-*                                              AND a~date_from  EQ b~date_from
-*                                              AND a~consnumber EQ b~consnumber
-*
-*                         WHERE a~addrnumber IN @r_adrnr
-*                           AND a~persnumber EQ ''
-*                           AND b~comm_type EQ 'INT'
-*                           AND b~remark EQ @i_remark
-*                             INTO @e_mail.
                 ENDIF.
               ELSE.
                 IF r_adrnr[] IS NOT INITIAL.
@@ -395,11 +341,6 @@
               ENDIF.
 
               IF e_mail IS NOT INITIAL.
-*              t_receivers-receiver = e_mail. "YiğitcanOzdemir2
-*              t_receivers-rec_type = 'U'.
-*              APPEND t_receivers .
-*              CLEAR  t_receivers .
-
                 ls_receivers-receiver = e_mail.
                 ls_receivers-rec_type = 'U'.
                 APPEND ls_receivers TO t_receivers .
@@ -417,10 +358,6 @@
               ENDIF.
 
               IF e_mail IS NOT INITIAL.
-*              t_receivers-receiver = e_mail. "YiğitcanÖzdemir
-*              t_receivers-rec_type = 'U'.
-*              APPEND t_receivers .
-*              CLEAR  t_receivers .
 
                 ls_receivers-receiver = ls_adr6-smtp_addr.
                 ls_receivers-rec_type = 'U'.
@@ -576,18 +513,7 @@
                 IF lt_lfa1[] IS NOT INITIAL. "Aynı VKN'ye sahip olanlar
 
                   IF i_remark IS NOT INITIAL.
-*                    SELECT *
-*                      FROM adr6 AS a
-*                     INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                         AND a~persnumber EQ b~persnumber
-*                                         AND a~date_from  EQ b~date_from
-*                                         AND a~consnumber EQ b~consnumber
-*                      INTO CORRESPONDING FIELDS OF TABLE lt_adr6
-*                       FOR ALL ENTRIES IN lt_lfa1
-*                     WHERE a~addrnumber EQ lt_lfa1-adrnr
-*                       AND a~persnumber   EQ ''
-*                       AND b~comm_type EQ 'INT'
-*                       AND b~remark EQ i_remark.
+
                   ELSE.
                     SELECT EmailAddress AS smtp_addr
                       FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS"I_AddressEmailAddress_2
@@ -612,17 +538,7 @@
                 ELSE.
                   IF i_remark IS NOT INITIAL.
                     IF r_adrnr[] IS NOT INITIAL.
-*                      SELECT SINGLE a~smtp_addr
-*                               FROM adr6 AS a
-*                         INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                             AND a~persnumber EQ b~persnumber
-*                                             AND a~date_from  EQ b~date_from
-*                                             AND a~consnumber EQ b~consnumber
-*                               INTO e_mail
-*                              WHERE a~addrnumber IN r_adrnr
-*                                AND a~persnumber EQ ''
-*                                AND b~comm_type EQ 'INT'
-*                                AND b~remark EQ i_remark.
+
                     ENDIF.
                   ELSE.
                     IF r_adrnr[] IS NOT INITIAL.
@@ -660,12 +576,6 @@
           IF lt_knvk[] IS NOT INITIAL.
 
             IF r_adrnr[] IS NOT INITIAL.
-*              SELECT EmailAddress AS smtp_addr
-*                FROM I_AddressEmailAddress_2 AS adr6
-*                 FOR ALL ENTRIES IN @lt_knvk
-*               WHERE AddressID IN @r_adrnr
-*                 AND AddressPersonID   EQ @lt_knvk-prsnr
-*                 INTO TABLE @lt_adr6.
 
               SELECT  EmailAddress AS smtp_addr
             FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
@@ -673,9 +583,6 @@
                          WHERE AddressID IN @r_adrnr
                            AND AddressPersonID   EQ @lt_knvk-prsnr
                            INTO TABLE @lt_adr6.
-
-
-
 
             ENDIF.
 
@@ -717,25 +624,7 @@
             IF lt_lfa1[] IS NOT INITIAL. "Aynı VKN'ye sahip olanlar
 
               IF i_remark IS NOT INITIAL.
-*                SELECT *
-*                  FROM adr6 AS a
-*                 INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                     AND a~persnumber EQ b~persnumber
-*                                     AND a~date_from  EQ b~date_from
-*                                     AND a~consnumber EQ b~consnumber
-*                  INTO CORRESPONDING FIELDS OF TABLE lt_adr6
-*                   FOR ALL ENTRIES IN lt_lfa1
-*                 WHERE a~addrnumber EQ lt_lfa1-adrnr
-*                   AND a~persnumber EQ ''
-*                   AND b~comm_type EQ 'INT'
-*                   AND b~remark EQ i_remark.
               ELSE.
-*                SELECT EmailAddress AS smtp_Addr
-*                  FROM I_AddressEmailAddress_2 AS adr6
-*                   FOR ALL ENTRIES IN @lt_lfa1
-*                 WHERE AddressID EQ @lt_lfa1-adrnr
-*                   AND AddressPersonID EQ ''
-*                 INTO TABLE @lt_adr6.
 
                 SELECT  EmailAddress AS smtp_addr
               FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS
@@ -760,25 +649,9 @@
 
               IF i_remark IS NOT INITIAL.
                 IF r_adrnr[] IS NOT INITIAL.
-*                  SELECT SINGLE a~smtp_addr
-*                           FROM adr6 AS a
-*                          INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                              AND a~persnumber EQ b~persnumber
-*                                              AND a~date_from  EQ b~date_from
-*                                              AND a~consnumber EQ b~consnumber
-*                           INTO e_mail
-*                          WHERE a~addrnumber IN r_adrnr
-*                            AND a~persnumber EQ ''
-*                            AND b~comm_type EQ 'INT'
-*                            AND b~remark EQ i_remark.
                 ENDIF.
               ELSE.
                 IF r_adrnr[] IS NOT INITIAL.
-*                  SELECT SINGLE EmailAddress AS smtp_addr
-*                           FROM I_AddressEmailAddress_2 AS adr6
-*                          WHERE AddressID IN @r_adrnr
-*                            AND AddressPersonID EQ ''
-*                             INTO @e_mail.
 
                   SELECT SINGLE EmailAddress AS smtp_addr
             FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS AS adr6
@@ -799,25 +672,10 @@
 
               IF i_remark IS NOT INITIAL.
                 IF r_adrnr[] IS NOT INITIAL.
-*                  SELECT SINGLE a~smtp_addr
-*                           FROM adr6 AS a
-*                          INNER JOIN adrt AS b ON a~addrnumber EQ b~addrnumber
-*                                              AND a~persnumber EQ b~persnumber
-*                                              AND a~date_from  EQ b~date_from
-*                                              AND a~consnumber EQ b~consnumber
-*                          INTO e_mail
-*                         WHERE a~addrnumber IN r_adrnr
-*                           AND a~persnumber EQ ''
-*                           AND b~comm_type EQ 'INT'
-*                           AND b~remark EQ i_remark.
+
                 ENDIF.
               ELSE.
                 IF r_adrnr[] IS NOT INITIAL.
-*                  SELECT SINGLE EmailAddress AS smtp_addr
-*                           FROM I_AddressEmailAddress_2 AS adr6
-*                          WHERE AddressID IN @r_adrnr
-*                            AND AddressPersonID EQ ''
-*                   INTO @e_mail.
                   SELECT SINGLE EmailAddress AS smtp_addr
                                   FROM I_AddrCurDefaultEmailAddress WITH PRIVILEGED ACCESS AS adr6
                                  WHERE AddressID IN @r_adrnr
@@ -845,20 +703,6 @@
 
     DATA lt_receivers TYPE STANDARD TABLE OF zreco_somlreci1.
 
-*    CALL FUNCTION '/ITETR/RECO_EXIT_013'
-*      EXPORTING
-*        i_bukrs      = i_bukrs
-*        i_ucomm      = i_ucomm
-*        i_kunnr      = i_kunnr
-*        i_lifnr      = i_lifnr
-*        i_abtnr      = i_abtnr
-*        i_pafkt      = i_pafkt
-*        i_remark     = i_remark
-*        i_all        = i_all
-*        i_stcd1      = i_stcd1
-*        i_no_general = i_no_general
-*      TABLES
-*        t_receivers  = lt_receivers.
 
     IF lt_receivers[] IS NOT INITIAL.
       APPEND LINES OF lt_receivers TO t_receivers.
@@ -880,85 +724,5 @@
 
 
 
-    """""""""""""""""""YiğitcanÖzdemir""""""""""""""""""
-
-*
-*    DATA lv_addressid TYPE c LENGTH 10.
-*
-*    IF i_kunnr IS NOT INITIAL.
-*
-*      SELECT SINGLE IndependentAddressID
-*            FROM i_businesspartner
-*           WHERE businesspartner EQ @i_kunnr
-*            INTO @lv_addressid.
-**
-*
-*    ELSEIF i_lifnr IS NOT INITIAL.
-*
-*      SELECT SINGLE IndependentAddressID
-*            FROM i_businesspartner
-*           WHERE businesspartner EQ @i_lifnr
-*            INTO @lv_addressid.
-*    ENDIF.
-*
-*
-*    TRY.
-*        "create http destination by url; API endpoint for API sandbox
-*        DATA(lo_http_destination) =
-*             cl_http_destination_provider=>create_by_url( 'https://my404671-api.s4hana.cloud.sap:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_AddressEmailAddress?$select=EmailAddress&$inlinecount=allpages&$top=50' ).
-*        "alternatively create HTTP destination via destination service
-*        "cl_http_destination_provider=>create_by_cloud_destination( i_name = '<...>'
-*        "                            i_service_instance_name = '<...>' )
-*        "SAP Help: https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/f871712b816943b0ab5e04b60799e518.html
-*
-*        "create HTTP client by destination
-*        DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
-*
-*        "adding headers
-*        DATA(lo_web_http_request) = lo_web_http_client->get_http_request( ).
-*
-*        DATA(filter) = 'AddressID eq ' && |' { lv_addressid } '|.
-*
-*        lo_web_http_request->set_form_field(
-*          EXPORTING
-*            i_name  = '$filter'
-*            i_value = filter
-*        ).
-*
-*        lo_web_http_request->set_authorization_basic(
-*      EXPORTING
-*        i_username = CONV #( 'ozdemiryigit' )
-*        i_password = CONV #( 'TvczWnffohRvem%WaTXFNqJiEPGcMeWyMyjbuv3Y' )
-*    ).
-*
-*        lo_web_http_request->set_header_fields( VALUE #(
-**        (  name = 'Authorization' value = 'Basic b3pkZW1pcnlpZ2l0OlR2Y3pXbmZmb2hSdmVtJVdhVFhGTnFKaUVQR2NNZVd5TXlqYnV2M1k=' )
-*        (  name = 'DataServiceVersion' value = '2.0' )
-*        (  name = 'Accept' value = 'application/json' )
-*         ) ).
-*        "set request method and execute request
-*        DATA(lo_web_http_response) = lo_web_http_client->execute( if_web_http_client=>get ).
-*        DATA(lv_response) = lo_web_http_response->get_text( ).
-*
-*      CATCH cx_http_dest_provider_error cx_web_http_client_error cx_web_message_error.
-*        "error handling
-*    ENDTRY.
-*
-*    "uncomment the following line for console output; prerequisite: code snippet is implementation of if_oo_adt_classrun~main
-*    "out->write( |response:  { lv_response }| ).
-*
-**    zinf_regulative_common=>parse_xml(
-**          EXPORTING
-**            iv_xml_string = lv_response
-**          RECEIVING
-**            rt_data       = DATA(lt_response_service)
-**        ).
-**
-**    LOOP AT lt_response_service INTO DATA(ls_resp).
-**      CASE ls_resp-name .
-**        WHEN 'EmailAddress'.
-**          e_mail = ls_resp-value.
-**      ENDCASE.
-**    ENDLOOP.
 
   ENDMETHOD.

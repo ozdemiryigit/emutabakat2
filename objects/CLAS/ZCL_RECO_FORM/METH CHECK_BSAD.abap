@@ -1,13 +1,4 @@
   METHOD check_bsad.
-*    DATA ls_bsad TYPE bsad_view.
-*
-*    SELECT SINGLE *            "YiğitcanÖzdemir
-*    FROM bsad_view
-*    WHERE bukrs IN @s_bukrs  AND
-*          kunnr EQ @iv_kunnr AND
-*          ( budat LE @gv_last_date AND budat GE @iv_budat ) AND
-*          umskz IN @r_umskz_m
-*    INTO @ls_bsad.
 
     SELECT SINGLE *
     FROM I_OperationalAcctgDocItem

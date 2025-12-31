@@ -1366,63 +1366,6 @@
         gv_pdf = lv_pdf.
       ENDIF.
 
-      """""""""""""""""""""""""""YiğitcanÖzdemir""""""""""""""""""""""""""""
-
-
-*      CALL FUNCTION gv_fm_name
-*        EXPORTING
-*          control_parameters = gs_control_options
-*          output_options     = gs_output_options
-*          user_settings      = space
-*          i_bukrs            = gs_adrs-bukrs
-*          i_gsber            = gs_adrs-gsber
-*          i_budat            = gv_last_date
-*          i_mnumber          = ls_h001-mnumber
-*          i_langu            = ls_h001-spras
-*          i_mtype            = ls_h001-mtype
-*          i_ftype            = ls_h001-ftype
-**         i_waers            = t001-waers                                  "D_MBAYEL commentlenmiştir
-*          i_hesap_tur        = ls_h001-hesap_tur
-*          i_hesap_no         = ls_h001-hesap_no
-**         i_bform            = gs_bform                                    "D_MBAYEL commentlenmiştir
-*          i_vkn_tckn         = ls_h001-vkn_tckn
-*          i_vd               = ls_h001-vd
-*          i_odk              = gv_odk
-*          i_kur              = gv_kur
-*          i_cevap_tarihi     = gs_r000-erdat
-*          i_mresult          = gs_r000-mresult
-*          i_wuser            = gs_h002-wuser
-*          i_webip            = gs_h002-webip
-*          i_mtext            = gs_r000-mtext
-*          is_htxt            = gs_htxt
-*          is_dtxt            = gs_dtxt
-*          is_otxt            = gs_otxt
-*          is_adrs            = gs_adrs
-*          is_adrc            = gs_adrc
-*          is_flds            = gs_flds
-*          i_edit_date        = gs_v001-erdat
-*          i_loc_dmbtr        = gv_loc_dmbtr
-*          i_spl_dmbtr        = gv_spl_dmbtr
-*          i_no_kursf         = gs_adrs-no_kursf
-*          i_only_local       = lv_only_loc
-*          i_no_local         = ls_h001-xno_local_curr
-*          i_no_value         = ls_h001-xno_value
-*          i_open             = ls_h001-xopen
-*        IMPORTING
-*          job_output_info    = gs_job_info
-*        TABLES
-*          it_note            = gt_note
-*          it_cform           = gt_cform_sf
-*          it_exch            = gt_exch
-*          it_dunning         = gt_dunning
-*          it_bank            = gt_bank
-*          it_opening         = gt_opening
-*        EXCEPTIONS
-*          formatting_error   = 1
-*          internal_error     = 2
-*          send_error         = 3
-*          user_canceled      = 4
-*          OTHERS             = 5.
 
       IF sy-subrc NE 0.
 
@@ -1435,22 +1378,7 @@
         MOVE-CORRESPONDING lt_h001 TO et_return.
 
         LOOP AT et_return ASSIGNING FIELD-SYMBOL(<lfs_return>).
-*          CALL FUNCTION 'FORMAT_MESSAGE'                                       "D_MBAYEL Commentlenmiştir
-*            EXPORTING
-*              id        = sy-msgid
-*              lang      = sy-langu
-*              no        = sy-msgno
-*              v1        = sy-msgv1
-*              v2        = sy-msgv2
-*              v3        = sy-msgv3
-*              v4        = sy-msgv4
-*            IMPORTING
-*              msg       = <lfs_return>-message
-*            EXCEPTIONS
-*              not_found = 1
-*              OTHERS    = 2.
 
-*        WRITE icon_red_light TO et_return-icon.                                    "D_MBAYEL Commentlenmiştir
 
           APPEND <lfs_return> TO et_return.
 

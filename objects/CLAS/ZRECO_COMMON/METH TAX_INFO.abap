@@ -6,29 +6,9 @@
              tax_person TYPE zreco_taxno,
            END OF ty_adrs.
 
-*    TYPES: BEGIN OF ty_kna1,
-*             stcd1 TYPE  stcd1,
-*             stcd2 TYPE  stcd2,
-*             stcd3 TYPE  stcd3,
-*             stcd4 TYPE  stcd4,
-*             fiskn TYPE  fiskn_d,
-*             stceg TYPE  stceg,
-*             ktokd TYPE  ktokd,
-*           END OF ty_kna1.
-*
-*    TYPES: BEGIN OF ty_lfa1,
-*             stcd1 TYPE  stcd1,
-*             stcd2 TYPE  stcd2,
-*             stcd3 TYPE  stcd3,
-*             stcd4 TYPE  stcd4,
-*             fiskn TYPE  fiskn_d,
-*             stceg TYPE  stceg,
-*             ktokk TYPE  ktokk,
-*           END OF ty_lfa1.
+
 
     DATA : ls_adrs TYPE  ty_adrs.
-*           ls_kna1 TYPE  ty_kna1,
-*           ls_lfa1 TYPE ty_lfa1.
 
     DATA: lv_len TYPE i.
 

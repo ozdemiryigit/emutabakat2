@@ -271,11 +271,6 @@
           <fs_info>-vd = <fs_info>-stcd4.
         WHEN 'FISKN'.
 
-*          CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
-*            EXPORTING
-*              input  = <fs_info>-fiskn
-*            IMPORTING
-*              output = <fs_info>-fiskn.
 
           <fs_info>-fiskn = |{  <fs_info>-fiskn ALPHA = IN }|.
 
@@ -352,11 +347,6 @@
           <fs_info>-vd = <fs_info>-stcd4.
         WHEN 'FISKN'.
 
-*          CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
-*            EXPORTING
-*              input  = <fs_info>-fiskn
-*            IMPORTING
-*              output = <fs_info>-fiskn.
 
           <fs_info>-fiskn = |{  <fs_info>-fiskn ALPHA = IN }|.
 

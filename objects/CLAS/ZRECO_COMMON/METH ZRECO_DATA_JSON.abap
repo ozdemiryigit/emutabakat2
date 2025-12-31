@@ -50,12 +50,6 @@
     lo_string_writer ?= lo_writer.
     lv_responsex = lo_string_writer->get_output( ) .
 
-*    CALL FUNCTION 'ECATT_CONV_XSTRING_TO_STRING'
-*      EXPORTING
-*        im_xstring  = lv_responsex
-*        im_encoding = 'UTF-8'
-*      IMPORTING
-*        ex_string   = lv_response.
 
     ls_stru ?= cl_abap_typedescr=>describe_by_data( ev_data ).
     lt_comp = ls_stru->get_components( ).

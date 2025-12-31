@@ -236,11 +236,6 @@
     iv_ek           = ek
     ).
 
-*    me->partner_selection(             "YiğitcanÖzdemir ~???
-*  iv_bukrs        = company_code
-*  it_account_type = account_type
-*  it_ktonr_av     = ktonr_av
-*  ).
 
     LOOP AT mt_out INTO DATA(ls_out_c) .
       IF skip IS NOT INITIAL.
