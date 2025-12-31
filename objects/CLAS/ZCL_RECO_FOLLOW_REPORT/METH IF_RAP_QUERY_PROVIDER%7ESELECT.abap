@@ -21,7 +21,8 @@
           all          TYPE abap_boolean,  "YiğitcanÖzdemir
           salma        TYPE RANGE OF zreco_salma,  "YiğitcanÖzdemir
           smkod        TYPE RANGE OF zreco_smkod,  "YiğitcanÖzdemir
-          del          TYPE RANGE OF abap_boolean.
+          del          TYPE RANGE OF abap_boolean,
+          ek           TYPE abap_boolean.
 
 
 *    DATA(lt_filter) = io_request->get_filter( )->get_as_ranges( ).
@@ -197,6 +198,9 @@
                     high   = ls_range-high ) TO smkod.
               ENDLOOP.
 
+            WHEN 'P_EK'.   "YiğitcanÖzdemir
+              ek        = VALUE #( condition-range[ 1 ]-low OPTIONAL ).
+
 
 
           ENDCASE.
@@ -229,6 +233,7 @@
     iv_all          = all
     it_salma        = salma
     it_smkod        = smkod
+    iv_ek           = ek
     ).
 
 *    me->partner_selection(             "YiğitcanÖzdemir ~???
@@ -259,7 +264,7 @@
     ENDLOOP.
 
     TRY.
-         IF io_request->is_total_numb_of_rec_requested(  ).
+        IF io_request->is_total_numb_of_rec_requested(  ).
           io_response->set_total_number_of_records( iv_total_number_of_records = lines( lt_output ) ).
         ENDIF.
         io_response->set_data( it_data = lt_output ).

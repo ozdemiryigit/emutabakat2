@@ -237,6 +237,7 @@
     AND daily IN @r_daily
     AND salma IN @it_salma
     AND smkod IN @it_smkod
+    and ek    eq @iv_ek
     INTO CORRESPONDING FIELDS OF TABLE @gt_h001.
 
 *    CHECK sy-subrc EQ 0.
