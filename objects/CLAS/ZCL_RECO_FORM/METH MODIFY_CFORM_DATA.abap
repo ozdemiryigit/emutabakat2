@@ -595,7 +595,7 @@
               ENDIF.
 
               IF gs_exch_rate-from_factor NE 1.
-*                CALL FUNCTION 'BAPI_CURRENCY_CONV_TO_EXTERNAL' "YiğitcanÖzdemir
+*                CALL FUNCTION 'BAPI_CURRENCY_CONV_TO_EXTERNAL'
 *                  EXPORTING
 *                    currency        = ls_bsik-waers
 *                    amount_internal = ls_bsik-wrbtr
@@ -631,7 +631,7 @@
           ls_bsik-zfbdt = ls_bsik-budat.
         ENDIF.
 *
-*        CALL FUNCTION 'NET_DUE_DATE_GET' "YiğitcanÖzdemir
+*        CALL FUNCTION 'NET_DUE_DATE_GET'
 *          EXPORTING
 *            i_zfbdt = ls_bsik-zfbdt
 *            i_zbd1t = ls_bsik-zbd1t

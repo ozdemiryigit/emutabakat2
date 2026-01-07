@@ -55,25 +55,27 @@
         WHEN zreco_if_common_types=>mc_nrart_li.
           SELECT customer AS kunnr
             FROM i_custsalespartnerfunc"knvp
-             FOR ALL ENTRIES IN @lt_dpar
-           WHERE customer IN @s_kunnr
-             AND SalesOrganization EQ @lt_dpar-vkorg
-             AND DistributionChannel EQ @lt_dpar-vtweg
-             AND Division EQ @lt_dpar-spart
-             AND PartnerFunction EQ @lt_dpar-parvw
+             INNER JOIN @lt_dpar AS lt_dpar
+             ON SalesOrganization EQ lt_dpar~vkorg
+             AND DistributionChannel EQ lt_dpar~vtweg
+             AND Division EQ lt_dpar~spart
+             AND PartnerFunction EQ lt_dpar~parvw
 *               AND lifnr IN @s_dparw   "YiğitcanÖzdemir
+             WHERE  customer IN @s_kunnr
               INTO TABLE @gt_knvp.
         WHEN zreco_if_common_types=>mc_nrart_pe.
           SELECT customer AS kunnr
             FROM i_custsalespartnerfunc
-             FOR ALL ENTRIES IN @lt_dpar
-           WHERE customer IN @s_kunnr
-             AND SalesOrganization EQ @lt_dpar-vkorg
-             AND DistributionChannel EQ @lt_dpar-vtweg
-             AND Division EQ @lt_dpar-spart
-             AND PartnerFunction EQ @lt_dpar-parvw
+             ınner join @lt_dpar as lt_dpar
+             ON SalesOrganization EQ lt_dpar~vkorg
+             AND DistributionChannel EQ lt_dpar~vtweg
+             AND Division EQ lt_dpar~spart
+             AND PartnerFunction EQ lt_dpar~parvw
 *             AND pernr IN @s_dparw "YiğitcanÖzdemir
+              WHERE customer IN @s_kunnr
                INTO TABLE @gt_knvp.
+
+
         WHEN OTHERS.
           SELECT customer
             FROM i_custsalespartnerfunc
