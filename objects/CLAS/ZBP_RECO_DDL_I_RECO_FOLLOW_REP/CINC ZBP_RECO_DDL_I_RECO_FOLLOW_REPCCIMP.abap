@@ -79,10 +79,22 @@ CLASS lhc_follow_report IMPLEMENTATION.
 *        LOOP AT keys INTO DATA(ls_keys).
 *          MOVE-CORRESPONDING ls_keys TO  gs_mnumber.
 *        ENDLOOP.
-        LOOP AT keys INTO DATA(ls_keys).
-          MOVE-CORRESPONDING ls_keys TO ls_cform.
-          APPEND ls_cform TO lt_cform.
-        ENDLOOP.
+*        LOOP AT keys INTO DATA(ls_keys).
+*          MOVE-CORRESPONDING ls_keys TO ls_cform.
+*          APPEND ls_cform TO lt_cform.
+*        ENDLOOP.
+
+
+        IF lt_keys IS NOT INITIAL.
+          DATA(ls_keys) = lt_keys[ 1 ].
+        ENDIF.
+
+        SELECT *
+        FROM Zreco_hdr
+        WHERE mnumber = @ls_keys-s_mnmbr
+        INTO TABLE @DATA(lt_hdr).
+
+        MOVE-CORRESPONDING  lt_hdr TO lt_cform.
 
 
 *        APPEND gs_mnumber TO gt_mnumber.
@@ -122,7 +134,7 @@ CLASS lhc_follow_report IMPLEMENTATION.
 *
 *                it_h001          = lt_h001
 *        ).
-        DATA lo_zreco_common  TYPE REF TO zreco_common.
+               DATA lo_zreco_common  TYPE REF TO zreco_common.
         CREATE OBJECT lo_zreco_common.
         lo_zreco_common->multi_sending(
         EXPORTING
