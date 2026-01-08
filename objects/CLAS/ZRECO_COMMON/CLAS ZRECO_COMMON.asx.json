@@ -5486,6 +5486,14 @@
    {
     "CLSNAME":"ZRECO_COMMON",
     "CMPNAME":"ZRECO_PDF_PREVIEW",
+    "SCONAME":"EV_PDF",
+    "CMPTYPE":1,
+    "MTDTYPE":0,
+    "SCOTYPE":0
+   },
+   {
+    "CLSNAME":"ZRECO_COMMON",
+    "CMPNAME":"ZRECO_PDF_PREVIEW",
     "SCONAME":"IT_H001",
     "CMPTYPE":1,
     "MTDTYPE":0,
@@ -7654,6 +7662,33 @@
    {
     "CLSNAME":"ZRECO_COMMON",
     "CMPNAME":"ZRECO_PDF_PREVIEW",
+    "SCONAME":"EV_PDF",
+    "VERSION":1,
+    "EDITORDER":10,
+    "LOCKED":"",
+    "DISPID":0,
+    "AUTHOR":"SAP_CUSTOMER",
+    "CREATEDON":"2026-01-08",
+    "CHANGEDBY":"",
+    "CHANGEDON":"0000-00-00",
+    "PARDECLTYP":1,
+    "PARPASSTYP":1,
+    "TYPTYPE":1,
+    "TYPE":"STRING",
+    "TABLEOF":"",
+    "SRCROW1":0,
+    "SRCCOLUMN1":0,
+    "SRCROW2":0,
+    "SRCCOLUMN2":0,
+    "PARVALUE":"",
+    "PAROPTIONL":"",
+    "PARPREFERD":"",
+    "EXCDECLTYP":0,
+    "IS_RESUMABLE":""
+   },
+   {
+    "CLSNAME":"ZRECO_COMMON",
+    "CMPNAME":"ZRECO_PDF_PREVIEW",
     "SCONAME":"IT_H001",
     "VERSION":1,
     "EDITORDER":8,
@@ -9062,6 +9097,13 @@
     "CLSNAME":"ZRECO_COMMON",
     "CMPNAME":"ZRECO_PDF_PREVIEW",
     "SCONAME":"ET_RETURN",
+    "LANGU":"T",
+    "DESCRIPT":""
+   },
+   {
+    "CLSNAME":"ZRECO_COMMON",
+    "CMPNAME":"ZRECO_PDF_PREVIEW",
+    "SCONAME":"EV_PDF",
     "LANGU":"T",
     "DESCRIPT":""
    },

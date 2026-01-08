@@ -1257,7 +1257,7 @@
       ENDTRY.
 
       IF lv_pdf IS NOT INITIAL.
-        gv_pdf = lv_pdf.
+        ev_pdf = lv_pdf.
       ENDIF.
 
 

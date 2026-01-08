@@ -59,6 +59,7 @@ CLASS lhc_follow_report IMPLEMENTATION.
 
   METHOD print.
 
+    DATA : lv_pdf TYPE string.
     DATA: gt_mnumber TYPE TABLE OF zreco_hdr.
     DATA : gs_mnumber TYPE zreco_hdr.
     DATA : lt_mnumber TYPE TABLE OF zreco_hdr.
@@ -113,8 +114,20 @@ CLASS lhc_follow_report IMPLEMENTATION.
          i_fn_account     = 'X'
          i_fn_name        = 'X'
          it_h001          = lt_h001
+         IMPORTING
+         ev_pdf = lv_pdf
         ).
 
+
+        IF lv_pdf IS NOT INITIAL.
+          result = VALUE #( ( %cid_ref = VALUE #( keys[ 1 ]-%cid_ref OPTIONAL )
+                              p_bukrs = VALUE #( keys[ 1 ]-p_bukrs OPTIONAL )
+                              s_gjahr = VALUE #( keys[ 1 ]-s_gjahr OPTIONAL )
+                              p_ftype = VALUE #( keys[ 1 ]-p_ftype OPTIONAL )
+                              s_mnmbr = VALUE #( keys[ 1 ]-s_mnmbr OPTIONAL )
+                              s_monat = VALUE #( keys[ 1 ]-s_monat OPTIONAL )
+                              %param-pdf = lv_pdf ) ).
+        ENDIF.
 
       CATCH cx_root INTO DATA(lx_err).
     ENDTRY.

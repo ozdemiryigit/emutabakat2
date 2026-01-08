@@ -185,7 +185,8 @@ CLASS zreco_common DEFINITION
                                   VALUE(i_fn_account)     TYPE string OPTIONAL
                                   VALUE(i_fn_name)        TYPE string OPTIONAL
                                   VALUE(it_h001)          LIKE mt_h001 OPTIONAL
-                                  VALUE(et_return)        LIKE mt_return OPTIONAL,
+                                  VALUE(et_return)        LIKE mt_return OPTIONAL
+                        EXPORTING ev_pdf                  TYPE string,
 
       zreco_contact_m IMPORTING VALUE(is_adrs)     TYPE zreco_adrs OPTIONAL
                                 VALUE(i_hesap_tur) TYPE zreco_account_type OPTIONAL
