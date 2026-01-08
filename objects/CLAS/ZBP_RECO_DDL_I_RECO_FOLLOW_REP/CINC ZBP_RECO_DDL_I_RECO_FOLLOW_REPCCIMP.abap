@@ -59,10 +59,11 @@ CLASS lhc_follow_report IMPLEMENTATION.
 
   METHOD print.
 
-    DATA: gt_mnumber TYPE TABLE OF zreco_hdr.
-    DATA : gs_mnumber TYPE zreco_hdr.
-    DATA : lt_mnumber TYPE TABLE OF zreco_hdr.
+*    DATA: gt_mnumber TYPE TABLE OF zreco_hdr.
+*    DATA : gs_mnumber TYPE zreco_hdr.
+*    DATA : lt_mnumber TYPE TABLE OF zreco_hdr.
     DATA(lt_keys) = keys.
+    .
 
     DATA : lt_cform TYPE TABLE OF zreco_gtout,
            ls_cform TYPE zreco_gtout.
@@ -75,49 +76,61 @@ CLASS lhc_follow_report IMPLEMENTATION.
 
 
 
+*        LOOP AT keys INTO DATA(ls_keys).
+*          MOVE-CORRESPONDING ls_keys TO  gs_mnumber.
+*        ENDLOOP.
         LOOP AT keys INTO DATA(ls_keys).
-          MOVE-CORRESPONDING ls_keys TO  gs_mnumber.
+          MOVE-CORRESPONDING ls_keys TO ls_cform.
+          APPEND ls_cform TO lt_cform.
         ENDLOOP.
 
 
-        APPEND gs_mnumber TO gt_mnumber.
-
-        SORT gt_mnumber BY gjahr monat mnumber.
-        DELETE ADJACENT DUPLICATES FROM gt_mnumber
-        COMPARING gjahr monat mnumber.
-
-        IF gt_mnumber IS NOT INITIAL.
-
-          SELECT * FROM Zreco_hdr
-        FOR ALL ENTRIES IN @gt_mnumber
-        WHERE bukrs EQ @gt_mnumber-bukrs
-    AND gsber EQ @gt_mnumber-gsber
-        AND mnumber EQ @gt_mnumber-mnumber
-    AND monat EQ @gt_mnumber-monat
-    AND gjahr EQ @gt_mnumber-gjahr
-    AND hesap_tur EQ @gt_mnumber-hesap_tur
-    AND hesap_no EQ @gt_mnumber-hesap_no
-          INTO TABLE @lt_h001.
-
-
-        ENDIF.
-
-
-        DATA:    zreco_object TYPE REF TO zreco_common.
-*    CREATE OBJECT zreco_object.
-        zreco_object = NEW zreco_common( ).
-
-        zreco_object->zreco_pdf_preview(
-     EXPORTING
-                 i_sort_indicator = 1
-                i_down           = ''
-                i_fn_number      = 'X'
-                i_fn_account     = 'X'
-                i_fn_name        = 'X'
-
-                it_h001          = lt_h001
+*        APPEND gs_mnumber TO gt_mnumber.
+*
+*        SORT gt_mnumber BY gjahr monat mnumber.
+*        DELETE ADJACENT DUPLICATES FROM gt_mnumber
+*        COMPARING gjahr monat mnumber.
+*
+*        IF gt_mnumber IS NOT INITIAL.
+*
+*          SELECT * FROM Zreco_hdr
+*        FOR ALL ENTRIES IN @gt_mnumber
+*        WHERE bukrs EQ @gt_mnumber-bukrs
+*    AND gsber EQ @gt_mnumber-gsber
+*        AND mnumber EQ @gt_mnumber-mnumber
+*    AND monat EQ @gt_mnumber-monat
+*    AND gjahr EQ @gt_mnumber-gjahr
+*    AND hesap_tur EQ @gt_mnumber-hesap_tur
+*    AND hesap_no EQ @gt_mnumber-hesap_no
+*          INTO TABLE @lt_h001.
+*
+*
+*        ENDIF.
+*
+*
+*        DATA:    zreco_object TYPE REF TO zreco_common.
+**    CREATE OBJECT zreco_object.
+*        zreco_object = NEW zreco_common( ).
+*
+*        zreco_object->zreco_pdf_preview(
+*     EXPORTING
+*                 i_sort_indicator = 1
+*                i_down           = ''
+*                i_fn_number      = 'X'
+*                i_fn_account     = 'X'
+*                i_fn_name        = 'X'
+*
+*                it_h001          = lt_h001
+*        ).
+        DATA lo_zreco_common  TYPE REF TO zreco_common.
+        CREATE OBJECT lo_zreco_common.
+        lo_zreco_common->multi_sending(
+        EXPORTING
+        it_cform = lt_cform
+        iv_output = ''
+        IMPORTING
+         ev_pdf = lv_pdf
         ).
-
 
       CATCH cx_root INTO DATA(lx_err).
     ENDTRY.
