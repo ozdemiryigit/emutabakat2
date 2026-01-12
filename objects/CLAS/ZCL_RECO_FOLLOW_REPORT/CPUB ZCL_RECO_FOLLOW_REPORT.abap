@@ -162,7 +162,7 @@ CLASS zcl_reco_follow_report DEFINITION
                          VALUE(iv_all)          TYPE abap_boolean OPTIONAL "YiğitcanÖzdemir
                          VALUE(it_salma)        LIKE mt_range_salma OPTIONAL "YiğitcanÖzdemir
                          VALUE(it_smkod)        LIKE mt_range_smkod OPTIONAL "YiğitcanÖzdemir
-                         VALUE(iv_ek)        TYPE abap_boolean OPTIONAL "YiğitcanÖzdemir
+                         VALUE(iv_ek)           TYPE abap_boolean OPTIONAL "YiğitcanÖzdemir
                EXPORTING VALUE(gt_out)          LIKE mt_out ,
 
       partner_selection IMPORTING VALUE(iv_bukrs)        TYPE bukrs OPTIONAL

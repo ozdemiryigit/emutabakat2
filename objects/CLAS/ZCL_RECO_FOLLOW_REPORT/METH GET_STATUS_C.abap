@@ -62,7 +62,8 @@
 
 
     DATA(lv_json) =  /ui2/cl_json=>serialize( EXPORTING data = ls_input_rtn pretty_name = 'X' ).
-    DATA(lv_comp) = 'hesapci.com'.
+    DATA(lv_comp) = ls_adrs-adres.
+
     TRY.
         DATA(lo_http_destination) = cl_http_destination_provider=>create_by_url( CONV #( ls_srvc-srvurl ) ).
         DATA(lo_web_http_client) = cl_web_http_client_manager=>create_by_http_destination( lo_http_destination ) .
