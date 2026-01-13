@@ -1018,7 +1018,7 @@
       ls_data-takip            = ls_h001-mnumber.
       ls_data-mutabakat_tarihi = |{ gv_last_date+6(2) }.{ gv_last_date+4(2) }.{ gv_last_date+0(4) }|.
       ls_data-cari_no          = gs_account-hesap_no.
-      ls_data-iletisim         = cl_abap_context_info=>get_user_formatted_name( )."gs_adrs-m_name.
+      ls_data-iletisim         = gs_r000-ernam.
 
       ls_data-cari_unvan = gs_adrc-OrganizationName1.
       ls_data-sirket_unvan =  lv_unvan.
@@ -1040,12 +1040,26 @@
         <fs_table1>-hesap_turu   = ls_form-ltext.
         <fs_table1>-doviz_bakiye = ls_form-wrbtr.
         <fs_table1>-pb           = ls_form-waers.
-        <fs_table1>-try_bakiye   = ls_form-dmbtr.
-        <fs_table1>-borc_alacak  = ls_form-debit_credit.
+        IF ls_form-dmbtr < 0 .
+          <fs_table1>-try_bakiye   = ( -1 ) * ls_form-dmbtr.
+          <fs_table1>-borc_alacak  = 'Alacak'.
+        ELSE.
+          <fs_table1>-try_bakiye   = ls_form-dmbtr.
+          <fs_table1>-borc_alacak  = 'Borç'.
+        ENDIF.
+
+
+
         <fs_table1>-cevap_doviz_bakiye = ls_form-wrbtr_c.
         <fs_table1>-pb2          = ls_form-waers_c.
-        <fs_table1>-cevap_try_bakiye = ls_form-dmbtr_c.
-        <fs_table1>-borc_alacak2 = ls_form-debit_credit_c.
+
+        IF ls_form-dmbtr < 0 .
+          <fs_table1>-cevap_try_bakiye = ( -1 ) * ls_form-dmbtr_c.
+          <fs_table1>-borc_alacak2 = 'Alacak'.
+        ELSE.
+          <fs_table1>-cevap_try_bakiye = ls_form-dmbtr_c.
+          <fs_table1>-borc_alacak2 = 'Borç'.
+        ENDIF.
 
         IF <fs_table1>-pb EQ 'TRY'.
           lv_toplam = lv_toplam + <fs_table1>-try_bakiye.
@@ -1068,19 +1082,18 @@
 
       CASE gs_r000-mresult.
         WHEN 'H'.
-          ls_data-cevap =  'Mutabık Değil'.
+          ls_data-cevap =  'MUTABIK DEĞİL'.
         WHEN 'E'.
-          ls_data-cevap =  'Mutabık'.
+          ls_data-cevap =  'MUTABIK'.
         WHEN 'T'.
-          ls_data-cevap =  'Kayıt bulunmamakta'.
+          ls_data-cevap =  'KAYIT BULUNMAMAKTA'.
         WHEN 'I'.
-          ls_data-cevap =  'İlgili kişi ben değilim'.
-
+          ls_data-cevap =  'İLGİLİ KİŞİ BEN DEĞİLİM'.
         WHEN 'V'.
-          ls_data-cevap =  'Hükümsüz'.
+          ls_data-cevap =  'HÜKÜMSÜZ'.
 
         WHEN OTHERS.
-          ls_data-cevap =  'Cevap Bekleniyor'.
+          ls_data-cevap =  'CEVAP BEKLENİYOR'.
       ENDCASE.
       ls_data-cevaplama_tarihi = gs_r000-erdat.
       ls_data-cevap_not = gs_r000-mtext.
@@ -1089,8 +1102,6 @@
           CALL TRANSFORMATION zreco_form_pdf_takip
           SOURCE form = ls_data
           RESULT XML DATA(lv_xml).
-
-
 
         CATCH cx_root INTO DATA(lo_root).
       ENDTRY.
